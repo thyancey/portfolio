@@ -68,8 +68,8 @@
 }
 
 #main {
-  color: var(--theme-primary);
-  background-color: var(--theme-secondary);
+  color: var(--color-grey);
+  background-color: var(--color-black);
 }
 
 *, *::before, *::after {
@@ -78,4 +78,14 @@
 
 h1, h2, h3 {
   font-family: var(--font-heading);
+}
+
+h1{
+  font-size: 2rem;
+}
+h2{
+  font-size: 3rem;
+}
+h3{
+  font-size: 1.8rem;
 }

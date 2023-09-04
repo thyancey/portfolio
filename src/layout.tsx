@@ -1,8 +1,14 @@
-import { useContext } from 'react';
 import styled, { css } from 'styled-components';
 
-import { StoreContext } from './store/context';
 import AssetMap from './assets';
+import { Route, Routes, useLocation } from 'react-router';
+import Content_Slots from './components/content_slots';
+import Content_Zebra from './components/content_zebra';
+import { Link } from 'react-router-dom';
+import Content, { ContentDef } from './components/content';
+import { ReactElement, ReactNode } from 'react';
+
+const TRANSITION_SPEED = '.5s';
 
 const ScContainer = styled.div`
   display: flex;
@@ -22,7 +28,7 @@ const ScContainer = styled.div`
   }
 
   > * {
-    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+    transition: background-color ${TRANSITION_SPEED} ease-in-out, color ${TRANSITION_SPEED} ease-in-out;
   }
 
   overflow: hidden;
@@ -39,12 +45,6 @@ const ScHeader = styled.header`
   padding: 0rem 1rem;
 
   position: relative;
-
-  > div {
-    a {
-      margin: 1rem;
-    }
-  }
 `;
 
 // SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
@@ -105,58 +105,70 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
     `}
 `;
 
-const ScBody = styled.main`
-  background-color: var(--theme-secondary);
-  color: var(--theme-primary);
-
-  flex: 1;
-
-  display: flex;
-  padding: 0 1rem;
-
-  display: grid;
-  grid-template-columns: 66% 34%;
-  grid-template-rows: 66% 34%;
-`;
-
 const ScFooter = styled.footer`
   background-color: var(--color-black);
   padding: 0 1rem;
 
   position: relative;
-`;
-
-const ScBodyCopy = styled.div`
-  border-right: 0.25rem solid var(--color-black);
-
-  grid-column: 1;
-  grid-row: 1 / span 2;
-`;
-
-const ScBodyImage = styled.div`
-  grid-column: 2;
-  grid-row: 1;
 
   display: flex;
   align-items: center;
-  justify-content: center;
 `;
 
-const ScBodyThumbnails = styled.div`
+const ScNavBar = styled.div`
+  flex: 1;
   text-align: center;
 
-  grid-column: 2;
-  grid-row: 2;
   display: flex;
+  justify-content: center;
+  align-items: center;
 
-  justify-content: space-evenly;
-
-  > * {
-    width: 6rem;
-    height: 6rem;
-    background-size: contain;
+  >a {
+    color: var(--theme-primary);
+    text-decoration: none;
+    margin: .5rem 2rem;
+    /* width: 1rem; */
+    /* height: 1rem; */
+    font-size: 2rem;
+    font-weight: bold;
   }
 `;
+
+const ScNavBubble = styled.div`
+  margin: 0.5rem;
+  border-radius: 100%;
+  border: 0.2rem solid var(--theme-primary);
+  background-color: var(--theme-primary);
+  width: 1rem;
+  height: 1rem;
+
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+
+  &:hover {
+    background-color: var(--theme-secondary);
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  &.active {
+    background-color: var(--theme-secondary);
+    width: 2.5rem;
+    height: 2.5rem;
+
+    &:hover {
+      background-color: var(--theme-secondary);
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+
+  > a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+`;
+const ScLaunchBtn = styled.div``;
 
 const ScButton = styled.button`
   margin: 1rem;
@@ -175,10 +187,108 @@ const ScButton = styled.button`
   }
 `;
 
-function App() {
-  const { count, setCount } = useContext(StoreContext);
+const pages: ContentDef[] = [
+  {
+    route: 'zebra',
+    name: 'Zebra Tables',
+    bodyComponent: <Content_Zebra />,
+    images: [
+      AssetMap.Zebra1,
+      AssetMap.Zebra2,
+      AssetMap.Zebra3,
+    ],
+    url: 'https://thyancey.github.io/tly-truth-tables/',
+  },
+  {
+    route: 'slots',
+    name: '!SLOTS!',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+  {
+    route: 'browserpet',
+    name: 'BrowserPet',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+  {
+    route: 'alteredchromatic',
+    name: 'Altered Chromatic',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+  {
+    route: 'fretref',
+    name: 'FretRef',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+  {
+    route: 'dropship',
+    name: 'Dropship!',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+  {
+    route: 'raccoontrapper',
+    name: 'Raccoon Trapper',
+    bodyComponent: <Content_Slots />,
+    images: [
+      AssetMap.Slots1,
+      AssetMap.Slots2,
+      AssetMap.Slots3,
+    ],
+    url: 'https://thyancey.github.io/slot-machine/',
+  },
+];
 
-  const themeClass = count % 2 === 0 ? 'theme-slots' : 'theme-zebra';
+function Layout() {
+  const location = useLocation();
+
+  console.log('cur', location.pathname);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  window.hello = location;
+
+  // const themeClass = count % 2 === 0 ? 'theme-slots' : 'theme-zebra';
+  // const nextHash = count % 2 === 0 ? 'slots' : 'zebra';
+
+  const curPage = location.pathname.split('/')[1] || pages[0].route;
+
+  const pageIdx = pages.findIndex((p) => p.route === curPage);
+  const prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
+  const nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
+
+  console.log('pageIdx', pageIdx);
+
+  const themeClass = `theme-${curPage}`;
+
+
 
   return (
     <ScContainer id='main' className={themeClass}>
@@ -190,52 +300,35 @@ function App() {
         </div>
         <ScBlobBorder $blobType='header' />
       </ScHeader>
-      <ScBody>
-        <ScBodyCopy>
-          <h2>{'!SLOTS!SLOTS!SLOTS!'}</h2>
-          <h3>{'Premise'}</h3>
-          <p>{'A roguelike slot machine, where you bend the odds in your favor to earn cash and battle enemies'}</p>
-          <p>
-            {
-              'Spin the reels of fortune in a world of slot machines, where excitement and anticipation reign supreme. The clinking of coins, the flashing lights, and the thrilling soundtracks create an immersive gaming experience that keeps players coming back for more.'
-            }
-          </p>
-          <ul>
-            <li>
-              {
-                'In this realm of chance, every pull of the lever or press of the button represents a shot at big winnings.'
-              }
-            </li>
-            <li>{`Whether you're chasing cherries, lucky sevens, or bonus symbols, the spinning reels hold the promise of jackpots and thrilling payouts.`}</li>
-            <li>{'With each spin, the heart races, and dreams of hitting the ultimate jackpot come to life.'}</li>
-          </ul>
-
-          <h3>{'Rouge-like Elements'}</h3>
-          <p>
-            {
-              'Spin the reels of fortune in a world of slot machines, where excitement and anticipation reign supreme. The clinking of coins, the flashing lights, and the thrilling soundtracks create an immersive gaming experience that keeps players coming back for more.'
-            }
-          </p>
-        </ScBodyCopy>
-        <ScBodyImage>
-          <img src={AssetMap.Loader} />
-        </ScBodyImage>
-        <ScBodyThumbnails>
-          <img src={AssetMap.Loader} />
-          <img src={AssetMap.Loader} />
-          <img src={AssetMap.Loader} />
-        </ScBodyThumbnails>
-      </ScBody>
+      <>
+        <Routes>
+          <Route path='/' element={<Content contentDef={pages[0]} />} />
+          {pages.map((p) => (
+            <Route key={p.route} path={p.route} element={<Content contentDef={p} />} />
+          ))}
+        </Routes>
+      </>
       <ScFooter>
-        <ScButton onClick={() => setCount((prev) => prev + 1)}>{count}</ScButton>
-        <a>{'<'}</a>
-        <span>{'- - - - - - - - '}</span>
-        <a>{'>'}</a>
-        <ScButton>{'launch it!'}</ScButton>
+        <ScNavBar>
+          <Link key='prev' to={pages[prevIdx].route}>{'<'}</Link>
+          {pages.map((p, pIdx) => (
+            <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''}>
+              <Link to={p.route} />
+            </ScNavBubble>
+          ))}
+          <Link key='next' to={pages[nextIdx].route}>{'>'}</Link>
+        </ScNavBar>
+        <ScLaunchBtn>
+          <ScButton>
+            <a href={pages[pageIdx].url} target='_blank'>
+              {'launch it!'}
+            </a>
+          </ScButton>
+        </ScLaunchBtn>
         <ScBlobBorder $blobType='footer' />
       </ScFooter>
     </ScContainer>
   );
 }
 
-export default App;
+export default Layout;
