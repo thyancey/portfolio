@@ -6,7 +6,6 @@ import Content_Slots from './components/content_slots';
 import Content_Zebra from './components/content_zebra';
 import { Link } from 'react-router-dom';
 import Content, { ContentDef } from './components/content';
-import { ReactElement, ReactNode } from 'react';
 
 const TRANSITION_SPEED = '.5s';
 
@@ -170,13 +169,16 @@ const ScNavBubble = styled.div`
 `;
 const ScLaunchBtn = styled.div``;
 
-const ScButton = styled.button`
+const ScButton = styled.a`
+  display: block;
   margin: 1rem;
 
   cursor: pointer;
   background: none;
   border: 0.2rem solid var(--theme-primary);
   background-color: var(--theme-secondary);
+  color: var(--theme-primary);
+  text-decoration: none;
 
   border-radius: 0.5rem;
 
@@ -195,6 +197,7 @@ const pages: ContentDef[] = [
     images: [
       AssetMap.Zebra1,
       AssetMap.Zebra2,
+      AssetMap.Zebra3,
       AssetMap.Zebra3,
     ],
     url: 'https://thyancey.github.io/tly-truth-tables/',
@@ -319,10 +322,8 @@ function Layout() {
           <Link key='next' to={pages[nextIdx].route}>{'>'}</Link>
         </ScNavBar>
         <ScLaunchBtn>
-          <ScButton>
-            <a href={pages[pageIdx].url} target='_blank'>
-              {'launch it!'}
-            </a>
+          <ScButton href={pages[pageIdx].url} target='_blank'>
+            {'launch it!'}
           </ScButton>
         </ScLaunchBtn>
         <ScBlobBorder $blobType='footer' />

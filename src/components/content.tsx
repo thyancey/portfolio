@@ -26,14 +26,16 @@ const ScBodyImage = styled.div`
   grid-row: 1;
 
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
 
-  padding: 1rem;
+  padding: 0.5rem;
+
 
   >img{
     background-size: contain;
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
   }
 `;
 
@@ -43,12 +45,16 @@ const ScBodyThumbnails = styled.div`
   grid-column: 2;
   grid-row: 2;
   display: flex;
+  gap: 1rem;
+  padding-top: 1rem;
 
+  align-items: start;
   justify-content: space-evenly;
 
   > * {
     width: 6rem;
-    height: 6rem;
+    max-width: calc(33% - 1rem);
+    height: auto;
     background-size: contain;
   }
 `;
