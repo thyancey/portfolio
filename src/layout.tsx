@@ -10,8 +10,11 @@ import Content, { ContentDef } from './components/content';
 const TRANSITION_SPEED = '.5s';
 
 const ScContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: min-content auto min-content;
 
   position: absolute;
   inset: 0;
@@ -19,11 +22,17 @@ const ScContainer = styled.div`
   &.theme-zebra {
     --theme-primary: var(--theme-zebra-primary);
     --theme-secondary: var(--theme-zebra-secondary);
+    --theme-bg: var(--theme-zebra-bg);
+    --theme-bg-transparent: var(--theme-zebra-bg-transparent);
+    --theme-neutral: var(--theme-zebra-neutral);
   }
 
   &.theme-slots {
     --theme-primary: var(--theme-slots-primary);
     --theme-secondary: var(--theme-slots-secondary);
+    --theme-bg: var(--theme-slots-bg);
+    --theme-bg-transparent: var(--theme-slots-bg-transparent);
+    --theme-neutral: var(--theme-slots-neutral);
   }
 
   > * {
@@ -44,6 +53,10 @@ const ScHeader = styled.header`
   padding: 0rem 1rem;
 
   position: relative;
+
+  h1{
+    margin-top: 1rem;
+  }
 `;
 
 // SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
@@ -59,6 +72,7 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
   left: 0;
   width: calc(${BLOB_WIDTH} * 3);
   height: ${BLOB_HEIGHT};
+  z-index: 1;
 
   background-size: contain;
 
@@ -144,18 +158,18 @@ const ScNavBubble = styled.div`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    background-color: var(--theme-secondary);
+    background-color: var(--theme-bg);
     width: 1.5rem;
     height: 1.5rem;
   }
 
   &.active {
-    background-color: var(--theme-secondary);
+    background-color: var(--theme-bg);
     width: 2.5rem;
     height: 2.5rem;
 
     &:hover {
-      background-color: var(--theme-secondary);
+      background-color: var(--theme-bg);
       width: 2.5rem;
       height: 2.5rem;
     }
@@ -176,7 +190,7 @@ const ScButton = styled.a`
   cursor: pointer;
   background: none;
   border: 0.2rem solid var(--theme-primary);
-  background-color: var(--theme-secondary);
+  background-color: var(--theme-bg);
   color: var(--theme-primary);
   text-decoration: none;
 

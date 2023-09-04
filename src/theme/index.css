@@ -45,18 +45,31 @@
   --color-white: hsl(var(--hsl-white-h), var(--hsl-white-s), var(--hsl-white-l), 1);
 
 
-  --theme-default-primary: var(--color-blue);
-  --theme-default-secondary: var(--color-grey);
+  --theme-default-primary: var(--color-green);
+  --theme-default-secondary: var(--color-blue);
+  --theme-default-bg: var(--color-grey);
+  --theme-default-bg-transparent: hsl(var(--hsl-grey-h), var(--hsl-grey-s), var(--hsl-grey-l), 0);
+  --theme-default-neutral: var(--color-white);
 
   --theme-slots-primary: #ef7192;
-  --theme-slots-secondary: #181a1c;
+  --theme-slots-secondary: #ef7192;
+  --theme-slots-bg: #181a1c;
+  --theme-slots-bg-transparent: hsl(210, 8%, 10%, 0);
+  --theme-slots-neutral: var(--color-white);
 
   --theme-zebra-primary: #d48e55;
-  --theme-zebra-secondary: #35120e;
+  --theme-zebra-secondary: #d48e55;
+  --theme-zebra-bg: #35120e;
+  --theme-zebra-bg-transparent: hsl(6, 58%, 13%, 0);
+  --theme-zebra-neutral: var(--color-white);
 
 
+  --color-transparent: rgba(0, 0, 0, 0);
   --theme-primary: var(--theme-default-primary);
   --theme-secondary: var(--theme-default-secondary);
+  --theme-neutral: var(--theme-default-neutral);
+  --theme-bg: var(--theme-default-bg);
+  --theme-bg-transparent: var(--theme-default-bg-transparent);
 
   --font-heading: 'Luckiest Guy', cursive;
   --font-body: 'Allerta', sans-serif;
@@ -78,14 +91,19 @@
 
 h1, h2, h3 {
   font-family: var(--font-heading);
+  padding: 0;
+  margin: 0;
 }
 
 h1{
   font-size: 2rem;
+  margin-bottom: 1rem;
 }
 h2{
   font-size: 3rem;
+  margin-bottom: 1rem;
 }
 h3{
   font-size: 1.8rem;
+  margin-bottom: 1rem;
 }

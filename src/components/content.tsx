@@ -1,38 +1,72 @@
 import styled from 'styled-components';
 const ScBody = styled.div`
-  background-color: var(--theme-secondary);
-  color: var(--theme-primary);
+  overflow: hidden;
+  background-color: var(--theme-bg);
+  color: var(--theme-neutral);
+
+  h2{
+    color: var(--theme-primary);
+  }
   
+  h3,
+  h4 {
+    color: var(--theme-secondary);
+  }
+
+
   flex: 1;
 
-  overflow: auto;
+  /* padding: 2rem 0 2rem 1rem; */
+  display: flex;
+`;
 
-  display: grid;
-  padding: 2rem 0 2rem 1rem;
+const ScLeft = styled.div`
+  position: relative;
+  width: 66%;
+  overflow: hidden;
+`;
 
-  grid-template-columns: 66% 34%;
-  grid-template-rows: 66% 34%;
+const ScScrollCover = styled.div`
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: var(--theme-bg);
+  background: linear-gradient(
+    0deg,
+    var(--theme-bg) 10%,
+    var(--theme-bg-transparent) 20%,
+    var(--theme-bg-transparent) 85%,
+    var(--theme-bg) 95%
+  );
 `;
 
 const ScBodyCopy = styled.div`
   border-right: 0.25rem solid var(--color-black);
 
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  overflow: auto;
+  height: 100%;
+
+  padding: 6rem 2rem;
+`;
+
+const ScImages = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  > *:first-child {
+    height: 66%;
+  }
 `;
 
 const ScBodyImage = styled.div`
-  grid-column: 2;
-  grid-row: 1;
-
   display: flex;
   align-items: end;
   justify-content: center;
 
   padding: 0.5rem;
 
-
-  >img{
+  > img {
     background-size: contain;
     max-width: 100%;
     max-height: 100%;
@@ -42,8 +76,6 @@ const ScBodyImage = styled.div`
 const ScBodyThumbnails = styled.div`
   text-align: center;
 
-  grid-column: 2;
-  grid-row: 2;
   display: flex;
   gap: 1rem;
   padding-top: 1rem;
@@ -60,12 +92,12 @@ const ScBodyThumbnails = styled.div`
 `;
 
 export type ContentDef = {
-  route: string,
-  name: string,
-  images: string[],
-  url: string,
-  bodyComponent: React.ReactNode
-}
+  route: string;
+  name: string;
+  images: string[];
+  url: string;
+  bodyComponent: React.ReactNode;
+};
 
 interface Props {
   contentDef: ContentDef;
@@ -73,19 +105,16 @@ interface Props {
 function Content({ contentDef }: Props) {
   return (
     <ScBody>
-      <ScBodyCopy>
-        {contentDef.bodyComponent}
-      </ScBodyCopy>
-      <ScBodyImage>
-        {contentDef.images[0] && <img src={contentDef.images[0]} />}
-      </ScBodyImage>
-      <ScBodyThumbnails>
-        {contentDef.images.length > 1 && (
-          contentDef.images.slice(1).map((i, idx) => (
-            <img key={idx} src={i} />
-          ))
-        )}
-      </ScBodyThumbnails>
+      <ScLeft>
+        <ScScrollCover />
+        <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
+      </ScLeft>
+      <ScImages>
+        <ScBodyImage>{contentDef.images[0] && <img src={contentDef.images[0]} />}</ScBodyImage>
+        <ScBodyThumbnails>
+          {contentDef.images.length > 1 && contentDef.images.slice(1).map((i, idx) => <img key={idx} src={i} />)}
+        </ScBodyThumbnails>
+      </ScImages>
     </ScBody>
   );
 }
