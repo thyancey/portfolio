@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { StoreContext } from './store/context';
 import AssetMap from './assets';
@@ -10,6 +10,22 @@ const ScContainer = styled.div`
 
   position: absolute;
   inset: 0;
+
+  &.theme-zebra {
+    --theme-primary: var(--theme-zebra-primary);
+    --theme-secondary: var(--theme-zebra-secondary);
+  }
+
+  &.theme-slots {
+    --theme-primary: var(--theme-slots-primary);
+    --theme-secondary: var(--theme-slots-secondary);
+  }
+
+  > * {
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  }
+
+  overflow: hidden;
 `;
 
 const ScHeader = styled.header`
@@ -22,6 +38,8 @@ const ScHeader = styled.header`
 
   padding: 0rem 1rem;
 
+  position: relative;
+
   > div {
     a {
       margin: 1rem;
@@ -29,8 +47,68 @@ const ScHeader = styled.header`
   }
 `;
 
+// SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
+const BLOB_WIDTH = '695px';
+const BLOB_HEIGHT = '65px';
+const BLOB_SPEED = '20s';
+
+type ScBlobBorderProps = {
+  $blobType: 'header' | 'footer';
+};
+const ScBlobBorder = styled.div<ScBlobBorderProps>`
+  position: absolute;
+  left: 0;
+  width: calc(${BLOB_WIDTH} * 3);
+  height: ${BLOB_HEIGHT};
+
+  background-size: contain;
+
+  @keyframes blob-wrap-left {
+    0% {
+      left: 0px;
+    }
+    100% {
+      left: -${BLOB_WIDTH};
+    }
+  }
+
+  @keyframes blob-wrap-right {
+    0% {
+      left: -${BLOB_WIDTH};
+    }
+    100% {
+      left: 0px;
+    }
+  }
+
+  background-image: url(${AssetMap.BlobDivider});
+  animation: blob-wrap-right ${BLOB_SPEED} linear infinite;
+
+  ${(p) =>
+    p.$blobType === 'header' &&
+    css`
+      top: calc(100% - 1rem);
+
+      -webkit-transform: scaleY(-1);
+      -moz-transform: scaleY(-1);
+      -ms-transform: scaleY(-1);
+      -o-transform: scaleY(-1);
+      transform: scaleY(-1);
+
+      animation: blob-wrap-left ${BLOB_SPEED} linear infinite;
+    `}
+
+  ${(p) =>
+    p.$blobType === 'footer' &&
+    css`
+      bottom: calc(100% - 1rem);
+    `}
+`;
+
 const ScBody = styled.main`
-  background-color: var(--color-grey);
+  background-color: var(--theme-secondary);
+  color: var(--theme-primary);
+
   flex: 1;
 
   display: flex;
@@ -44,6 +122,8 @@ const ScBody = styled.main`
 const ScFooter = styled.footer`
   background-color: var(--color-black);
   padding: 0 1rem;
+
+  position: relative;
 `;
 
 const ScBodyCopy = styled.div`
@@ -70,8 +150,8 @@ const ScBodyThumbnails = styled.div`
   display: flex;
 
   justify-content: space-evenly;
-  
-  >*{
+
+  > * {
     width: 6rem;
     height: 6rem;
     background-size: contain;
@@ -83,27 +163,32 @@ const ScButton = styled.button`
 
   cursor: pointer;
   background: none;
-  border: 0.2rem solid var(--color-blue);
+  border: 0.2rem solid var(--theme-primary);
+  background-color: var(--theme-secondary);
+
   border-radius: 0.5rem;
 
   padding: 1rem;
 
   &:hover {
-    background-color: var(--color-blue-light);
+    background-color: var(--theme-primary);
   }
 `;
 
 function App() {
   const { count, setCount } = useContext(StoreContext);
 
+  const themeClass = count % 2 === 0 ? 'theme-slots' : 'theme-zebra';
+
   return (
-    <ScContainer>
+    <ScContainer id='main' className={themeClass}>
       <ScHeader>
         <h1>{'thomasyancey.com'}</h1>
         <div>
           <a>{'blog'}</a>
           <a>{'projects'}</a>
         </div>
+        <ScBlobBorder $blobType='header' />
       </ScHeader>
       <ScBody>
         <ScBodyCopy>
@@ -147,6 +232,7 @@ function App() {
         <span>{'- - - - - - - - '}</span>
         <a>{'>'}</a>
         <ScButton>{'launch it!'}</ScButton>
+        <ScBlobBorder $blobType='footer' />
       </ScFooter>
     </ScContainer>
   );
