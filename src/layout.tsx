@@ -204,15 +204,15 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'These are some crazy puzzles, huh?'
+        caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'Here is another caption. Perhaps it could go into a lot of detail or maybe even have markup and headings as well. Here is another caption. Perhaps it could go into a lot of detail or maybe even have markup and headings as well.'
+        caption: 'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. '
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`
       },
     ],
     url: 'https://thyancey.github.io/tly-truth-tables/',
@@ -227,11 +227,11 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Slots1,
-        caption: 'blah blah blah'
+        caption: 'The basic gameplay loop involves making upgrades, rolling the dice, and conquering foes'
       },
       {
         image: AssetMap.Slots2,
-        caption: 'blah blah blah'
+        caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!'
       },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
@@ -405,8 +405,6 @@ function Layout() {
   let prevIdx = -1;
   let nextIdx = -1;
   let imageIdx = -1;
-  let prevImageIdx = -1;
-  let nextImageIdx = -1;
 
   let theme = 'none';
   if (pageIdx > -1) {
@@ -415,11 +413,6 @@ function Layout() {
     theme = pages[pageIdx].theme || 'none';
     const imagePath = location.pathname.split(`${pages[pageIdx].route}/`)[1];
     imageIdx = imagePath !== undefined ? +imagePath : -1;
-    
-    if (imageIdx > -1) {
-      prevImageIdx = imageIdx <= 0 ? pages[pageIdx].gallery.length - 1 : imageIdx - 1;
-      nextImageIdx = imageIdx >= pages[pageIdx].gallery.length - 1 ? 0 : imageIdx + 1;
-    }
   }
 
   return (
@@ -444,7 +437,7 @@ function Layout() {
           <Route path='/blog' element={<HomeContent />} />
           {pages.map((p) => (
             // "/*" allows for images after project path
-            <Route key={p.route} path={`${p.route}/*`} element={<Content contentDef={p} imageIdx={imageIdx} prevIdx={prevImageIdx} nextIdx={nextImageIdx}/>} />
+            <Route key={p.route} path={`${p.route}/*`} element={<Content contentDef={p} imageIdx={imageIdx} />} />
           ))}
           <Route path='/projects/' element={<Navigate to={`${pages[0].route}`} replace />} />
         </Routes>

@@ -167,11 +167,12 @@ const ScCarouselBtn = styled.div`
   transform: translateY(-50%);
 
   left: auto;
-  right: 1rem;
+  right: 2rem;
+  z-index: 1;
 
   &:first-child {
     right: auto;
-    left: 1rem;
+    left: 2rem;
   }
 `;
 
@@ -266,10 +267,15 @@ export type ContentDef = {
 interface Props {
   contentDef: ContentDef;
   imageIdx?: number;
-  nextIdx?: number;
-  prevIdx?: number;
 }
-function Content({ contentDef, imageIdx = -1, prevIdx = -1, nextIdx = -1 }: Props) {
+function Content({ contentDef, imageIdx = -1 }: Props) {
+  let prevImageIdx = -1;
+  let nextImageIdx = -1;
+  if (imageIdx > -1) {
+    prevImageIdx = imageIdx <= 0 ? contentDef.gallery.length - 1 : imageIdx - 1;
+    nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? 0 : imageIdx + 1;
+  }
+
   return (
     <ScBody>
       {/* <ScScrollCover /> */}
@@ -277,10 +283,10 @@ function Content({ contentDef, imageIdx = -1, prevIdx = -1, nextIdx = -1 }: Prop
       {imageIdx > -1 && (
         <ScModal>
           <ScCarouselBtn>
-            {prevIdx > -1 && <Link to={contentDef.route + '/' + prevIdx}>{'<'}</Link>}
+            {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
           </ScCarouselBtn>
           <ScCarouselBtn>
-          {nextIdx > -1 && <Link to={contentDef.route + '/' + nextIdx}>{'>'}</Link>}
+          {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
           </ScCarouselBtn>
           <ScModalImg>
             <img src={contentDef.gallery[imageIdx].image} />
