@@ -111,3 +111,12 @@ a{
 a:hover{
   color: var(--color-blue);
 }
+
+
+/* mui overrides */
+svg.icon-large{
+  font-size: 3rem;
+}
+svg.icon-xlarge{
+  font-size: 5rem;
+}

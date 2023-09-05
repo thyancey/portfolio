@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import { ContentDef } from './content/data';
 import { Link } from 'react-router-dom';
 import { ScBlobBorder } from './blob-border';
+import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 const ScFooter = styled.footer`
   background-color: var(--color-black);
@@ -16,6 +18,7 @@ const ScNavBar = styled.div`
   z-index: 1;
   text-align: center;
   margin-bottom: .5rem;
+  min-height: 3.625rem;
 
   display: flex;
   justify-content: center;
@@ -23,12 +26,12 @@ const ScNavBar = styled.div`
 
   > a {
     color: var(--theme-primary);
-    text-decoration: none;
-    margin: 0.5rem 2rem;
-    /* width: 1rem; */
-    /* height: 1rem; */
-    font-size: 2rem;
-    font-weight: bold;
+    margin: 0 .5rem -.25rem .5rem;
+
+    &:hover{
+      color: var(--theme-neutral);
+      filter: drop-shadow(2px 4px 6px var(--theme-primary));
+    }
   }
 `;
 
@@ -127,7 +130,7 @@ function Footer({ pageIdx, projects }: Props) {
         <>
           <ScNavBar>
             <Link key='prev' to={projects[prevIdx].route}>
-              {'<'}
+              <Icon_KeyboardArrowLeft className='icon-large' />
             </Link>
             {projects.map((p, pIdx) => (
               <ScNavBubble
@@ -140,7 +143,7 @@ function Footer({ pageIdx, projects }: Props) {
               </ScNavBubble>
             ))}
             <Link key='next' to={projects[nextIdx].route}>
-              {'>'}
+              <Icon_KeyboardArrowRight className='icon-large' />
             </Link>
           </ScNavBar>
         </>

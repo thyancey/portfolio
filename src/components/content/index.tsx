@@ -2,6 +2,11 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AssetMap, { getUrl } from '../../assets';
 import { ContentDef } from './data';
+import Icon_Close from '@mui/icons-material/Close';
+import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import Icon_RocketLaunch from '@mui/icons-material/RocketLaunch';
+import Icon_Code from '@mui/icons-material/Code';
 
 const ScBody = styled.div`
   display: flex;
@@ -65,12 +70,10 @@ const ScBodyCopy = styled.div`
 const ScLaunchButton = styled.a`
   display: inline-block;
 
-  cursor: pointer;
   text-decoration: none;
-
   text-align: center;
 
-  padding: 0.5rem 1rem;
+  padding: 0.25rem 1rem 0.25rem 0.75rem;
   font-size: 1rem;
   font-family: var(--font-heading);
 
@@ -83,13 +86,30 @@ const ScLaunchButton = styled.a`
 
   max-width: 15rem;
 
-  color: var(--theme-primary);
+  cursor: pointer;
+
+  transition: background-color 0.5s ease, color 0.3s ease, box-shadow 0.3s ease;
+
+  /* color: var(--theme-primary); */
+  color: var(--theme-bg);
+  background-color: var(--theme-primary);
   &:visited {
-    color: var(--theme-primary);
+    /* color: var(--theme-primary); */
+    color: var(--theme-bg);
   }
   &:hover {
-    color: var(--theme-bg);
-    background-color: var(--theme-primary);
+    color: var(--theme-primary);
+    background-color: var(--theme-bg);
+
+    box-shadow: 0px 0px 8px 2px var(--theme-primary);
+  }
+
+  > * {
+    vertical-align: middle;
+  }
+
+  svg {
+    margin-right: 0.5rem;
   }
 `;
 
@@ -111,6 +131,10 @@ interface ScImageProps {
   $rotation: number;
 }
 const ScImage = styled.div<ScImageProps>`
+  width: 5rem;
+  height: 5rem;
+  position: relative;
+
   img {
     position: absolute;
     left: 0;
@@ -118,13 +142,11 @@ const ScImage = styled.div<ScImageProps>`
     height: 100%;
     object-fit: cover;
     object-position: bottom;
+
+    border-radius: 1rem;
+    box-shadow: 4px 4px 6px var(--color-black);
+    transition: box-shadow 0.3s, transform 0.3s;
   }
-
-  filter: drop-shadow(2px 4px 6px var(--color-black));
-  width: 5rem;
-  height: 5rem;
-
-  transition: transform 0.3s, filter 0.3s;
 
   &::before {
     content: 'see more!';
@@ -132,21 +154,26 @@ const ScImage = styled.div<ScImageProps>`
     position: absolute;
     line-height: 1rem;
     text-align: center;
-
-    bottom: 1rem;
-
+    pointer-events: none;
     color: var(--theme-primary);
-    transition: opacity 0.3s, bottom 0.3s;
+
     opacity: 0;
+    bottom: 1rem;
+    
+    transform: rotate(${(p) => p.$rotation}deg);
+    transition: opacity 0.3s 0.1s, bottom 0.2s ease;
   }
 
   &:hover {
-    filter: drop-shadow(2px 4px 6px var(--theme-primary));
-    transform: rotate(${(p) => p.$rotation}deg) translateY(-1rem);
+    img {
+      transform: rotate(${(p) => p.$rotation}deg) translateY(-1rem);
+      border: 2px solid var(--theme-primary);
+      box-shadow: 0px 0px 8px 2px var(--theme-primary), 10px 12px 10px var(--color-black);
+    }
 
     &::before {
-      bottom: -1.3rem;
       opacity: 1;
+      bottom: -0.75rem;
     }
   }
 
@@ -156,7 +183,9 @@ const ScImage = styled.div<ScImageProps>`
 
     &:hover {
       width: 100%;
-      transform: rotate(${(p) => p.$rotation}deg);
+      img {
+        transform: rotate(${(p) => p.$rotation}deg);
+      }
     }
   }
 `;
@@ -245,7 +274,7 @@ const ScModal = styled.div`
   pointer-events: none;
   opacity: 0;
 
-  transition: bottom 0.5s, opacity .5s;
+  transition: bottom 0.5s, opacity 0.5s;
   &.active {
     bottom: 10%;
     pointer-events: all;
@@ -254,20 +283,18 @@ const ScModal = styled.div`
 
   a {
     color: var(--theme-primary);
-    font-size: 3rem;
-    font-family: var(--font-heading);
     cursor: pointer;
 
     &:hover {
-      color: var(--color-white);
+      color: var(--theme-neutral);
     }
   }
 
   /*  x button */
   > a {
     position: absolute;
-    right: 1.25rem;
-    top: 0.25rem;
+    right: 0.5rem;
+    top: 0.5rem;
   }
 
   > ${ScModalImg} {
@@ -298,16 +325,28 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
 
       <ScModal className={imageIdx > -1 ? 'active' : ''}>
         <ScCarouselBtn>
-          {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
+          {prevImageIdx > -1 && (
+            <Link to={contentDef.route + '/' + prevImageIdx}>
+              <Icon_KeyboardArrowLeft className='icon-xlarge' />
+            </Link>
+          )}
         </ScCarouselBtn>
         <ScCarouselBtn>
-          {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
+          {nextImageIdx > -1 && (
+            <Link to={contentDef.route + '/' + nextImageIdx}>
+              <Icon_KeyboardArrowRight className='icon-xlarge' />
+            </Link>
+          )}
         </ScCarouselBtn>
         <ScNoise $blur={2} />
 
         <ScModalImg>{galleryImage && <img src={getUrl(galleryImage.image)} />}</ScModalImg>
 
-        <Link to={contentDef.route}>{'X'}</Link>
+        <Link to={contentDef.route}>
+          <Icon_Close className='icon-large' />
+        </Link>
+        {/* <Link to={contentDef.route}><IconButton size="large"><Icon_Close /></IconButton></Link> */}
+
         <p>{(galleryImage && galleryImage.caption) || ''}</p>
       </ScModal>
       <ScLeft>
@@ -319,22 +358,24 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
         <h3>{'Prototype'}</h3>
         {contentDef.url && (
           <ScLaunchButton href={contentDef.url} target='_blank'>
-            {'LAUNCH IT'}
+            <Icon_RocketLaunch />
+            <span>{'LAUNCH IT'}</span>
           </ScLaunchButton>
         )}
         {contentDef.repoUrl && (
           <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
-            {'GITHUB'}
+            <Icon_Code />
+            <span>{'GITHUB'}</span>
           </ScLaunchButton>
         )}
         <h3>{'Gallery'}</h3>
         <ScImages>
           {contentDef.gallery.map((i, idx) => (
-            <Link key={idx} to={contentDef.route + '/' + idx}>
-              <ScImage className={''} $rotation={getRandomRotation()}>
-                <img src={getUrl(i.image)} title={i.caption} />
-              </ScImage>
-            </Link>
+            <ScImage key={idx} $rotation={getRandomRotation()}>
+              <Link to={contentDef.route + '/' + idx}>
+                <img src={getUrl(i.image)} />
+              </Link>
+            </ScImage>
           ))}
         </ScImages>
       </ScRight>
