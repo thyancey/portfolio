@@ -4,8 +4,9 @@ import AssetMap from './assets';
 import { Route, Routes, useLocation } from 'react-router';
 import Content_Slots from './components/content_slots';
 import Content_Zebra from './components/content_zebra';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Content, { ContentDef } from './components/content';
+import HomeContent from './components/home-content';
 
 const TRANSITION_SPEED = '.5s';
 
@@ -23,7 +24,6 @@ const ScContainer = styled.div`
     --theme-primary: var(--theme-zebra-primary);
     --theme-secondary: var(--theme-zebra-secondary);
     --theme-bg: var(--theme-zebra-bg);
-    --theme-bg-transparent: var(--theme-zebra-bg-transparent);
     --theme-neutral: var(--theme-zebra-neutral);
   }
 
@@ -31,7 +31,6 @@ const ScContainer = styled.div`
     --theme-primary: var(--theme-slots-primary);
     --theme-secondary: var(--theme-slots-secondary);
     --theme-bg: var(--theme-slots-bg);
-    --theme-bg-transparent: var(--theme-slots-bg-transparent);
     --theme-neutral: var(--theme-slots-neutral);
   }
 
@@ -54,15 +53,28 @@ const ScHeader = styled.header`
 
   position: relative;
 
-  h1{
+  h1 {
     margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 1rem 2rem;
+    display: inline;
+
+    &.active {
+      a {
+        color: var(--color-grey-light);
+        text-decoration: underline;
+      }
+    }
   }
 `;
 
 // SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
 const BLOB_WIDTH = '695px';
 const BLOB_HEIGHT = '65px';
-const BLOB_SPEED = '20s';
+const BLOB_SPEED = 30;
 
 type ScBlobBorderProps = {
   $blobType: 'header' | 'footer';
@@ -95,7 +107,7 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
   }
 
   background-image: url(${AssetMap.BlobDivider});
-  animation: blob-wrap-right ${BLOB_SPEED} linear infinite;
+  animation: blob-wrap-left ${BLOB_SPEED / 2}s linear infinite;
 
   ${(p) =>
     p.$blobType === 'header' &&
@@ -108,7 +120,7 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
       -o-transform: scaleY(-1);
       transform: scaleY(-1);
 
-      animation: blob-wrap-left ${BLOB_SPEED} linear infinite;
+      animation: blob-wrap-left ${BLOB_SPEED}s linear infinite;
     `}
 
   ${(p) =>
@@ -136,10 +148,11 @@ const ScNavBar = styled.div`
   justify-content: center;
   align-items: center;
 
-  >a {
+
+  > a {
     color: var(--theme-primary);
     text-decoration: none;
-    margin: .5rem 2rem;
+    margin: 0.5rem 2rem;
     /* width: 1rem; */
     /* height: 1rem; */
     font-size: 2rem;
@@ -189,97 +202,81 @@ const ScButton = styled.a`
 
   cursor: pointer;
   background: none;
-  border: 0.2rem solid var(--theme-primary);
-  background-color: var(--theme-bg);
-  color: var(--theme-primary);
-  text-decoration: none;
 
   border-radius: 0.5rem;
-
   padding: 1rem;
 
+  background-color: var(--theme-bg);
+  border: 0.2rem solid var(--theme-primary);
+  text-decoration: none;
+
+
+
+  color: var(--theme-primary);
+  &:visited{
+    color: var(--theme-primary);
+  }
   &:hover {
+    color: var(--theme-bg);
     background-color: var(--theme-primary);
   }
 `;
 
 const pages: ContentDef[] = [
   {
-    route: 'zebra',
+    route: '/projects/zebra',
     name: 'Zebra Tables',
+    theme: 'zebra',
     bodyComponent: <Content_Zebra />,
-    images: [
-      AssetMap.Zebra1,
-      AssetMap.Zebra2,
-      AssetMap.Zebra3,
-      AssetMap.Zebra3,
-    ],
+    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3, AssetMap.Zebra3],
     url: 'https://thyancey.github.io/tly-truth-tables/',
   },
   {
-    route: 'slots',
+    route: '/projects/slots',
     name: '!SLOTS!',
+    theme: 'slots',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
   {
-    route: 'browserpet',
+    route: '/projects/browserpet',
     name: 'BrowserPet',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
   {
-    route: 'alteredchromatic',
+    route: '/projects/alteredchromatic',
     name: 'Altered Chromatic',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
   {
-    route: 'fretref',
+    route: '/projects/fretref',
     name: 'FretRef',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
   {
-    route: 'dropship',
+    route: '/projects/dropship',
     name: 'Dropship!',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
   {
-    route: 'raccoontrapper',
+    route: '/projects/raccoontrapper',
     name: 'Raccoon Trapper',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
-    ],
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
   },
 ];
@@ -287,59 +284,69 @@ const pages: ContentDef[] = [
 function Layout() {
   const location = useLocation();
 
-  console.log('cur', location.pathname);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  window.hello = location;
+  // TODO: tidy all this logic up
+  const isProject = location.pathname.indexOf('/projects') > -1;
+  const isBlog = location.pathname.indexOf('/blog') > -1;
 
-  // const themeClass = count % 2 === 0 ? 'theme-slots' : 'theme-zebra';
-  // const nextHash = count % 2 === 0 ? 'slots' : 'zebra';
-
-  const curPage = location.pathname.split('/')[1] || pages[0].route;
-
-  const pageIdx = pages.findIndex((p) => p.route === curPage);
-  const prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
-  const nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
-
-  console.log('pageIdx', pageIdx);
-
-  const themeClass = `theme-${curPage}`;
-
-
+  const pageIdx = pages.findIndex((p) => p.route === location.pathname);
+  let prevIdx = -1;
+  let nextIdx = -1;
+  let theme = 'none';
+  if (pageIdx > -1) {
+    prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
+    nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
+    theme = pages[pageIdx].theme || 'none';
+  }
 
   return (
-    <ScContainer id='main' className={themeClass}>
+    <ScContainer id='main' className={`theme-${theme}`}>
       <ScHeader>
-        <h1>{'thomasyancey.com'}</h1>
+        <h1>
+          <Link to={'/'}>{'thomasyancey.com'}</Link>
+        </h1>
         <div>
-          <a>{'blog'}</a>
-          <a>{'projects'}</a>
+          <h2 className={isBlog ? 'active' : ''}>
+            <Link to={'/blog'}>{'blog'}</Link>
+          </h2>
+          <h2 className={isProject ? 'active' : ''}>
+            <Link to={'/projects'}>{'projects'}</Link>
+          </h2>
         </div>
         <ScBlobBorder $blobType='header' />
       </ScHeader>
       <>
         <Routes>
-          <Route path='/' element={<Content contentDef={pages[0]} />} />
+          <Route path='/' element={<HomeContent />} />
+          <Route path='/blog' element={<HomeContent />} />
           {pages.map((p) => (
             <Route key={p.route} path={p.route} element={<Content contentDef={p} />} />
           ))}
+          <Route path='/projects' element={<Navigate to={`${pages[0].route}`} replace />} />
         </Routes>
       </>
       <ScFooter>
-        <ScNavBar>
-          <Link key='prev' to={pages[prevIdx].route}>{'<'}</Link>
-          {pages.map((p, pIdx) => (
-            <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''}>
-              <Link to={p.route} />
-            </ScNavBubble>
-          ))}
-          <Link key='next' to={pages[nextIdx].route}>{'>'}</Link>
-        </ScNavBar>
-        <ScLaunchBtn>
-          <ScButton href={pages[pageIdx].url} target='_blank'>
-            {'launch it!'}
-          </ScButton>
-        </ScLaunchBtn>
+        {pageIdx > -1 && (
+          <>
+            <ScNavBar>
+              <Link key='prev' to={pages[prevIdx].route}>
+                {'<'}
+              </Link>
+              {pages.map((p, pIdx) => (
+                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''}>
+                  <Link to={p.route} />
+                </ScNavBubble>
+              ))}
+              <Link key='next' to={pages[nextIdx].route}>
+                {'>'}
+              </Link>
+            </ScNavBar>
+            <ScLaunchBtn>
+              <ScButton href={pages[pageIdx].url} target='_blank'>
+                {'launch it!'}
+              </ScButton>
+            </ScLaunchBtn>
+          </>
+        )}
         <ScBlobBorder $blobType='footer' />
       </ScFooter>
     </ScContainer>

@@ -3,16 +3,16 @@ const ScBody = styled.div`
   overflow: hidden;
   background-color: var(--theme-bg);
   color: var(--theme-neutral);
+  position: relative;
 
-  h2{
+  h2 {
     color: var(--theme-primary);
   }
-  
+
   h3,
   h4 {
     color: var(--theme-secondary);
   }
-
 
   flex: 1;
 
@@ -26,34 +26,48 @@ const ScLeft = styled.div`
   overflow: hidden;
 `;
 
-const ScScrollCover = styled.div`
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  background: var(--theme-bg);
-  background: linear-gradient(
-    0deg,
-    var(--theme-bg) 10%,
-    var(--theme-bg-transparent) 20%,
-    var(--theme-bg-transparent) 85%,
-    var(--theme-bg) 95%
-  );
-`;
+// const ScScrollCover = styled.div`
+//   pointer-events: none;
+//   position: absolute;
+//   inset: -1rem;
+//   background: var(--color-transparent);
+//   background: linear-gradient(
+//     0deg,
+//     var(--color-black) 0%,
+//     var(--color-transparent) 5%,
+//     var(--color-transparent) 95%,
+//     var(--color-black) 100%
+//   );
+// `;
 
 const ScBodyCopy = styled.div`
-  border-right: 0.25rem solid var(--color-black);
-
   overflow: auto;
   height: 100%;
 
   padding: 6rem 2rem;
 `;
 
-const ScImages = styled.div`
+const ScRight = styled.div`
   flex: 1;
+  padding: 6rem 1rem;
+
+  position: relative;
+`;
+
+const ScDivider = styled.div`
+  width: 2px;
+  left:0;
+  top: 6rem;
+  bottom: 6rem;
+  background-color: var(--theme-primary);
+  position: absolute;
+`
+
+const ScImages = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 2rem 1rem;
+  height: 100%;
+
   > *:first-child {
     height: 66%;
   }
@@ -65,6 +79,9 @@ const ScBodyImage = styled.div`
   justify-content: center;
 
   padding: 0.5rem;
+
+  /* box-shadow: 2px 2px 2px 2px var(--color-black); */
+  filter: drop-shadow(2px 4px 6px var(--color-black));
 
   > img {
     background-size: contain;
@@ -79,9 +96,9 @@ const ScBodyThumbnails = styled.div`
   display: flex;
   gap: 1rem;
   padding-top: 1rem;
-
   align-items: start;
   justify-content: space-evenly;
+  filter: drop-shadow(2px 4px 4px var(--color-black));
 
   > * {
     width: 6rem;
@@ -94,6 +111,7 @@ const ScBodyThumbnails = styled.div`
 export type ContentDef = {
   route: string;
   name: string;
+  theme?: string;
   images: string[];
   url: string;
   bodyComponent: React.ReactNode;
@@ -105,16 +123,19 @@ interface Props {
 function Content({ contentDef }: Props) {
   return (
     <ScBody>
+      {/* <ScScrollCover /> */}
       <ScLeft>
-        <ScScrollCover />
         <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
       </ScLeft>
-      <ScImages>
-        <ScBodyImage>{contentDef.images[0] && <img src={contentDef.images[0]} />}</ScBodyImage>
-        <ScBodyThumbnails>
-          {contentDef.images.length > 1 && contentDef.images.slice(1).map((i, idx) => <img key={idx} src={i} />)}
-        </ScBodyThumbnails>
-      </ScImages>
+      <ScRight>
+        <ScDivider />
+        <ScImages>
+          <ScBodyImage>{contentDef.images[0] && <img src={contentDef.images[0]} />}</ScBodyImage>
+          <ScBodyThumbnails>
+            {contentDef.images.length > 1 && contentDef.images.slice(1).map((i, idx) => <img key={idx} src={i} />)}
+          </ScBodyThumbnails>
+        </ScImages>
+      </ScRight>
     </ScBody>
   );
 }
