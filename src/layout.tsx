@@ -228,7 +228,7 @@ const pages: ContentDef[] = [
     name: 'Zebra Tables',
     theme: 'zebra',
     bodyComponent: <Content_Zebra />,
-    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3, AssetMap.Zebra3],
+    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3],
     url: 'https://thyancey.github.io/tly-truth-tables/',
   },
   {

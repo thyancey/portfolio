@@ -48,63 +48,69 @@ const ScBodyCopy = styled.div`
 `;
 
 const ScRight = styled.div`
-  flex: 1;
-  padding: 6rem 1rem;
+  margin-left: 1rem;
+  width: 34%;
+  padding: 6rem 2rem;
 
   position: relative;
 `;
 
 const ScDivider = styled.div`
   width: 2px;
-  left:0;
   top: 6rem;
+  right: 100%;
   bottom: 6rem;
   background-color: var(--theme-primary);
   position: absolute;
-`
+`;
 
+const ScImage = styled.div`
+  img {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+  }
+`;
+
+
+// TODO: these images are gross
 const ScImages = styled.div`
-  display: flex;
-  flex-direction: column;
   height: 100%;
-
-  > *:first-child {
-    height: 66%;
-  }
-`;
-
-const ScBodyImage = styled.div`
-  display: flex;
-  align-items: end;
-  justify-content: center;
-
-  padding: 0.5rem;
-
-  /* box-shadow: 2px 2px 2px 2px var(--color-black); */
-  filter: drop-shadow(2px 4px 6px var(--color-black));
-
-  > img {
-    background-size: contain;
-    max-width: 100%;
-    max-height: 100%;
-  }
-`;
-
-const ScBodyThumbnails = styled.div`
-  text-align: center;
+  max-width: 20rem;
 
   display: flex;
-  gap: 1rem;
-  padding-top: 1rem;
-  align-items: start;
-  justify-content: space-evenly;
-  filter: drop-shadow(2px 4px 4px var(--color-black));
+  flex-wrap: wrap;
+  column-gap: 0.75rem;
+  row-gap: 1.25rem;
+  justify-content: start;
+  align-content: start;
+  cursor: pointer;
 
-  > * {
-    width: 6rem;
-    max-width: calc(33% - 1rem);
-    height: auto;
-    background-size: contain;
+  transition: width .3s, height .3s;
+
+  ${ScImage} {
+    filter: drop-shadow(2px 4px 6px var(--color-black));
+    width: 5rem;
+    height: 5rem;
+
+    transition: transform .3s, filter .3s;
+
+    &:hover{
+      filter: drop-shadow(2px 4px 6px var(--theme-primary));
+      transform: rotate(-6deg);
+    }
+
+    &.active {
+      width: 100%;
+      height: 15rem;
+
+      &:hover{
+        width: 100%;
+        transform: rotate(3deg);
+      }
+    }
   }
 `;
 
@@ -130,10 +136,11 @@ function Content({ contentDef }: Props) {
       <ScRight>
         <ScDivider />
         <ScImages>
-          <ScBodyImage>{contentDef.images[0] && <img src={contentDef.images[0]} />}</ScBodyImage>
-          <ScBodyThumbnails>
-            {contentDef.images.length > 1 && contentDef.images.slice(1).map((i, idx) => <img key={idx} src={i} />)}
-          </ScBodyThumbnails>
+          {contentDef.images.map((i, idx) => (
+            <ScImage key={idx} className={idx === 0 ? 'active' : ''}>
+              <img src={i} />
+            </ScImage>
+          ))}
         </ScImages>
       </ScRight>
     </ScBody>
