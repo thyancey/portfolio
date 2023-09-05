@@ -1,3 +1,4 @@
+import { Link, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 const ScBody = styled.div`
   overflow: hidden;
@@ -120,16 +121,17 @@ const ScImage = styled.div<ScImageProps>`
 
     bottom: 1rem;
 
+    color: var(--theme-primary);
     transition: opacity 0.3s, bottom 0.3s;
     opacity: 0;
   }
 
   &:hover {
     filter: drop-shadow(2px 4px 6px var(--theme-primary));
-    transform: rotate(${p => p.$rotation}deg) translateY(-1rem);
+    transform: rotate(${(p) => p.$rotation}deg) translateY(-1rem);
 
     &::before {
-      bottom: -1.1rem;
+      bottom: -1.3rem;
       opacity: 1;
     }
   }
@@ -140,7 +142,7 @@ const ScImage = styled.div<ScImageProps>`
 
     &:hover {
       width: 100%;
-      transform: rotate(${p => p.$rotation}deg);
+      transform: rotate(${(p) => p.$rotation}deg);
     }
   }
 `;
@@ -159,11 +161,103 @@ const ScImages = styled.div`
   transition: width 0.3s, height 0.3s;
 `;
 
+const ScCarouselBtn = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  left: auto;
+  right: 1rem;
+
+  &:first-child {
+    right: auto;
+    left: 1rem;
+  }
+`;
+
+const ScModalFade = styled.div`
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-grey-dark);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
+  pointer-events: none;
+
+  &.active {
+    opacity: 0.9;
+    pointer-events: all;
+  }
+`;
+
+const ScModalImg = styled.div``;
+const ScModal = styled.div`
+  color: blue;
+  position: absolute;
+  background-color: var(--theme-bg);
+  inset: 10%;
+  border-radius: 1.5rem;
+  z-index: 1;
+
+  box-shadow: 0.25rem 0.25rem 0.5rem 0.05rem var(--color-black);
+
+  text-align: left;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: var(--theme-primary);
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    cursor: pointer;    
+
+    &:hover{
+      color: var(--color-white);
+    }
+  }
+
+  /*  x button */
+  > a {
+    position: absolute;
+    right: 1.25rem;
+    top: 0.25rem;
+  }
+
+  > ${ScModalImg} {
+    position: relative;
+    flex: 1;
+
+    img {
+      inset: 0;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      object-fit: contain;
+    }
+  }
+
+  > p {
+    border-top: 2px dashed var(--theme-primary);
+    padding-top: 0.5rem;
+    color: var(--theme-primary);
+    margin: 1rem 0 0 0;
+  }
+`;
+
+export type GalleryDef = {
+  image: string;
+  caption?: string;
+};
+
 export type ContentDef = {
   route: string;
   name: string;
   theme?: string;
   images: string[];
+  gallery: GalleryDef[];
   url?: string;
   repoUrl?: string;
   bodyComponent: React.ReactNode;
@@ -171,11 +265,30 @@ export type ContentDef = {
 
 interface Props {
   contentDef: ContentDef;
+  imageIdx?: number;
+  nextIdx?: number;
+  prevIdx?: number;
 }
-function Content({ contentDef }: Props) {
+function Content({ contentDef, imageIdx = -1, prevIdx = -1, nextIdx = -1 }: Props) {
   return (
     <ScBody>
       {/* <ScScrollCover /> */}
+      <ScModalFade className={imageIdx > -1 ? 'active' : ''} />
+      {imageIdx > -1 && (
+        <ScModal>
+          <ScCarouselBtn>
+            {prevIdx > -1 && <Link to={contentDef.route + '/' + prevIdx}>{'<'}</Link>}
+          </ScCarouselBtn>
+          <ScCarouselBtn>
+          {nextIdx > -1 && <Link to={contentDef.route + '/' + nextIdx}>{'>'}</Link>}
+          </ScCarouselBtn>
+          <ScModalImg>
+            <img src={contentDef.gallery[imageIdx].image} />
+          </ScModalImg>
+          <Link to={contentDef.route}>{'X'}</Link>
+          <p>{contentDef.gallery[imageIdx].caption || ''}</p>
+        </ScModal>
+      )}
       <ScLeft>
         <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
       </ScLeft>
@@ -193,10 +306,12 @@ function Content({ contentDef }: Props) {
         )}
         <h3>{'Gallery'}</h3>
         <ScImages>
-          {contentDef.images.map((i, idx) => (
-            <ScImage key={idx} className={''} $rotation={getRandomRotation()}>
-              <img src={i} />
-            </ScImage>
+          {contentDef.gallery.map((i, idx) => (
+            <Link key={idx} to={contentDef.route + '/' + idx}>
+              <ScImage className={''} $rotation={getRandomRotation()}>
+                <img src={i.image} title={i.caption} />
+              </ScImage>
+            </Link>
           ))}
         </ScImages>
       </ScRight>
@@ -209,7 +324,7 @@ const ROT_MIN = 3;
 const ROT_MAX = 8;
 const getRandomRotation = () => {
   const val = ROT_MIN + Math.random() * (ROT_MAX - ROT_MIN);
-  return Math.random() > .5 ? val : -val;
-}
+  return Math.random() > 0.5 ? val : -val;
+};
 
 export default Content;

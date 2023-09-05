@@ -52,6 +52,7 @@ const ScHeader = styled.header`
   padding: 0rem 1rem;
 
   position: relative;
+  z-index: 10;
 
   h1 {
     margin-top: 1rem;
@@ -199,7 +200,21 @@ const pages: ContentDef[] = [
     name: 'Zebra Tables',
     theme: 'zebra',
     bodyComponent: <Content_Zebra />,
-    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3],
+    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'These are some crazy puzzles, huh?'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'Here is another caption. Perhaps it could go into a lot of detail or maybe even have markup and headings as well. Here is another caption. Perhaps it could go into a lot of detail or maybe even have markup and headings as well.'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+    ],
     url: 'https://thyancey.github.io/tly-truth-tables/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -209,6 +224,16 @@ const pages: ContentDef[] = [
     theme: 'slots',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Slots1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Slots2,
+        caption: 'blah blah blah'
+      },
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -218,6 +243,28 @@ const pages: ContentDef[] = [
     theme: 'zebra',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      }
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -227,6 +274,28 @@ const pages: ContentDef[] = [
     theme: 'zebra',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      }
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -236,6 +305,28 @@ const pages: ContentDef[] = [
     theme: 'zebra',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      }
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -245,6 +336,28 @@ const pages: ContentDef[] = [
     theme: 'zebra',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      }
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -254,6 +367,28 @@ const pages: ContentDef[] = [
     theme: 'zebra',
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah'
+      }
+    ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
@@ -266,14 +401,25 @@ function Layout() {
   const isProject = location.pathname.indexOf('/projects') > -1;
   const isBlog = location.pathname.indexOf('/blog') > -1;
 
-  const pageIdx = pages.findIndex((p) => p.route === location.pathname);
+  const pageIdx = pages.findIndex((p) => location.pathname.indexOf(p.route) > -1);
   let prevIdx = -1;
   let nextIdx = -1;
+  let imageIdx = -1;
+  let prevImageIdx = -1;
+  let nextImageIdx = -1;
+
   let theme = 'none';
   if (pageIdx > -1) {
     prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
     nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
     theme = pages[pageIdx].theme || 'none';
+    const imagePath = location.pathname.split(`${pages[pageIdx].route}/`)[1];
+    imageIdx = imagePath !== undefined ? +imagePath : -1;
+    
+    if (imageIdx > -1) {
+      prevImageIdx = imageIdx <= 0 ? pages[pageIdx].gallery.length - 1 : imageIdx - 1;
+      nextImageIdx = imageIdx >= pages[pageIdx].gallery.length - 1 ? 0 : imageIdx + 1;
+    }
   }
 
   return (
@@ -297,9 +443,10 @@ function Layout() {
           <Route path='/' element={<HomeContent />} />
           <Route path='/blog' element={<HomeContent />} />
           {pages.map((p) => (
-            <Route key={p.route} path={p.route} element={<Content contentDef={p} />} />
+            // "/*" allows for images after project path
+            <Route key={p.route} path={`${p.route}/*`} element={<Content contentDef={p} imageIdx={imageIdx} prevIdx={prevImageIdx} nextIdx={nextImageIdx}/>} />
           ))}
-          <Route path='/projects' element={<Navigate to={`${pages[0].route}`} replace />} />
+          <Route path='/projects/' element={<Navigate to={`${pages[0].route}`} replace />} />
         </Routes>
       </>
       <ScFooter>
