@@ -10,9 +10,10 @@ import HomeContent from './components/home-content';
 
 const TRANSITION_SPEED = '.5s';
 
-const ScContainer = styled.div`
-  /* display: flex; */
-  /* flex-direction: column; */
+interface ScContainerProps {
+  $theme: string;
+}
+const ScContainer = styled.div<ScContainerProps>`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: min-content auto min-content;
@@ -20,19 +21,12 @@ const ScContainer = styled.div`
   position: absolute;
   inset: 0;
 
-  &.theme-zebra {
-    --theme-primary: var(--theme-zebra-primary);
-    --theme-secondary: var(--theme-zebra-secondary);
-    --theme-bg: var(--theme-zebra-bg);
-    --theme-neutral: var(--theme-zebra-neutral);
-  }
-
-  &.theme-slots {
-    --theme-primary: var(--theme-slots-primary);
-    --theme-secondary: var(--theme-slots-secondary);
-    --theme-bg: var(--theme-slots-bg);
-    --theme-neutral: var(--theme-slots-neutral);
-  }
+  ${p => p.$theme && css`
+    --theme-primary: var(--theme-${p.$theme}-primary);
+    --theme-secondary: var(--theme-${p.$theme}-secondary);
+    --theme-bg: var(--theme-${p.$theme}-bg);
+    --theme-neutral: var(--theme-${p.$theme}-neutral);
+  `}
 
   > * {
     transition: background-color ${TRANSITION_SPEED} ease-in-out, color ${TRANSITION_SPEED} ease-in-out;
@@ -75,7 +69,8 @@ const ScHeader = styled.header`
 // SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
 const BLOB_WIDTH = '695px';
 const BLOB_HEIGHT = '65px';
-const BLOB_SPEED = 30;
+const BLOB_SPEED = 30; // time in seconds to complete a blob loop, lower is faster
+const BLOB_REPEAT = 5; // how many repeated segments, avoids seeing the edge when on wide monitors.
 
 type ScBlobBorderProps = {
   $blobType: 'header' | 'footer';
@@ -83,7 +78,7 @@ type ScBlobBorderProps = {
 const ScBlobBorder = styled.div<ScBlobBorderProps>`
   position: absolute;
   left: 0;
-  width: calc(${BLOB_WIDTH} * 3);
+  width: calc(${BLOB_WIDTH} * ${BLOB_REPEAT});
   height: ${BLOB_HEIGHT};
   z-index: 1;
 
@@ -143,6 +138,7 @@ const ScNavBar = styled.div`
   position: relative;
   z-index: 1;
   text-align: center;
+  margin-bottom: .5rem;
 
   display: flex;
   justify-content: center;
@@ -159,7 +155,12 @@ const ScNavBar = styled.div`
   }
 `;
 
-const ScNavBubble = styled.div`
+interface ScNavBubbleProps {
+  $text: string;
+  $theme: string;
+}
+const ScNavBubble = styled.div<ScNavBubbleProps>`
+  position: relative;
   margin: 0.5rem;
   border-radius: 100%;
   border: 0.2rem solid var(--theme-primary);
@@ -170,7 +171,9 @@ const ScNavBubble = styled.div`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    background-color: var(--theme-bg);
+    /* background-color: var(--theme-bg); */
+    background-color: var(--theme-${p => p.$theme}-bg);
+    border-color: var(--theme-${p => p.$theme}-primary);
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -192,6 +195,39 @@ const ScNavBubble = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  &::before {
+    content: '${p => p.$text}';
+
+    position: absolute;
+    pointer-events: none;
+    font-size: 1rem;
+    left: 0;
+    line-height: 1rem;
+    text-align: center;
+    transform: rotate(45deg) translateY(5rem);
+    transform-origin: left;
+    white-space: nowrap;
+
+    bottom: 0;
+
+    color: var(--theme-${p => p.$theme}-primary);
+    opacity: 0;
+    /* just fade out on unhover */
+    transition: opacity 0.3s, bottom 0.3s .3s, transform 0.3s .3s;
+  }
+
+  &:hover {
+    filter: drop-shadow(2px 4px 6px var(--theme-${p => p.$theme}-primary));
+
+    &::before {
+      /* tilt up and fade in */
+      transition: opacity 0.5s .1s, bottom 0.3s, transform 0.3s;
+      bottom: 100%;
+      opacity: 1;
+      transform: rotate(-10deg) translateY(-.5rem);
+    }
+  }
 `;
 
 const pages: ContentDef[] = [
@@ -204,15 +240,16 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`
+        caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`,
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. '
+        caption:
+          'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. ',
       },
       {
         image: AssetMap.Zebra3,
-        caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`
+        caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`,
       },
     ],
     url: 'https://thyancey.github.io/tly-truth-tables/',
@@ -227,11 +264,11 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Slots1,
-        caption: 'The basic gameplay loop involves making upgrades, rolling the dice, and conquering foes'
+        caption: 'The basic gameplay loop involves making upgrades, rolling the dice, and conquering foes',
       },
       {
         image: AssetMap.Slots2,
-        caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!'
+        caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!',
       },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
@@ -246,24 +283,24 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
-      }
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -277,24 +314,24 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
-      }
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -308,24 +345,24 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
-      }
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -339,24 +376,24 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
-      }
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -370,24 +407,24 @@ const pages: ContentDef[] = [
     gallery: [
       {
         image: AssetMap.Zebra1,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra2,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
+        caption: 'blah blah blah',
       },
       {
         image: AssetMap.Zebra3,
-        caption: 'blah blah blah'
-      }
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -406,17 +443,17 @@ function Layout() {
   let nextIdx = -1;
   let imageIdx = -1;
 
-  let theme = 'none';
+  let theme = 'default';
   if (pageIdx > -1) {
     prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
     nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
-    theme = pages[pageIdx].theme || 'none';
+    theme = pages[pageIdx].theme || 'default';
     const imagePath = location.pathname.split(`${pages[pageIdx].route}/`)[1];
     imageIdx = imagePath !== undefined ? +imagePath : -1;
   }
 
   return (
-    <ScContainer id='main' className={`theme-${theme}`}>
+    <ScContainer id='main' $theme={theme}>
       <ScHeader>
         <h1>
           <Link to={'/'}>{'thomasyancey.com'}</Link>
@@ -451,7 +488,7 @@ function Layout() {
                 {'<'}
               </Link>
               {pages.map((p, pIdx) => (
-                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''}>
+                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''} $text={p.name} $theme={p.theme || 'default'}>
                   <Link to={p.route} />
                 </ScNavBubble>
               ))}

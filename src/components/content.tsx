@@ -1,10 +1,13 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AssetMap from '../assets';
 const ScBody = styled.div`
+  display: flex;
+  position: relative;
   overflow: hidden;
+
   background-color: var(--theme-bg);
   color: var(--theme-neutral);
-  position: relative;
 
   h2 {
     color: var(--theme-primary);
@@ -14,10 +17,18 @@ const ScBody = styled.div`
   h4 {
     color: var(--theme-secondary);
   }
+`;
 
-  flex: 1;
-
-  display: flex;
+interface ScNoiseProps {
+  $blur?: number;
+}
+const ScNoise = styled.div<ScNoiseProps>`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url(${AssetMap.Noise1});
+  opacity: 0.1;
+  filter: blur(${(p) => p.$blur || 0}px);
 `;
 
 const ScLeft = styled.div`
@@ -25,7 +36,7 @@ const ScLeft = styled.div`
   width: 66%;
   overflow: hidden;
 
-  box-shadow: 5px 10px 20px 10px var(--color-black);
+  /* box-shadow: 1px 1px 20px 5px var(--color-black); */
 `;
 
 // const ScScrollCover = styled.div`
@@ -83,8 +94,9 @@ const ScLaunchButton = styled.a`
 const ScRight = styled.div`
   margin-left: 1rem;
   width: 34%;
-  padding: 6rem 2rem;
-  padding-top: 4rem;
+  padding: 4rem 2rem 6rem 3rem;
+  box-shadow: -1px 0px 20px 5px var(--color-black);
+  background: linear-gradient(90deg, var(--color-black) -15%, var(--theme-bg) 10%);
 
   h3 {
     margin-top: 2rem;
@@ -179,7 +191,7 @@ const ScCarouselBtn = styled.div`
 const ScModalFade = styled.div`
   position: absolute;
   inset: 0;
-  background-color: var(--color-grey-dark);
+  background-color: var(--theme-primary);
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   z-index: 1;
@@ -191,16 +203,31 @@ const ScModalFade = styled.div`
   }
 `;
 
-const ScModalImg = styled.div``;
+const ScModalImg = styled.div`
+  position: relative;
+
+  img {
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px var(--color-black));
+  }
+`;
+
 const ScModal = styled.div`
-  color: blue;
   position: absolute;
-  background-color: var(--theme-bg);
   inset: 10%;
-  border-radius: 1.5rem;
+  max-width: 50rem;
+  margin: auto;
   z-index: 1;
 
-  box-shadow: 0.25rem 0.25rem 0.5rem 0.05rem var(--color-black);
+  background-color: var(--theme-bg);
+  border-radius: 1.5rem;
+
+  box-shadow: .15rem .15rem 0.5rem 0.1rem var(--color-black);
 
   text-align: left;
   padding: 2rem;
@@ -212,9 +239,9 @@ const ScModal = styled.div`
     color: var(--theme-primary);
     font-size: 3rem;
     font-family: var(--font-heading);
-    cursor: pointer;    
+    cursor: pointer;
 
-    &:hover{
+    &:hover {
       color: var(--color-white);
     }
   }
@@ -227,17 +254,7 @@ const ScModal = styled.div`
   }
 
   > ${ScModalImg} {
-    position: relative;
     flex: 1;
-
-    img {
-      inset: 0;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-
-      object-fit: contain;
-    }
   }
 
   > p {
@@ -269,12 +286,8 @@ interface Props {
   imageIdx?: number;
 }
 function Content({ contentDef, imageIdx = -1 }: Props) {
-  let prevImageIdx = -1;
-  let nextImageIdx = -1;
-  if (imageIdx > -1) {
-    prevImageIdx = imageIdx <= 0 ? contentDef.gallery.length - 1 : imageIdx - 1;
-    nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? 0 : imageIdx + 1;
-  }
+  const prevImageIdx = imageIdx <= 0 ? -1 : imageIdx - 1;
+  const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
 
   return (
     <ScBody>
@@ -286,8 +299,9 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
             {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
           </ScCarouselBtn>
           <ScCarouselBtn>
-          {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
+            {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
           </ScCarouselBtn>
+          <ScNoise $blur={2} />
           <ScModalImg>
             <img src={contentDef.gallery[imageIdx].image} />
           </ScModalImg>
@@ -296,9 +310,11 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
         </ScModal>
       )}
       <ScLeft>
+        <ScNoise $blur={2.5} />
         <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
       </ScLeft>
       <ScRight>
+        <ScNoise $blur={2} />
         <h3>{'Prototype'}</h3>
         {contentDef.url && (
           <ScLaunchButton href={contentDef.url} target='_blank'>
