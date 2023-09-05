@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import AssetMap from '../assets';
+import AssetMap, { getUrl } from '../../assets';
+import { ContentDef } from './data';
 const ScBody = styled.div`
   display: flex;
   position: relative;
@@ -26,7 +27,7 @@ const ScNoise = styled.div<ScNoiseProps>`
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: url(${AssetMap.Noise1});
+  background: url(${AssetMap.noise_01});
   opacity: 0.1;
   filter: blur(${(p) => p.$blur || 0}px);
 `;
@@ -265,21 +266,6 @@ const ScModal = styled.div`
   }
 `;
 
-export type GalleryDef = {
-  image: string;
-  caption?: string;
-};
-
-export type ContentDef = {
-  route: string;
-  name: string;
-  theme?: string;
-  images: string[];
-  gallery: GalleryDef[];
-  url?: string;
-  repoUrl?: string;
-  bodyComponent: React.ReactNode;
-};
 
 interface Props {
   contentDef: ContentDef;
@@ -303,7 +289,7 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
           </ScCarouselBtn>
           <ScNoise $blur={2} />
           <ScModalImg>
-            <img src={contentDef.gallery[imageIdx].image} />
+            <img src={getUrl(contentDef.gallery[imageIdx].image)} />
           </ScModalImg>
           <Link to={contentDef.route}>{'X'}</Link>
           <p>{contentDef.gallery[imageIdx].caption || ''}</p>
@@ -331,7 +317,7 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
           {contentDef.gallery.map((i, idx) => (
             <Link key={idx} to={contentDef.route + '/' + idx}>
               <ScImage className={''} $rotation={getRandomRotation()}>
-                <img src={i.image} title={i.caption} />
+                <img src={getUrl(i.image)} title={i.caption} />
               </ScImage>
             </Link>
           ))}
