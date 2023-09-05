@@ -133,21 +133,19 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
 const ScFooter = styled.footer`
   background-color: var(--color-black);
   padding: 0 1rem;
+  min-height: 3.625rem;
 
   position: relative;
-
-  display: flex;
-  align-items: center;
 `;
 
 const ScNavBar = styled.div`
-  flex: 1;
+  position: relative;
+  z-index: 1;
   text-align: center;
 
   display: flex;
   justify-content: center;
   align-items: center;
-
 
   > a {
     color: var(--theme-primary);
@@ -194,33 +192,6 @@ const ScNavBubble = styled.div`
     height: 100%;
   }
 `;
-const ScLaunchBtn = styled.div``;
-
-const ScButton = styled.a`
-  display: block;
-  margin: 1rem;
-
-  cursor: pointer;
-  background: none;
-
-  border-radius: 0.5rem;
-  padding: 1rem;
-
-  background-color: var(--theme-bg);
-  border: 0.2rem solid var(--theme-primary);
-  text-decoration: none;
-
-
-
-  color: var(--theme-primary);
-  &:visited{
-    color: var(--theme-primary);
-  }
-  &:hover {
-    color: var(--theme-bg);
-    background-color: var(--theme-primary);
-  }
-`;
 
 const pages: ContentDef[] = [
   {
@@ -230,6 +201,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Zebra />,
     images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3, AssetMap.Zebra3],
     url: 'https://thyancey.github.io/tly-truth-tables/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/slots',
@@ -238,6 +210,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/browserpet',
@@ -246,6 +219,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/alteredchromatic',
@@ -254,6 +228,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/fretref',
@@ -262,6 +237,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/dropship',
@@ -270,6 +246,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
     route: '/projects/raccoontrapper',
@@ -278,6 +255,7 @@ const pages: ContentDef[] = [
     bodyComponent: <Content_Slots />,
     images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
 ];
 
@@ -325,6 +303,7 @@ function Layout() {
         </Routes>
       </>
       <ScFooter>
+        <ScBlobBorder $blobType='footer' />
         {pageIdx > -1 && (
           <>
             <ScNavBar>
@@ -340,14 +319,8 @@ function Layout() {
                 {'>'}
               </Link>
             </ScNavBar>
-            <ScLaunchBtn>
-              <ScButton href={pages[pageIdx].url} target='_blank'>
-                {'launch it!'}
-              </ScButton>
-            </ScLaunchBtn>
           </>
         )}
-        <ScBlobBorder $blobType='footer' />
       </ScFooter>
     </ScContainer>
   );
