@@ -4,28 +4,29 @@ import AssetMap from './assets';
 import { Route, Routes, useLocation } from 'react-router';
 import Content_Slots from './components/content_slots';
 import Content_Zebra from './components/content_zebra';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import Content, { ContentDef } from './components/content';
-import { ReactElement, ReactNode } from 'react';
+import HomeContent from './components/home-content';
 
 const TRANSITION_SPEED = '.5s';
 
-const ScContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+interface ScContainerProps {
+  $theme: string;
+}
+const ScContainer = styled.div<ScContainerProps>`
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: min-content auto min-content;
 
   position: absolute;
   inset: 0;
 
-  &.theme-zebra {
-    --theme-primary: var(--theme-zebra-primary);
-    --theme-secondary: var(--theme-zebra-secondary);
-  }
-
-  &.theme-slots {
-    --theme-primary: var(--theme-slots-primary);
-    --theme-secondary: var(--theme-slots-secondary);
-  }
+  ${p => p.$theme && css`
+    --theme-primary: var(--theme-${p.$theme}-primary);
+    --theme-secondary: var(--theme-${p.$theme}-secondary);
+    --theme-bg: var(--theme-${p.$theme}-bg);
+    --theme-neutral: var(--theme-${p.$theme}-neutral);
+  `}
 
   > * {
     transition: background-color ${TRANSITION_SPEED} ease-in-out, color ${TRANSITION_SPEED} ease-in-out;
@@ -45,12 +46,31 @@ const ScHeader = styled.header`
   padding: 0rem 1rem;
 
   position: relative;
+  z-index: 10;
+
+  h1 {
+    margin-top: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 1rem 2rem;
+    display: inline;
+
+    &.active {
+      a {
+        color: var(--color-grey-light);
+        text-decoration: underline;
+      }
+    }
+  }
 `;
 
 // SHOULD MATCH IMAGE SIZE, CAN BE LARGER/SMALLER BUT KEEP RATIO THE SAME
 const BLOB_WIDTH = '695px';
 const BLOB_HEIGHT = '65px';
-const BLOB_SPEED = '20s';
+const BLOB_SPEED = 30; // time in seconds to complete a blob loop, lower is faster
+const BLOB_REPEAT = 5; // how many repeated segments, avoids seeing the edge when on wide monitors.
 
 type ScBlobBorderProps = {
   $blobType: 'header' | 'footer';
@@ -58,8 +78,9 @@ type ScBlobBorderProps = {
 const ScBlobBorder = styled.div<ScBlobBorderProps>`
   position: absolute;
   left: 0;
-  width: calc(${BLOB_WIDTH} * 3);
+  width: calc(${BLOB_WIDTH} * ${BLOB_REPEAT});
   height: ${BLOB_HEIGHT};
+  z-index: 1;
 
   background-size: contain;
 
@@ -82,7 +103,7 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
   }
 
   background-image: url(${AssetMap.BlobDivider});
-  animation: blob-wrap-right ${BLOB_SPEED} linear infinite;
+  animation: blob-wrap-left ${BLOB_SPEED / 2}s linear infinite;
 
   ${(p) =>
     p.$blobType === 'header' &&
@@ -95,7 +116,7 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
       -o-transform: scaleY(-1);
       transform: scaleY(-1);
 
-      animation: blob-wrap-left ${BLOB_SPEED} linear infinite;
+      animation: blob-wrap-left ${BLOB_SPEED}s linear infinite;
     `}
 
   ${(p) =>
@@ -108,25 +129,25 @@ const ScBlobBorder = styled.div<ScBlobBorderProps>`
 const ScFooter = styled.footer`
   background-color: var(--color-black);
   padding: 0 1rem;
+  min-height: 3.625rem;
 
   position: relative;
-
-  display: flex;
-  align-items: center;
 `;
 
 const ScNavBar = styled.div`
-  flex: 1;
+  position: relative;
+  z-index: 1;
   text-align: center;
+  margin-bottom: .5rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  >a {
+  > a {
     color: var(--theme-primary);
     text-decoration: none;
-    margin: .5rem 2rem;
+    margin: 0.5rem 2rem;
     /* width: 1rem; */
     /* height: 1rem; */
     font-size: 2rem;
@@ -134,7 +155,12 @@ const ScNavBar = styled.div`
   }
 `;
 
-const ScNavBubble = styled.div`
+interface ScNavBubbleProps {
+  $text: string;
+  $theme: string;
+}
+const ScNavBubble = styled.div<ScNavBubbleProps>`
+  position: relative;
   margin: 0.5rem;
   border-radius: 100%;
   border: 0.2rem solid var(--theme-primary);
@@ -145,18 +171,20 @@ const ScNavBubble = styled.div`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    background-color: var(--theme-secondary);
+    /* background-color: var(--theme-bg); */
+    background-color: var(--theme-${p => p.$theme}-bg);
+    border-color: var(--theme-${p => p.$theme}-primary);
     width: 1.5rem;
     height: 1.5rem;
   }
 
   &.active {
-    background-color: var(--theme-secondary);
+    background-color: var(--theme-bg);
     width: 2.5rem;
     height: 2.5rem;
 
     &:hover {
-      background-color: var(--theme-secondary);
+      background-color: var(--theme-bg);
       width: 2.5rem;
       height: 2.5rem;
     }
@@ -167,165 +195,309 @@ const ScNavBubble = styled.div`
     width: 100%;
     height: 100%;
   }
-`;
-const ScLaunchBtn = styled.div``;
 
-const ScButton = styled.button`
-  margin: 1rem;
+  &::before {
+    content: '${p => p.$text}';
 
-  cursor: pointer;
-  background: none;
-  border: 0.2rem solid var(--theme-primary);
-  background-color: var(--theme-secondary);
+    position: absolute;
+    pointer-events: none;
+    font-size: 1rem;
+    left: 0;
+    line-height: 1rem;
+    text-align: center;
+    transform: rotate(45deg) translateY(5rem);
+    transform-origin: left;
+    white-space: nowrap;
 
-  border-radius: 0.5rem;
+    bottom: 0;
 
-  padding: 1rem;
+    color: var(--theme-${p => p.$theme}-primary);
+    opacity: 0;
+    /* just fade out on unhover */
+    transition: opacity 0.3s, bottom 0.3s .3s, transform 0.3s .3s;
+  }
 
   &:hover {
-    background-color: var(--theme-primary);
+    filter: drop-shadow(2px 4px 6px var(--theme-${p => p.$theme}-primary));
+
+    &::before {
+      /* tilt up and fade in */
+      transition: opacity 0.5s .1s, bottom 0.3s, transform 0.3s;
+      bottom: 100%;
+      opacity: 1;
+      transform: rotate(-10deg) translateY(-.5rem);
+    }
   }
 `;
 
 const pages: ContentDef[] = [
   {
-    route: 'zebra',
+    route: '/projects/zebra',
     name: 'Zebra Tables',
+    theme: 'zebra',
     bodyComponent: <Content_Zebra />,
-    images: [
-      AssetMap.Zebra1,
-      AssetMap.Zebra2,
-      AssetMap.Zebra3,
+    images: [AssetMap.Zebra1, AssetMap.Zebra2, AssetMap.Zebra3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`,
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption:
+          'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. ',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`,
+      },
     ],
     url: 'https://thyancey.github.io/tly-truth-tables/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'slots',
+    route: '/projects/slots',
     name: '!SLOTS!',
+    theme: 'slots',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Slots1,
+        caption: 'The basic gameplay loop involves making upgrades, rolling the dice, and conquering foes',
+      },
+      {
+        image: AssetMap.Slots2,
+        caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'browserpet',
+    route: '/projects/browserpet',
     name: 'BrowserPet',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'alteredchromatic',
+    route: '/projects/alteredchromatic',
     name: 'Altered Chromatic',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'fretref',
+    route: '/projects/fretref',
     name: 'FretRef',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'dropship',
+    route: '/projects/dropship',
     name: 'Dropship!',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
   {
-    route: 'raccoontrapper',
+    route: '/projects/raccoontrapper',
     name: 'Raccoon Trapper',
+    theme: 'zebra',
     bodyComponent: <Content_Slots />,
-    images: [
-      AssetMap.Slots1,
-      AssetMap.Slots2,
-      AssetMap.Slots3,
+    images: [AssetMap.Slots1, AssetMap.Slots2, AssetMap.Slots3],
+    gallery: [
+      {
+        image: AssetMap.Zebra1,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra2,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
+      {
+        image: AssetMap.Zebra3,
+        caption: 'blah blah blah',
+      },
     ],
     url: 'https://thyancey.github.io/slot-machine/',
+    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   },
 ];
 
 function Layout() {
   const location = useLocation();
 
-  console.log('cur', location.pathname);
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  window.hello = location;
+  // TODO: tidy all this logic up
+  const isProject = location.pathname.indexOf('/projects') > -1;
+  const isBlog = location.pathname.indexOf('/blog') > -1;
 
-  // const themeClass = count % 2 === 0 ? 'theme-slots' : 'theme-zebra';
-  // const nextHash = count % 2 === 0 ? 'slots' : 'zebra';
+  const pageIdx = pages.findIndex((p) => location.pathname.indexOf(p.route) > -1);
+  let prevIdx = -1;
+  let nextIdx = -1;
+  let imageIdx = -1;
 
-  const curPage = location.pathname.split('/')[1] || pages[0].route;
-
-  const pageIdx = pages.findIndex((p) => p.route === curPage);
-  const prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
-  const nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
-
-  console.log('pageIdx', pageIdx);
-
-  const themeClass = `theme-${curPage}`;
-
-
+  let theme = 'default';
+  if (pageIdx > -1) {
+    prevIdx = pageIdx <= 0 ? pages.length - 1 : pageIdx - 1;
+    nextIdx = pageIdx >= pages.length - 1 ? 0 : pageIdx + 1;
+    theme = pages[pageIdx].theme || 'default';
+    const imagePath = location.pathname.split(`${pages[pageIdx].route}/`)[1];
+    imageIdx = imagePath !== undefined ? +imagePath : -1;
+  }
 
   return (
-    <ScContainer id='main' className={themeClass}>
+    <ScContainer id='main' $theme={theme}>
       <ScHeader>
-        <h1>{'thomasyancey.com'}</h1>
+        <h1>
+          <Link to={'/'}>{'thomasyancey.com'}</Link>
+        </h1>
         <div>
-          <a>{'blog'}</a>
-          <a>{'projects'}</a>
+          <h2 className={isBlog ? 'active' : ''}>
+            <Link to={'/blog'}>{'blog'}</Link>
+          </h2>
+          <h2 className={isProject ? 'active' : ''}>
+            <Link to={'/projects'}>{'projects'}</Link>
+          </h2>
         </div>
         <ScBlobBorder $blobType='header' />
       </ScHeader>
       <>
         <Routes>
-          <Route path='/' element={<Content contentDef={pages[0]} />} />
+          <Route path='/' element={<HomeContent />} />
+          <Route path='/blog' element={<HomeContent />} />
           {pages.map((p) => (
-            <Route key={p.route} path={p.route} element={<Content contentDef={p} />} />
+            // "/*" allows for images after project path
+            <Route key={p.route} path={`${p.route}/*`} element={<Content contentDef={p} imageIdx={imageIdx} />} />
           ))}
+          <Route path='/projects/' element={<Navigate to={`${pages[0].route}`} replace />} />
         </Routes>
       </>
       <ScFooter>
-        <ScNavBar>
-          <Link key='prev' to={pages[prevIdx].route}>{'<'}</Link>
-          {pages.map((p, pIdx) => (
-            <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''}>
-              <Link to={p.route} />
-            </ScNavBubble>
-          ))}
-          <Link key='next' to={pages[nextIdx].route}>{'>'}</Link>
-        </ScNavBar>
-        <ScLaunchBtn>
-          <ScButton>
-            <a href={pages[pageIdx].url} target='_blank'>
-              {'launch it!'}
-            </a>
-          </ScButton>
-        </ScLaunchBtn>
         <ScBlobBorder $blobType='footer' />
+        {pageIdx > -1 && (
+          <>
+            <ScNavBar>
+              <Link key='prev' to={pages[prevIdx].route}>
+                {'<'}
+              </Link>
+              {pages.map((p, pIdx) => (
+                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''} $text={p.name} $theme={p.theme || 'default'}>
+                  <Link to={p.route} />
+                </ScNavBubble>
+              ))}
+              <Link key='next' to={pages[nextIdx].route}>
+                {'>'}
+              </Link>
+            </ScNavBar>
+          </>
+        )}
       </ScFooter>
     </ScContainer>
   );

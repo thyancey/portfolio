@@ -1,87 +1,352 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import AssetMap from '../assets';
 const ScBody = styled.div`
-  background-color: var(--theme-secondary);
-  color: var(--theme-primary);
-  
-  flex: 1;
+  display: flex;
+  position: relative;
+  overflow: hidden;
 
-  overflow: auto;
+  background-color: var(--theme-bg);
+  color: var(--theme-neutral);
 
-  display: grid;
-  padding: 2rem 0 2rem 1rem;
+  h2 {
+    color: var(--theme-primary);
+  }
 
-  grid-template-columns: 66% 34%;
-  grid-template-rows: 66% 34%;
+  h3,
+  h4 {
+    color: var(--theme-secondary);
+  }
 `;
+
+interface ScNoiseProps {
+  $blur?: number;
+}
+const ScNoise = styled.div<ScNoiseProps>`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url(${AssetMap.Noise1});
+  opacity: 0.1;
+  filter: blur(${(p) => p.$blur || 0}px);
+`;
+
+const ScLeft = styled.div`
+  position: relative;
+  width: 66%;
+  overflow: hidden;
+
+  /* box-shadow: 1px 1px 20px 5px var(--color-black); */
+`;
+
+// const ScScrollCover = styled.div`
+//   pointer-events: none;
+//   position: absolute;
+//   inset: -1rem;
+//   background: var(--color-transparent);
+//   background: linear-gradient(
+//     0deg,
+//     var(--color-black) 0%,
+//     var(--color-transparent) 5%,
+//     var(--color-transparent) 95%,
+//     var(--color-black) 100%
+//   );
+// `;
 
 const ScBodyCopy = styled.div`
-  border-right: 0.25rem solid var(--color-black);
+  overflow: auto;
+  height: 100%;
 
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  padding: 6rem 2rem;
 `;
 
-const ScBodyImage = styled.div`
-  grid-column: 2;
-  grid-row: 1;
+const ScLaunchButton = styled.a`
+  display: inline-block;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
 
-  padding: 1rem;
-
-  >img{
-    background-size: contain;
-    width: 100%;
-  }
-`;
-
-const ScBodyThumbnails = styled.div`
   text-align: center;
 
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-family: var(--font-heading);
 
-  justify-content: space-evenly;
+  margin: 0 1rem 1rem 0;
 
-  > * {
-    width: 6rem;
-    height: 6rem;
-    background-size: contain;
+  background-color: var(--theme-bg);
+  color: var(--theme-primary);
+  border: 2px solid var(--theme-primary);
+  border-radius: 1rem;
+
+  max-width: 15rem;
+
+  color: var(--theme-primary);
+  &:visited {
+    color: var(--theme-primary);
+  }
+  &:hover {
+    color: var(--theme-bg);
+    background-color: var(--theme-primary);
   }
 `;
 
-export type ContentDef = {
-  route: string,
-  name: string,
-  images: string[],
-  url: string,
-  bodyComponent: React.ReactNode
+const ScRight = styled.div`
+  margin-left: 1rem;
+  width: 34%;
+  padding: 4rem 2rem 6rem 3rem;
+  box-shadow: -1px 0px 20px 5px var(--color-black);
+  background: linear-gradient(90deg, var(--color-black) -15%, var(--theme-bg) 10%);
+
+  h3 {
+    margin-top: 2rem;
+  }
+
+  position: relative;
+`;
+
+interface ScImageProps {
+  $rotation: number;
 }
+const ScImage = styled.div<ScImageProps>`
+  img {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+  }
+
+  filter: drop-shadow(2px 4px 6px var(--color-black));
+  width: 5rem;
+  height: 5rem;
+
+  transition: transform 0.3s, filter 0.3s;
+
+  &::before {
+    content: 'see more!';
+    font-size: 1rem;
+    position: absolute;
+    line-height: 1rem;
+    text-align: center;
+
+    bottom: 1rem;
+
+    color: var(--theme-primary);
+    transition: opacity 0.3s, bottom 0.3s;
+    opacity: 0;
+  }
+
+  &:hover {
+    filter: drop-shadow(2px 4px 6px var(--theme-primary));
+    transform: rotate(${(p) => p.$rotation}deg) translateY(-1rem);
+
+    &::before {
+      bottom: -1.3rem;
+      opacity: 1;
+    }
+  }
+
+  &.active {
+    width: 100%;
+    height: 15rem;
+
+    &:hover {
+      width: 100%;
+      transform: rotate(${(p) => p.$rotation}deg);
+    }
+  }
+`;
+
+const ScImages = styled.div`
+  height: 100%;
+
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 0.75rem;
+  row-gap: 1.5rem;
+  justify-content: start;
+  align-content: start;
+  cursor: pointer;
+
+  transition: width 0.3s, height 0.3s;
+`;
+
+const ScCarouselBtn = styled.div`
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  left: auto;
+  right: 2rem;
+  z-index: 1;
+
+  &:first-child {
+    right: auto;
+    left: 2rem;
+  }
+`;
+
+const ScModalFade = styled.div`
+  position: absolute;
+  inset: 0;
+  background-color: var(--theme-primary);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 1;
+  pointer-events: none;
+
+  &.active {
+    opacity: 0.9;
+    pointer-events: all;
+  }
+`;
+
+const ScModalImg = styled.div`
+  position: relative;
+
+  img {
+    inset: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px var(--color-black));
+  }
+`;
+
+const ScModal = styled.div`
+  position: absolute;
+  inset: 10%;
+  max-width: 50rem;
+  margin: auto;
+  z-index: 1;
+
+  background-color: var(--theme-bg);
+  border-radius: 1.5rem;
+
+  box-shadow: .15rem .15rem 0.5rem 0.1rem var(--color-black);
+
+  text-align: left;
+  padding: 2rem;
+
+  display: flex;
+  flex-direction: column;
+
+  a {
+    color: var(--theme-primary);
+    font-size: 3rem;
+    font-family: var(--font-heading);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--color-white);
+    }
+  }
+
+  /*  x button */
+  > a {
+    position: absolute;
+    right: 1.25rem;
+    top: 0.25rem;
+  }
+
+  > ${ScModalImg} {
+    flex: 1;
+  }
+
+  > p {
+    border-top: 2px dashed var(--theme-primary);
+    padding-top: 0.5rem;
+    color: var(--theme-primary);
+    margin: 1rem 0 0 0;
+  }
+`;
+
+export type GalleryDef = {
+  image: string;
+  caption?: string;
+};
+
+export type ContentDef = {
+  route: string;
+  name: string;
+  theme?: string;
+  images: string[];
+  gallery: GalleryDef[];
+  url?: string;
+  repoUrl?: string;
+  bodyComponent: React.ReactNode;
+};
 
 interface Props {
   contentDef: ContentDef;
+  imageIdx?: number;
 }
-function Content({ contentDef }: Props) {
+function Content({ contentDef, imageIdx = -1 }: Props) {
+  const prevImageIdx = imageIdx <= 0 ? -1 : imageIdx - 1;
+  const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
+
   return (
     <ScBody>
-      <ScBodyCopy>
-        {contentDef.bodyComponent}
-      </ScBodyCopy>
-      <ScBodyImage>
-        {contentDef.images[0] && <img src={contentDef.images[0]} />}
-      </ScBodyImage>
-      <ScBodyThumbnails>
-        {contentDef.images.length > 1 && (
-          contentDef.images.slice(1).map((i, idx) => (
-            <img key={idx} src={i} />
-          ))
+      {/* <ScScrollCover /> */}
+      <ScModalFade className={imageIdx > -1 ? 'active' : ''} />
+      {imageIdx > -1 && (
+        <ScModal>
+          <ScCarouselBtn>
+            {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
+          </ScCarouselBtn>
+          <ScCarouselBtn>
+            {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
+          </ScCarouselBtn>
+          <ScNoise $blur={2} />
+          <ScModalImg>
+            <img src={contentDef.gallery[imageIdx].image} />
+          </ScModalImg>
+          <Link to={contentDef.route}>{'X'}</Link>
+          <p>{contentDef.gallery[imageIdx].caption || ''}</p>
+        </ScModal>
+      )}
+      <ScLeft>
+        <ScNoise $blur={2.5} />
+        <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
+      </ScLeft>
+      <ScRight>
+        <ScNoise $blur={2} />
+        <h3>{'Prototype'}</h3>
+        {contentDef.url && (
+          <ScLaunchButton href={contentDef.url} target='_blank'>
+            {'LAUNCH IT'}
+          </ScLaunchButton>
         )}
-      </ScBodyThumbnails>
+        {contentDef.repoUrl && (
+          <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
+            {'GITHUB'}
+          </ScLaunchButton>
+        )}
+        <h3>{'Gallery'}</h3>
+        <ScImages>
+          {contentDef.gallery.map((i, idx) => (
+            <Link key={idx} to={contentDef.route + '/' + idx}>
+              <ScImage className={''} $rotation={getRandomRotation()}>
+                <img src={i.image} title={i.caption} />
+              </ScImage>
+            </Link>
+          ))}
+        </ScImages>
+      </ScRight>
     </ScBody>
   );
 }
+
+// TODO, this could be way better, but get a number between [-3 - -8] and [ 3 - 8 ]
+const ROT_MIN = 3;
+const ROT_MAX = 8;
+const getRandomRotation = () => {
+  const val = ROT_MIN + Math.random() * (ROT_MAX - ROT_MIN);
+  return Math.random() > 0.5 ? val : -val;
+};
 
 export default Content;
