@@ -29,8 +29,8 @@ const ScNavBar = styled.div`
     margin: 0 .5rem -.25rem .5rem;
 
     &:hover{
-      color: var(--theme-neutral);
-      filter: drop-shadow(2px 4px 6px var(--theme-primary));
+      color: var(--theme-bg);
+      filter: drop-shadow(0 0 3px var(--theme-primary)) drop-shadow(0 0 3px var(--theme-primary)) drop-shadow(0 0 3px var(--theme-primary));
     }
   }
 `;

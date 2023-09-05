@@ -42,7 +42,7 @@ export const Projects: ContentDef[] = [
   },
   {
     route: '/projects/slots',
-    name: '!SLOTS!',
+    name: '!SLOTS!SLOTS!SLOTS!',
     theme: 'slots',
     bodyComponent: <Content_Slots />,
     url: 'https://thyancey.github.io/slot-machine/',

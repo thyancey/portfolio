@@ -65,6 +65,10 @@ const ScBodyCopy = styled.div`
   height: 100%;
 
   padding: 6rem 2rem;
+
+  >div{
+    max-width: 40rem;
+  }
 `;
 
 const ScLaunchButton = styled.a`
@@ -351,11 +355,11 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
       </ScModal>
       <ScLeft>
         <ScNoise $blur={2.5} />
-        <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
+        <ScBodyCopy><div>{contentDef.bodyComponent}</div></ScBodyCopy>
       </ScLeft>
       <ScRight>
         <ScNoise $blur={2} />
-        <h3>{'Prototype'}</h3>
+        <h3>{'CHECK IT OUT'}</h3>
         {contentDef.url && (
           <ScLaunchButton href={contentDef.url} target='_blank'>
             <Icon_RocketLaunch />
