@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import AssetMap, { getUrl } from '../../assets';
 import { ContentDef } from './data';
+
 const ScBody = styled.div`
   display: flex;
   position: relative;
@@ -194,13 +195,14 @@ const ScModalFade = styled.div`
   inset: 0;
   background-color: var(--theme-primary);
   opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in;
   z-index: 1;
   pointer-events: none;
 
   &.active {
     opacity: 0.9;
     pointer-events: all;
+    transition: opacity 0.6s ease-out;
   }
 `;
 
@@ -220,21 +222,35 @@ const ScModalImg = styled.div`
 
 const ScModal = styled.div`
   position: absolute;
-  inset: 10%;
+  bottom: 0%;
+  height: 80%;
+  left: 10rem;
+  right: 10rem;
+
   max-width: 50rem;
   margin: auto;
   z-index: 1;
 
   background-color: var(--theme-bg);
-  border-radius: 1.5rem;
+  border-radius: 1rem;
 
-  box-shadow: .15rem .15rem 0.5rem 0.1rem var(--color-black);
+  box-shadow: 0.3rem 0.4rem 0.3rem 0.1rem var(--color-black);
 
   text-align: left;
   padding: 2rem;
 
   display: flex;
   flex-direction: column;
+
+  pointer-events: none;
+  opacity: 0;
+
+  transition: bottom 0.5s, opacity .5s;
+  &.active {
+    bottom: 10%;
+    pointer-events: all;
+    opacity: 1;
+  }
 
   a {
     color: var(--theme-primary);
@@ -266,7 +282,6 @@ const ScModal = styled.div`
   }
 `;
 
-
 interface Props {
   contentDef: ContentDef;
   imageIdx?: number;
@@ -274,27 +289,27 @@ interface Props {
 function Content({ contentDef, imageIdx = -1 }: Props) {
   const prevImageIdx = imageIdx <= 0 ? -1 : imageIdx - 1;
   const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
+  const galleryImage = (imageIdx > -1 && contentDef.gallery[imageIdx]) || null;
 
   return (
     <ScBody>
       {/* <ScScrollCover /> */}
       <ScModalFade className={imageIdx > -1 ? 'active' : ''} />
-      {imageIdx > -1 && (
-        <ScModal>
-          <ScCarouselBtn>
-            {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
-          </ScCarouselBtn>
-          <ScCarouselBtn>
-            {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
-          </ScCarouselBtn>
-          <ScNoise $blur={2} />
-          <ScModalImg>
-            <img src={getUrl(contentDef.gallery[imageIdx].image)} />
-          </ScModalImg>
-          <Link to={contentDef.route}>{'X'}</Link>
-          <p>{contentDef.gallery[imageIdx].caption || ''}</p>
-        </ScModal>
-      )}
+
+      <ScModal className={imageIdx > -1 ? 'active' : ''}>
+        <ScCarouselBtn>
+          {prevImageIdx > -1 && <Link to={contentDef.route + '/' + prevImageIdx}>{'<'}</Link>}
+        </ScCarouselBtn>
+        <ScCarouselBtn>
+          {nextImageIdx > -1 && <Link to={contentDef.route + '/' + nextImageIdx}>{'>'}</Link>}
+        </ScCarouselBtn>
+        <ScNoise $blur={2} />
+
+        <ScModalImg>{galleryImage && <img src={getUrl(galleryImage.image)} />}</ScModalImg>
+
+        <Link to={contentDef.route}>{'X'}</Link>
+        <p>{(galleryImage && galleryImage.caption) || ''}</p>
+      </ScModal>
       <ScLeft>
         <ScNoise $blur={2.5} />
         <ScBodyCopy>{contentDef.bodyComponent}</ScBodyCopy>
