@@ -7,6 +7,7 @@ import Content from './components/content';
 import HomeContent from './components/content/content_home';
 import Footer from './components/footer';
 import Header from './components/header';
+import BlogContent from './components/content/content_blog';
 
 const TRANSITION_SPEED = '.5s';
 
@@ -65,7 +66,7 @@ function Layout() {
       <>
         <Routes>
           <Route path='/' element={<HomeContent />} />
-          <Route path='/blog' element={<HomeContent />} />
+          <Route path='/blog' element={<BlogContent />} />
           {Projects.map((p) => (
             // "/*" allows for images after project path
             <Route key={p.route} path={`${p.route}/*`} element={<Content contentDef={p} imageIdx={imageIdx} />} />
