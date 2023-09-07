@@ -19,7 +19,7 @@ const ScBody = styled.div`
   h2 {
     font-size: 8rem;
     color: var(--color-black);
-    opacity: 0.1;
+    opacity: 0.2;
     line-height: 7rem;
   }
 

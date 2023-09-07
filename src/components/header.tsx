@@ -21,6 +21,7 @@ const ScHeader = styled.header`
   h1 {
     margin-top: .5rem;
     margin-bottom: 0;
+    font-size: 2rem;
 
     .MuiSvgIcon-root {
       margin-bottom: -.25rem;

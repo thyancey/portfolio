@@ -1,4 +1,4 @@
-import Content_Slots from './content_slots';
+import Content_Slots, { ContentTitle as ContentTitle_Slots } from './content_slots';
 import Content_Zebra from './content_zebra';
 import Content_Dropship from './content_dropship';
 import Content_AlteredChromatic from './content_alteredchromatic';
@@ -14,17 +14,20 @@ export type GalleryDef = {
 export type ContentDef = {
   route: string;
   name: string;
+  description?: string;
   theme?: string;
   gallery: GalleryDef[];
   url?: string;
   repoUrl?: string;
   bodyComponent: React.ReactNode;
+  titleComponent?: React.ReactNode;
 };
 
 export const Projects: ContentDef[] = [
   {
     route: '/projects/zebra',
     name: 'Zebra Tables',
+    description: 'Solve puzzles using a combination of boring tables and deductive reasoning!',
     theme: 'zebra',
     bodyComponent: <Content_Zebra />,
     url: 'https://thyancey.github.io/tly-truth-tables/',
@@ -48,7 +51,9 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/slots',
     name: '!SLOTS!SLOTS!SLOTS!',
+    description: 'A roguelike slot machine, where you bend the odds in your favor to earn cash and battle enemies',
     theme: 'slots',
+    titleComponent: <ContentTitle_Slots />,
     bodyComponent: <Content_Slots />,
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
@@ -66,6 +71,7 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/browserpet',
     name: 'BrowserPet',
+    description: 'Keep some dumb animals alive in a chrome extension',
     theme: 'browserpet',
     bodyComponent: <Content_BrowserPet />,
     url: 'https://thyancey.github.io/tly-browserpet/',
@@ -75,6 +81,7 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/alteredchromatic',
     name: 'Altered Chromatic',
+    description: 'What if music was simpler, and a piano had a black key for every white key?',
     theme: 'alteredchromatic',
     bodyComponent: <Content_AlteredChromatic />,
     url: 'http://alteredchromatic.com/',
@@ -84,6 +91,7 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/fretref',
     name: 'FretRef',
+    description: 'An app that helps you play tasty licks without all the hard work',
     theme: 'fretref',
     bodyComponent: <Content_FretRef />,
     url: 'http://fretref.com/',
@@ -93,6 +101,7 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/dropship',
     name: 'Dropship!',
+    description: 'A roguelike shooter build in GameMaker studio',
     theme: 'dropship',
     bodyComponent: <Content_Dropship />,
     url: 'https://thyancey.github.io/tly-dropship/',
@@ -102,6 +111,7 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/raccoontrapper',
     name: 'Raccoon Trapper',
+    description: 'A twist on the classic game, built in PhaserJS',
     theme: 'raccoontrapper',
     bodyComponent: <Content_RaccoonTrapper />,
     url: 'https://thyancey.github.io/tly-raccoon-trapper/',
