@@ -9,14 +9,17 @@ const ScHeader = styled.header`
 
   align-items: center;
   justify-content: space-between;
+  flex-wrap:wrap;
 
   padding: 0rem 1rem;
+  margin-bottom: 1rem;
 
   position: relative;
   z-index: 10;
 
   h1 {
     margin-top: 1rem;
+    margin-bottom: 0;
   }
 
   h2 {
@@ -30,6 +33,10 @@ const ScHeader = styled.header`
         text-decoration: underline;
       }
     }
+  }
+
+  @media (max-width: 39.15rem) {
+    justify-content: center;
   }
 `;
 

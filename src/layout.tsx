@@ -34,6 +34,9 @@ const ScContainer = styled.div<ScContainerProps>`
   }
 
   overflow: hidden;
+
+  background-color: var(--theme-bg);
+  color: var(--theme-neutral);
 `;
 
 const getStatus = (pathName: string) => {
@@ -58,10 +61,14 @@ function Layout() {
     theme = Projects[pageIdx].theme || 'default';
     const imagePath = location.pathname.split(`${Projects[pageIdx].route}/`)[1];
     imageIdx = imagePath !== undefined ? +imagePath : -1;
+  } else {
+    if (status.indexOf('blog') > -1){
+      theme = 'blog';
+    }
   }
 
   return (
-    <ScContainer id='main' $theme={theme}>
+    <ScContainer id='main' className={`theme-${theme}`}$theme={theme}>
       <Header status={status} />
       <>
         <Routes>

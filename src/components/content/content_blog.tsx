@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 const ScBody = styled.div`
   overflow: hidden;
-  background-color: var(--theme-bg);
-  color: var(--theme-neutral);
   position: relative;
-
 
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: opacity 4s 1s;
+  opacity: 0;
+
+  .theme-blog & {
+    opacity: 1;
+  }
 `;
 
 function BlogContent() {
