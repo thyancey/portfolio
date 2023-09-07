@@ -39,14 +39,14 @@ const ScContainer = styled.div<ScContainerProps>`
   color: var(--theme-neutral);
 `;
 
-const getStatus = (pathName: string) => {
-  if (pathName.indexOf('/projects') > -1) {
+const getStatus = (pathname: string) => {
+  if (pathname.indexOf('/projects') > -1) {
     return 'projects';
   }
-  if (pathName.indexOf('/blog') > -1) {
+  if (pathname.indexOf('/blog') > -1) {
     return 'blog';
   }
-  return '';
+  return 'home';
 }
 
 function Layout() {

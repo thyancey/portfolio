@@ -1,6 +1,10 @@
 import Content_Slots from './content_slots';
 import Content_Zebra from './content_zebra';
 import Content_Dropship from './content_dropship';
+import Content_AlteredChromatic from './content_alteredchromatic';
+import Content_FretRef from './content_fretref';
+import Content_BrowserPet from './content_browserpet';
+import Content_RaccoonTrapper from './content_raccoontrapper';
 
 export type GalleryDef = {
   image: string;
@@ -62,46 +66,46 @@ export const Projects: ContentDef[] = [
   {
     route: '/projects/browserpet',
     name: 'BrowserPet',
-    theme: 'zebra',
-    bodyComponent: <Content_Slots />,
-    url: 'https://thyancey.github.io/slot-machine/',
-    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+    theme: 'browserpet',
+    bodyComponent: <Content_BrowserPet />,
+    url: 'https://thyancey.github.io/tly-browserpet/',
+    repoUrl: 'https://github.com/thyancey/tly-browserpet',
     gallery: [],
   },
   {
     route: '/projects/alteredchromatic',
     name: 'Altered Chromatic',
-    theme: 'zebra',
-    bodyComponent: <Content_Slots />,
-    url: 'https://thyancey.github.io/slot-machine/',
-    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+    theme: 'alteredchromatic',
+    bodyComponent: <Content_AlteredChromatic />,
+    url: 'http://alteredchromatic.com/',
+    repoUrl: 'https://github.com/thyancey/altered-chromatic',
     gallery: [],
   },
   {
     route: '/projects/fretref',
     name: 'FretRef',
-    theme: 'zebra',
-    bodyComponent: <Content_Slots />,
-    url: 'https://thyancey.github.io/slot-machine/',
-    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+    theme: 'fretref',
+    bodyComponent: <Content_FretRef />,
+    url: 'http://fretref.com/',
+    repoUrl: 'https://github.com/thyancey/tly-guitarapp',
     gallery: [],
   },
   {
     route: '/projects/dropship',
     name: 'Dropship!',
-    theme: 'zebra',
+    theme: 'dropship',
     bodyComponent: <Content_Dropship />,
-    url: 'https://thyancey.github.io/slot-machine/',
-    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+    url: 'https://thyancey.github.io/tly-dropship/',
+    repoUrl: '',
     gallery: [],
   },
   {
     route: '/projects/raccoontrapper',
     name: 'Raccoon Trapper',
-    theme: 'zebra',
-    bodyComponent: <Content_Slots />,
-    url: 'https://thyancey.github.io/slot-machine/',
-    repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+    theme: 'raccoontrapper',
+    bodyComponent: <Content_RaccoonTrapper />,
+    url: 'https://thyancey.github.io/tly-raccoon-trapper/',
+    repoUrl: 'https://github.com/thyancey/tly-raccoon-trapper',
     gallery: [],
   },
 ];

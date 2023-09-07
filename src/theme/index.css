@@ -85,6 +85,38 @@
   --theme-zebra-bg: #35120e;
   --theme-zebra-neutral: var(--color-white);
 
+  
+  --theme-dropship-primary: #00ff00;
+  --theme-dropship-secondary: #ff0000;
+  --theme-dropship-bg: #000000;
+  --theme-dropship-neutral: #ffffff;
+  
+  --theme-fretref-primary: #a246bd;
+  --theme-fretref-secondary: #4679bd;
+  --theme-fretref-bg: #000000;
+  --theme-fretref-neutral: #ffffff;
+
+  --theme-alteredchromatic-primary: #ffffff;
+  --theme-alteredchromatic-secondary: #63c7d8;
+  --theme-alteredchromatic-bg: #da3471;
+  --theme-alteredchromatic-neutral: #ffffff;
+  /* black is 1f1f1f */
+
+  --theme-raccoontrapper-primary: #eec39a;
+  --theme-raccoontrapper-secondary: #847e87;
+  --theme-raccoontrapper-bg: #663a31;
+  --theme-raccoontrapper-neutral: #eec39a;
+
+  /* grey 847e87 */
+  /* pink d77bba */
+  /* brown 663a31 */
+  /* tan eec39a */
+
+  --theme-browserpet-primary: #51f249;
+  --theme-browserpet-secondary: #000000;
+  --theme-browserpet-bg: #1fb9f3;
+  --theme-browserpet-neutral: #fef8dd;
+
 
   --color-transparent: rgba(0, 0, 0, 0);
   --theme-primary: var(--theme-default-primary);
