@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ScBlobBorder } from './blob-border';
+import Icon_Home from '@mui/icons-material/Home';
 
 const ScHeader = styled.header`
   background-color: var(--color-black);
@@ -9,7 +10,7 @@ const ScHeader = styled.header`
 
   align-items: center;
   justify-content: space-between;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 
   padding: 0rem 1rem;
   margin-bottom: 1rem;
@@ -20,6 +21,11 @@ const ScHeader = styled.header`
   h1 {
     margin-top: 1rem;
     margin-bottom: 0;
+
+    .MuiSvgIcon-root {
+      margin-bottom: -.25rem;
+      margin-right: .5rem;
+    }
   }
 
   h2 {
@@ -35,7 +41,8 @@ const ScHeader = styled.header`
     }
   }
 
-  @media (max-width: 39.15rem) {
+  /* @media (max-width: 40.15rem) { */
+  @media (max-width: 42.15rem) {
     justify-content: center;
   }
 `;
@@ -44,11 +51,13 @@ interface Props {
   status: string;
 }
 function Header({ status }: Props) {
-
   return (
     <ScHeader>
       <h1>
-        <Link to={'/'}>{'thomasyancey.com'}</Link>
+        <Link to={'/'}>
+          <Icon_Home fontSize="large" />
+          {'thomasyancey.com'}
+        </Link>
       </h1>
       <div>
         <h2 className={status === 'blog' ? 'active' : ''}>

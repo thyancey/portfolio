@@ -95,6 +95,9 @@
   --font-heading: 'Luckiest Guy', cursive;
   --font-body: 'Allerta', sans-serif;
 
+  /* TODO: this wasnt working with media queries for some reason */
+  --breakpoint-mobile: 42.15rem;
+
   font-family: var(--font-body);
   font-weight: 400;
   -webkit-text-size-adjust: 100%;

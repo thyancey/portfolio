@@ -14,21 +14,23 @@ const ScBody = styled.div`
 
   padding: 3rem;
 
+  text-align: center;
+
   h2 {
-    font-size: 10rem;
+    font-size: 8rem;
     color: var(--color-black);
     opacity: 0.1;
+    line-height: 7rem;
   }
 
   h3 {
     font-size: 5rem;
   }
-  
 
-  
-  @media (max-width: 39.15rem) {
+  @media (max-width: 42.15rem) {
     h2 {
       font-size: 5rem;
+      line-height: 4rem;
     }
     h3 {
       font-size: 3rem;
@@ -58,25 +60,24 @@ const ScMessage = styled.div`
       }
     }
 
-    
     &:first-child a {
       &:before {
         content: '<';
         position: absolute;
-        right:100%;
+        right: 100%;
         margin-right: 1rem;
         opacity: 0;
-        transition: opacity .5s;
+        transition: opacity 0.5s;
       }
     }
     &:last-child a {
       &:after {
         content: '>';
         position: absolute;
-        left:100%;
+        left: 100%;
         margin-left: 1rem;
         opacity: 0;
-        transition: opacity .5s;
+        transition: opacity 0.5s;
       }
     }
     a:hover {
@@ -90,10 +91,52 @@ const ScMessage = styled.div`
   }
 `;
 
+// thanks ChatGPT, you're the best
+const textChoices = [
+  ['HOWDY', 'PARTNER'],
+  ['HELLO', 'SUNSHINE'],
+  ['HI', 'PAL'],
+  ["G'DAY", 'MATE'],
+  ['ALOHA', 'BUDDY'],
+  ['HEY', 'CHAMP'],
+  ['YO', 'BUDDY-O'],
+  ['SALUT', 'AMIGO'],
+  ['HELLO', 'THERE'],
+  ['HI', 'FRIEND'],
+  ['GOOD', 'TO SEE YOU'],
+  ['HEY', 'BUDDY'],
+  ["HOW'S", 'IT GOING'],
+  ['HEY', 'YOU'],
+  ['WELCOME', 'TO THE PARTY'],
+  ['HELLO', 'FELLOW HUMAN'],
+  ['HEY', 'NEIGHBOR'],
+  ['WELL', 'HELLO THERE'],
+  ['HOWDY', 'DOODY'],
+  ['GREETINGS', 'EARTHLING'],
+  ['OH', 'HI!'],
+  ["WHAT'S", "COOKIN'"],
+  ['GREETINGS', 'STRANGER'],
+  ['YO', 'DUDE'],
+  ['HEY', "GOOD LOOKIN'"],
+  ['AHOY', 'MATEY'],
+  ['BUCKLE UP', 'BUCKAROO'],
+  ['HELLO', 'GORGEOUS'],
+  ['WELCOME', 'TO THE ZOO'],
+  ['HELLO', 'BEAUTIFUL'],
+  ['GREETINGS', 'CITIZEN'],
+  ['GREETINGS', 'SUNBEAM'],
+  ['HELLO', 'ROCKSTAR'],
+  ['HELLO', 'SUNFLOWER'],
+  ['HELLO', 'SUNSHINE'],
+  ['HELLO', 'TOASTER STRUDEL'],
+  ['HI', 'SPARKLE CAKE'],
+];
+
 function HomeContent() {
+  const text = textChoices[Math.floor(Math.random() * textChoices.length)];
   return (
     <ScBody>
-      <h2>{'HOWDY'}</h2>
+      <h2>{text[0]}</h2>
       <ScMessage>
         <h3>
           <Link to={'/blog'}>{'BLOG'}</Link>
@@ -103,7 +146,7 @@ function HomeContent() {
           <Link to={'/projects'}>{`PROJECTS`}</Link>
         </h3>
       </ScMessage>
-      <h2>{'PARTNER'}</h2>
+      {text[1] && <h2>{text[1]}</h2>}
     </ScBody>
   );
 }
