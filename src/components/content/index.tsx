@@ -121,8 +121,8 @@ const ScRight = styled.div`
   margin-left: 1rem;
   width: 34%;
   padding: 4rem 2rem 6rem 3rem;
-  box-shadow: -1px 0px 20px 5px var(--color-black);
-  background: linear-gradient(90deg, var(--color-black) -15%, var(--theme-bg) 10%);
+  /* box-shadow: -1px 0px 20px 5px var(--color-black); */
+  /* background: linear-gradient(90deg, var(--color-black) -15%, var(--theme-bg) 10%); */
 
   h3 {
     margin-top: 2rem;
@@ -325,6 +325,7 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
   return (
     <ScBody>
       {/* <ScScrollCover /> */}
+      <ScNoise $blur={1} />
       <ScModalFade className={imageIdx > -1 ? 'active' : ''} />
 
       <ScModal className={imageIdx > -1 ? 'active' : ''}>
@@ -342,7 +343,7 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
             </Link>
           )}
         </ScCarouselBtn>
-        <ScNoise $blur={2} />
+        <ScNoise $blur={1} />
 
         <ScModalImg>{galleryImage && <img src={getUrl(galleryImage.image)} />}</ScModalImg>
 
@@ -354,11 +355,9 @@ function Content({ contentDef, imageIdx = -1 }: Props) {
         <p>{(galleryImage && galleryImage.caption) || ''}</p>
       </ScModal>
       <ScLeft>
-        <ScNoise $blur={2.5} />
         <ScBodyCopy><div>{contentDef.bodyComponent}</div></ScBodyCopy>
       </ScLeft>
       <ScRight>
-        <ScNoise $blur={2} />
         <h3>{'CHECK IT OUT'}</h3>
         {contentDef.url && (
           <ScLaunchButton href={contentDef.url} target='_blank'>

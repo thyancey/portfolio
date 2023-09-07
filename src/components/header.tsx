@@ -41,7 +41,6 @@ const ScHeader = styled.header`
     }
   }
 
-  /* @media (max-width: 40.15rem) { */
   @media (max-width: 42.15rem) {
     justify-content: center;
   }

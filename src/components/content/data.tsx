@@ -1,5 +1,6 @@
 import Content_Slots from './content_slots';
 import Content_Zebra from './content_zebra';
+import Content_Dropship from './content_dropship';
 
 export type GalleryDef = {
   image: string;
@@ -89,7 +90,7 @@ export const Projects: ContentDef[] = [
     route: '/projects/dropship',
     name: 'Dropship!',
     theme: 'zebra',
-    bodyComponent: <Content_Slots />,
+    bodyComponent: <Content_Dropship />,
     url: 'https://thyancey.github.io/slot-machine/',
     repoUrl: 'https://github.com/thyancey/tly-truth-tables',
     gallery: [],
