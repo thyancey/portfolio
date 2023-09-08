@@ -1,10 +1,6 @@
-import Codeblock from '../codeblock';
-import { ContentDef } from './data';
+import Codeblock from '../../codeblock';
 
-interface Props {
-  contentDef: ContentDef;
-}
-export function ContentTitle({ contentDef }: Props) {
+export const ProjectTitle = () => {
   return (
     <>
       <p>
@@ -23,10 +19,9 @@ export function ContentTitle({ contentDef }: Props) {
   );
 }
 
-function Content() {
+export const ProjectBody = () => {
   return (
     <>
-      <h2>{'!SLOTS!SLOTS!SLOTS!'}</h2>
       <h3>{'Premise'}</h3>
       <p>{'A roguelike slot machine, where you bend the odds in your favor to earn cash and battle enemies'}</p>
       <p>
@@ -62,7 +57,7 @@ function Content() {
     [ 2, 2 ]
   ],
   hints:[
-    ['The parent\'s porridge wasn\'t good enough for golidlocks.', 'face1'],
+    ['The parent's porridge wasn't good enough for golidlocks.', 'face1'],
     ['Mama bear eats her food straight from the fridge.', 'skull']
   ],
 }`}</Codeblock>
@@ -75,4 +70,23 @@ function Content() {
   );
 }
 
-export default Content;
+export default {
+  route: '/projects/slots',
+  name: '!SLOTS!SLOTS!SLOTS!',
+  description: 'A roguelike slot machine, where you bend the odds in your favor to earn cash and battle enemies',
+  theme: 'slots',
+  titleComponent: <ProjectTitle />,
+  bodyComponent: <ProjectBody />,
+  url: 'https://thyancey.github.io/slot-machine/',
+  repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+  gallery: [
+    {
+      image: 'slots-1.png',
+      caption: 'The basic gameplay loop involves making upgrades, rolling the dice, and conquering foes',
+    },
+    {
+      image: 'slots-2.png',
+      caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!',
+    },
+  ],
+}

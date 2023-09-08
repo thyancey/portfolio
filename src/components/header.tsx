@@ -19,15 +19,15 @@ const ScHeader = styled.header`
   z-index: 10;
 
   h1 {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
     margin-bottom: 0;
     font-size: 2rem;
 
     .MuiSvgIcon-root {
-      margin-bottom: -.25rem;
-      margin-right: .5rem;
+      margin-bottom: -0.25rem;
+      margin-right: 0.5rem;
     }
-    
+
     &.active {
       a {
         color: var(--color-blue);
@@ -51,12 +51,16 @@ const ScHeader = styled.header`
     }
   }
 
-  >div {
-    padding-top: .25rem;
+  > div {
+    padding-top: 0.25rem;
   }
 
   @media (max-width: 42.15rem) {
     justify-content: center;
+
+    > div {
+      padding-top: 0.75rem;
+    }
   }
 `;
 
@@ -64,12 +68,11 @@ interface Props {
   status: string;
 }
 function Header({ status }: Props) {
-  console.log('status', status)
   return (
     <ScHeader>
       <h1 className={status === 'home' ? 'active' : ''}>
         <Link to={'/'}>
-          <Icon_Home fontSize="large" />
+          <Icon_Home fontSize='large' />
           {'thomasyancey.com'}
         </Link>
       </h1>

@@ -7,7 +7,7 @@ import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import Icon_RocketLaunch from '@mui/icons-material/RocketLaunch';
 import Icon_Code from '@mui/icons-material/Code';
-import { ReactElement, cloneElement, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ScImageProps {
   $rotation: number;
@@ -110,7 +110,6 @@ const ScSelectedImage = styled.div`
     height: 100%;
     object-fit: contain;
 
-    border-radius: 1rem;
     transition: filter 0.3s, transform 0.3s;
 
     filter: drop-shadow(4px 4px 6px var(--color-black));
@@ -318,9 +317,7 @@ const ScLaunchButton = styled.a`
 
   color: var(--theme-bg);
   background-color: var(--theme-primary);
-  &:visited {
-    color: var(--theme-bg);
-  }
+
   &:hover {
     color: var(--theme-primary);
     background-color: var(--theme-bg);
@@ -394,6 +391,7 @@ const ScCard = styled.div`
       grid-column: 2;
       grid-row: 1 / span 2;
       margin-left: 1rem; // this helps it appear centered on the right
+      /* max-width: 15rem; */
     }
   }
 
@@ -422,6 +420,10 @@ const ScCard = styled.div`
   }
   @media (min-width: 81.25rem) {
     grid-template-columns: 50% 50%;
+    ${ScGallery} {
+      /* justify-self: center; */
+      /* max-width: 25rem; */
+    }
   }
 
   h1,
@@ -434,22 +436,30 @@ const ScCard = styled.div`
   li {
     color: var(--theme-neutral);
   }
-
-  a {
-    color: var(--theme-secondary);
-  }
 `;
 
 interface Props {
   contentDef: ContentDef;
   imageIdx?: number;
 }
-function NewContent({ contentDef, imageIdx = -1 }: Props) {
+function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
   const prevImageIdx = imageIdx <= 0 ? -1 : imageIdx - 1;
   const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
   const galleryImage = (imageIdx > -1 && contentDef.gallery[imageIdx]) || null;
 
-  const [selectedImgIdx, setSelectedImgIdx] = useState(0);
+  const [selectedImageIdx, setSelectedImageIdx] = useState(-1);
+
+  // reset junk when the content changes
+  useEffect(() => {
+    if (contentDef.gallery[0]) {
+      setSelectedImageIdx(0);
+    } else {
+      setSelectedImageIdx(-1);
+    }
+  }, [contentDef]);
+
+  // TODO: this shouldn't be necessary, but the useEffect above isn't getting triggered on the first render when it changes for some reason
+  const validImageIdx = contentDef.gallery.length === 0 ? -1 : selectedImageIdx;
 
   return (
     <ScWrapper>
@@ -488,7 +498,7 @@ function NewContent({ contentDef, imageIdx = -1 }: Props) {
               <ScContentBlock>
                 <h2>{contentDef.name}</h2>
                 <div>
-                  {
+                  {/*
                     // TODO, this really shouldnt be necessary, fix the types
                     cloneElement(
                       contentDef.titleComponent as ReactElement<{
@@ -496,7 +506,8 @@ function NewContent({ contentDef, imageIdx = -1 }: Props) {
                       }>,
                       { contentDef: contentDef }
                     )
-                  }
+                    */}
+                  {contentDef.titleComponent}
                 </div>
               </ScContentBlock>
             ) : (
@@ -522,14 +533,16 @@ function NewContent({ contentDef, imageIdx = -1 }: Props) {
           </ScButtons>
           <ScGallery>
             <ScSelectedImage>
-              <Link to={contentDef.route + '/' + selectedImgIdx}>
-                <img src={getUrl(contentDef.gallery[selectedImgIdx].image)} />
-              </Link>
+              {validImageIdx > -1 && (
+                <Link to={contentDef.route + '/' + validImageIdx}>
+                  <img src={getUrl(contentDef.gallery[validImageIdx].image)} />
+                </Link>
+              )}
             </ScSelectedImage>
             <ScImages>
               {contentDef.gallery.map((i, idx) => (
                 <ScImage key={idx} $rotation={getRandomRotation()}>
-                  <a onClick={() => setSelectedImgIdx(idx)}>
+                  <a onClick={() => setSelectedImageIdx(idx)}>
                     <img src={getUrl(i.image)} />
                   </a>
                 </ScImage>
@@ -551,4 +564,4 @@ const getRandomRotation = () => {
   return Math.random() > 0.5 ? val : -val;
 };
 
-export default NewContent;
+export default ProjectContent;

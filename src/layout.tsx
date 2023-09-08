@@ -3,12 +3,12 @@ import { Route, Routes, useLocation } from 'react-router';
 import { Navigate } from 'react-router-dom';
 
 import { Projects } from './components/content/data';
-import Content from './components/content';
-import HomeContent from './components/content/content_home';
+// import Content from './components/content';
+import HomeContent from './components/content/home';
 import Footer from './components/footer';
 import Header from './components/header';
-import BlogContent from './components/content/content_blog';
-import NewContent from './components/content/newcontent';
+import BlogContent from './components/content/blog';
+import ProjectContent from './components/content/project';
 
 const TRANSITION_SPEED = '.5s';
 
@@ -77,7 +77,7 @@ function Layout() {
           <Route path='/blog' element={<BlogContent />} />
           {Projects.map((p) => (
             // "/*" allows for images after project path
-            <Route key={p.route} path={`${p.route}/*`} element={<NewContent contentDef={p} imageIdx={imageIdx} />} />
+            <Route key={p.route} path={`${p.route}/*`} element={<ProjectContent contentDef={p} imageIdx={imageIdx} />} />
           ))}
           <Route path='/projects/' element={<Navigate to={`${Projects[0].route}`} replace />} />
         </Routes>

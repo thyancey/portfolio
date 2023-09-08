@@ -11,6 +11,12 @@ const ScFooter = styled.footer`
   min-height: 3.625rem;
 
   position: relative;
+
+  
+  @media (max-width: 42.15rem) {
+    min-height: 5rem;
+    padding-top: 0.5rem;
+  }
 `;
 
 const ScNavBar = styled.div`
