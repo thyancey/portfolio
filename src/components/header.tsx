@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ScBlobBorder } from './blob-border';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext } from 'react';
 import { StoreContext } from '../store/context';
 
 const ScHeader = styled.header`

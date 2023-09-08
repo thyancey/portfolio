@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 const ScBody = styled.div`
   overflow: hidden;
+
+  color: var(--color-black);
   background-color: var(--color-purple);
-  /* color: var(--theme-neutral); */
   position: relative;
 
   display: flex;
@@ -16,6 +17,7 @@ const ScBody = styled.div`
 
   text-align: center;
 
+  /* bg text */
   h2 {
     font-size: 8rem;
     color: var(--color-black);
@@ -23,72 +25,156 @@ const ScBody = styled.div`
     line-height: 7rem;
   }
 
-  h3 {
-    font-size: 5rem;
-  }
-
   @media (max-width: 42.15rem) {
     h2 {
-      font-size: 5rem;
-      line-height: 4rem;
-    }
-    h3 {
-      font-size: 3rem;
+      font-size: 4rem;
+      line-height: 3rem;
     }
   }
 `;
 
-const ScMessage = styled.div`
+/*
+const anim_bounce1 = keyframes`
+    0%,
+    100% {
+      transform: rotate(0deg) translateY(0);
+    }
+    10% {
+      transform: rotate(0deg) translateY(0);
+    }
+    30% {
+      transform: rotate(3deg) translateY(0.2rem);
+    }
+    35% {
+      transform: rotate(6deg) translateY(0.25rem);
+    }
+    70% {
+      transform: rotate(-3deg) translateY(-2rem);
+    }
+    90% {
+      transform: rotate(2deg) translateY(0.2rem);
+    }
+`;
+*/
+
+/*
+const anim_swing = keyframes`
+    0%,
+    100% {
+      transform: rotate(6.5deg) translateX(.5rem);
+    }
+    50% {
+      transform: rotate(-6.5deg) translateX(-.5rem);
+    }
+`;
+
+const anim_swing2 = keyframes`
+    0%,
+    100% {
+      transform: rotate(7deg) translateX(-1rem);
+    }
+    50% {
+      transform: rotate(-7deg) translateX(1rem);
+    }
+`;
+*/
+
+const anim_swing3 = keyframes`
+    0%,
+    100% {
+      transform: rotate(10.5deg) translateX(-1.5rem);
+    }
+    10% {
+      transform: rotate(10.5deg) translateX(-1.5rem);
+    }
+    50% {
+      transform: rotate(-10.5deg) translateX(1.5rem);
+    }
+    60% {
+      transform: rotate(-10.5deg) translateX(1.5rem);
+    }
+`;
+
+const anim_swing4 = keyframes`
+    0%,
+    100% {
+      transform: rotate(10.5deg) translateX(1.5rem);
+    }
+    10% {
+      transform: rotate(10.5deg) translateX(1.5rem);
+    }
+    50% {
+      transform: rotate(-10.5deg) translateX(-1.5rem);
+    }
+    60% {
+      transform: rotate(-10.5deg) translateX(-1.5rem);
+    }
+`;
+
+interface ScButtonProps {
+  $type?: 'right';
+}
+const ScButton = styled.div<ScButtonProps>`
   display: flex;
-  /* justify-content: space-around; */
-  /* align-items: center; */
+  align-items: center;
   justify-content: center;
-  gap: 1rem;
-  width: 100%;
-  text-align: center;
 
-  h3 {
-    /* font-size: 5rem; */
-    color: var(--color-blue);
-    position: relative;
+  border-radius: 50%;
+  border: 0.25rem solid var(--theme-primary);
+  border-radius: 1rem;
 
-    a {
-      transition: color 0.3s;
-      color: var(--color-white);
-      &:hover {
-        color: var(--color-blue);
-      }
-    }
+  padding: 0.5rem 1rem;
+  margin: 2rem 2rem;
+  padding-top: 0.75rem;
 
-    &:first-child a {
-      &:before {
-        content: '<';
-        position: absolute;
-        right: 100%;
-        margin-right: 1rem;
-        opacity: 0;
-        transition: opacity 0.5s;
-      }
-    }
-    &:last-child a {
-      &:after {
-        content: '>';
-        position: absolute;
-        left: 100%;
-        margin-left: 1rem;
-        opacity: 0;
-        transition: opacity 0.5s;
-      }
-    }
-    a:hover {
-      &:after {
-        opacity: 1;
-      }
-      &:before {
-        opacity: 1;
-      }
+  color: var(--theme-bg);
+  background-color: var(--theme-primary);
+  box-shadow: -0.15rem 0.15rem 0.5rem 0.25rem var(--color-black);
+
+  font-size: 2rem;
+  line-height: 2remrem;
+  font-family: var(--font-heading);
+
+  cursor: pointer;
+
+  --wiggler: ${anim_swing4} 8s infinite ease;
+  ${(p) =>
+    p.$type === 'right' &&
+    css`
+      --wiggler: ${anim_swing3} 8s infinite ease-in-out;
+    `};
+  animation: var(--wiggler);
+  transform: rotate(5deg);
+  transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s;
+
+  @media (hover: hover) {
+    &:hover {
+      color: var(--theme-primary);
+      background-color: var(--theme-bg);
+      box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
+
+      transform: rotate(-5deg) scale(1.2);
+
+      padding: 2rem;
     }
   }
+
+  ${(p) =>
+    p.$type === 'right' &&
+    css`
+      transform: rotate(-1deg);
+      @media (hover: hover) {
+        &:hover {
+          transform: rotate(3deg) scale(1.2);
+        }
+      }
+    `};
+
+  transition: padding 0.5s ease-out, background-color 0.5s, color 0.5s;
+`;
+
+const ScMessage = styled.div`
+  text-align: center;
 `;
 
 // thanks ChatGPT, you're the best
@@ -117,19 +203,16 @@ const textChoices = [
   ["WHAT'S", "COOKIN'"],
   ['GREETINGS', 'STRANGER'],
   ['YO', 'DUDE'],
-  ['HEY', "GOOD LOOKIN'"],
   ['AHOY', 'MATEY'],
   ['BUCKLE UP', 'BUCKAROO'],
-  ['HELLO', 'GORGEOUS'],
+  ['WHAT UP', 'CHEESEBAG'],
   ['WELCOME', 'TO THE ZOO'],
   ['HELLO', 'BEAUTIFUL'],
   ['GREETINGS', 'CITIZEN'],
   ['GREETINGS', 'SUNBEAM'],
-  ['HELLO', 'ROCKSTAR'],
-  ['HELLO', 'SUNFLOWER'],
-  ['HELLO', 'SUNSHINE'],
-  ['HELLO', 'TOASTER STRUDEL'],
-  ['HI', 'SPARKLE CAKE'],
+  ['OH...', "IT'S YOU"],
+  ['HEY THERE', 'ROCKSTAR'],
+  ['HEY THERE', 'SUNSHINE'],
 ];
 
 function HomeContent() {
@@ -138,13 +221,16 @@ function HomeContent() {
     <ScBody>
       <h2>{text[0]}</h2>
       <ScMessage>
-        <h3>
-          <Link to={'/blog'}>{'BLOG'}</Link>
-        </h3>
-        <h3>{' / '}</h3>
-        <h3>
-          <Link to={'/projects'}>{`PROJECTS`}</Link>
-        </h3>
+        <Link to={'/blog'}>
+          <ScButton>
+            <span>{'BLOG'}</span>
+          </ScButton>
+        </Link>
+        <Link to={'/projects'}>
+          <ScButton $type='right'>
+            <span>{'PROJECTS'}</span>
+          </ScButton>
+        </Link>
       </ScMessage>
       {text[1] && <h2>{text[1]}</h2>}
     </ScBody>

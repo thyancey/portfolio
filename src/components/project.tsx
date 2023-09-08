@@ -4,7 +4,7 @@ import Icon_RocketLaunch from '@mui/icons-material/RocketLaunch';
 import Icon_Code from '@mui/icons-material/Code';
 import ProjectGallery, { ScGallery } from './project-gallery';
 import ProjectModal from './project-modal';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef } from 'react';
 import { StoreContext } from '../store/context';
 
 const ScWrapper = styled.div`
