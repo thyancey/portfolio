@@ -25,6 +25,7 @@ export type ProjectDef = {
   titleComponent: React.ReactNode;
 };
 
+// WIDER IMAGES WORK BETTER WITH THE STUPID MODAL
 export const Projects: ProjectDef[] = [
   Zebra,
   Slots,

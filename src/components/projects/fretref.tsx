@@ -12,7 +12,7 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h2>{'How to Play'}</h2>
+      <h2>{'What the hell is this?'}</h2>
       <p>{'Some more details'}</p>
     </>
   );

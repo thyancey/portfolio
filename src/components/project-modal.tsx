@@ -141,6 +141,7 @@ const ScSubModal = styled.div`
   height: 100%;
   overflow-y: auto;
 
+
   img {
     flex: 1;
     object-fit: contain;
@@ -150,6 +151,9 @@ const ScSubModal = styled.div`
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
+
+    /* TODO: this isnt a good solution, but it makes regular desktop not show stupid large modals for tall images */
+    max-height: 37rem;
   }
 
   > p {

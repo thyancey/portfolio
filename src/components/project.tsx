@@ -57,7 +57,7 @@ const ScLaunchButton = styled.a`
   padding: 0.5rem 1rem;
   text-decoration: none;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-family: var(--font-heading);
 
   background-color: var(--theme-bg);
@@ -91,20 +91,19 @@ const ScLaunchButton = styled.a`
 const ScBodyContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 5rem;
   position: relative;
   overflow-x: hidden;
 
   background-color: var(--theme-bg);
 
+  >h2 {
+    text-align: center;
+  }
+
   h2 {
     color: var(--theme-primary);
     word-break: break-word;
-  }
-
-  h3,
-  h4 {
-    color: var(--theme-secondary);
   }
 
   padding: 4rem 3rem;
@@ -115,7 +114,6 @@ const ScBodyContainer = styled.div`
   @media (min-width: 81.25rem) {
   }
 `;
-
 const ScCard = styled.div`
   width: 100%;
   height: 27rem;
@@ -124,14 +122,25 @@ const ScCard = styled.div`
   border: 0.15rem solid var(--theme-primary);
   background-color: var(--theme-bg);
 
+  h1,
+  h2,
+  h3 {
+    color: var(--theme-primary);
+  }
+
+  p,
+  li {
+    color: var(--theme-neutral);
+  }
+
   @media (min-width: 42.15rem) {
     display: grid;
     /* grid-template-columns: 66% 33%; */
     grid-template-columns: auto 20.5rem;
-    grid-template-rows: auto 2rem;
+    grid-template-rows: auto 3.5rem;
     gap: 0.5rem;
 
-    padding: 1.5rem 2rem 1rem 2rem;
+    padding: 1.5rem 2rem;
 
     ${ScContent} {
       grid-column: 1;
@@ -144,14 +153,9 @@ const ScCard = styled.div`
     }
     ${ScGallery} {
       grid-column: 2;
-      grid-row: 1 / span 1;
+      grid-row: 1 / span 2;
       margin-left: 1rem; // this helps it appear centered on the right
       /* max-width: 15rem; */
-    }
-    >h3 {
-      grid-column: 2;
-      grid-row: 2;
-      text-align:center;
     }
   }
 
@@ -189,7 +193,15 @@ const ScCard = styled.div`
       position: relative;
     }
   }
+`;
 
+const ScBodyComponent = styled.div`
+  /* width: 92%; */
+  /* margin-left: 5%; */
+  border-radius: 2rem;
+  border-top: .25rem dashed var(--theme-primary);
+  border-bottom: .25rem dashed var(--theme-primary);
+  background-color: var(--theme-bg);
 
   h1,
   h2,
@@ -201,6 +213,16 @@ const ScCard = styled.div`
   li {
     color: var(--theme-neutral);
   }
+
+  
+  @media (min-width: 42.15rem) {
+    padding: 1.5rem 2rem;
+  }
+
+  /* mobile */
+  @media (max-width: 42.15rem) {
+    padding: 1.5rem;
+  }
 `;
 
 interface Props {
@@ -208,7 +230,6 @@ interface Props {
   imageIdx?: number;
 }
 function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
-
   return (
     <ScWrapper>
       <ProjectModal contentDef={contentDef} imageIdx={imageIdx} />
@@ -224,7 +245,7 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
             {contentDef.url && (
               <ScLaunchButton href={contentDef.url} target='_blank'>
                 <Icon_RocketLaunch />
-                <span>{'LAUNCH IT'}</span>
+                <span>{'TRY IT'}</span>
               </ScLaunchButton>
             )}
             {contentDef.repoUrl && (
@@ -235,10 +256,9 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
             )}
           </ScButtons>
           {/* <GalleryActive contentDef={contentDef} /> */}
-          <h3>{'gallery'}</h3>
           <ProjectGallery contentDef={contentDef} />
         </ScCard>
-        {contentDef.bodyComponent && <div>{contentDef.bodyComponent}</div>}
+        {contentDef.bodyComponent && <ScBodyComponent>{contentDef.bodyComponent}</ScBodyComponent>}
       </ScBodyContainer>
     </ScWrapper>
   );
