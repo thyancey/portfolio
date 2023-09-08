@@ -1,4 +1,4 @@
-import Codeblock from '../../codeblock';
+import Codeblock from '../codeblock';
 
 export const ProjectTitle = () => {
   return (

@@ -2,13 +2,12 @@ import styled, { css } from 'styled-components';
 import { Route, Routes, useLocation } from 'react-router';
 import { Navigate } from 'react-router-dom';
 
-import { Projects } from './components/content/data';
-// import Content from './components/content';
-import HomeContent from './components/content/home';
+import { Projects } from './components/data';
+import HomeContent from './components/home';
 import Footer from './components/footer';
 import Header from './components/header';
-import BlogContent from './components/content/blog';
-import ProjectContent from './components/content/project';
+import BlogContent from './components/blog';
+import ProjectContent from './components/project';
 
 const TRANSITION_SPEED = '.5s';
 

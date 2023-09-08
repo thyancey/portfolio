@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { getUrl } from '../../assets';
+import { getUrl } from '../assets';
 import { ContentDef } from './data';
 import Icon_Close from '@mui/icons-material/Close';
 import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
