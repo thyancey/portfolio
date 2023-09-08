@@ -12,10 +12,20 @@
   --hsl-blue-l: 52%;
   --hsl-blue: var(--hsl-blue-h), var(--hsl-blue-s), var(--hsl-blue-l);
 
+  --hsl-purple-h: 262;
+  --hsl-purple-s: 90%;
+  --hsl-purple-l: 54%;
+  --hsl-purple: var(--hsl-purple-h), var(--hsl-purple-s), var(--hsl-purple-l);
+
   --hsl-green-h: 117;
   --hsl-green-s: 90%;
   --hsl-green-l: 62%;
   --hsl-green: var(--hsl-green-h), var(--hsl-green-s), var(--hsl-green-l);
+
+  --hsl-yellow-h: 59;
+  --hsl-yellow-s: 90%;
+  --hsl-yellow-l: 62%;
+  --hsl-yellow: var(--hsl-yellow-h), var(--hsl-yellow-s), var(--hsl-yellow-l);
 
   --hsl-white-h: 52;
   --hsl-white-s: 84%;
@@ -29,12 +39,21 @@
 
 
   --color-blue: hsl(var(--hsl-blue-h), var(--hsl-blue-s), var(--hsl-blue-l), 1);
-  --color-blue-dark: hsl(var(--hsl-blue-h), var(--hsl-blue-s), calc(var(--hsl-blue-l) * .9));
+  --color-blue-dark: hsl(var(--hsl-blue-h), var(--hsl-blue-s), calc(var(--hsl-blue-l) * .6));
   --color-blue-light: hsl(var(--hsl-blue-h), var(--hsl-blue-s), calc(var(--hsl-blue-l) / .9));
+
+  --color-purple: hsl(var(--hsl-purple-h), var(--hsl-purple-s), var(--hsl-purple-l), 1);
+  --color-purple-dark: hsl(var(--hsl-purple-h), var(--hsl-purple-s), calc(var(--hsl-purple-l) * .9));
+  --color-purple-light: hsl(var(--hsl-purple-h), var(--hsl-purple-s), calc(var(--hsl-purple-l) / .9));
 
   --color-green: hsl(var(--hsl-green-h), var(--hsl-green-s), var(--hsl-green-l), 1);
   --color-green-dark: hsl(var(--hsl-green-h), var(--hsl-green-s), calc(var(--hsl-green-l) * .9));
   --color-green-light: hsl(var(--hsl-green-h), var(--hsl-green-s), calc(var(--hsl-green-l) / .9));
+
+  --color-yellow: hsl(var(--hsl-yellow-h), var(--hsl-yellow-s), var(--hsl-yellow-l), 1);
+  --color-yellow-dark: hsl(var(--hsl-yellow-h), var(--hsl-yellow-s), calc(var(--hsl-yellow-l) * .9));
+  --color-yellow-light: hsl(var(--hsl-yellow-h), var(--hsl-yellow-s), calc(var(--hsl-yellow-l) / .9));
+
 
   --color-black: hsl(0, 0%, 0%, 1);
 
@@ -46,29 +65,83 @@
 
 
   --theme-default-primary: var(--color-green);
-  --theme-default-secondary: var(--color-blue);
-  --theme-default-bg: var(--color-grey);
+  --theme-default-secondary: var(--color-purple);
+  --theme-default-bg: var(--color-purple);
   --theme-default-neutral: var(--color-white);
+  --theme-default-blobglow: var(--color-green);
+
+  
+  --theme-blog-primary: var(--color-blue);
+  --theme-blog-secondary: hsl(var(--hsl-blue-h), var(--hsl-blue-s), calc(var(--hsl-blue-l) * .3));
+  --theme-blog-bg: hsl(240, 100%, 4%, 1);
+  --theme-blog-neutral: var(--color-white);
+  --theme-blog-blobglow: var(--color-blue);
 
   --theme-slots-primary: #ef7192;
   --theme-slots-secondary: #ef7192;
   --theme-slots-bg: #181a1c;
   --theme-slots-neutral: var(--color-white);
+  --theme-slots-blobglow: #7a3a4b;
 
   --theme-zebra-primary: #d48e55;
-  --theme-zebra-secondary: #d48e55;
+  --theme-zebra-secondary: #afb224;
   --theme-zebra-bg: #35120e;
   --theme-zebra-neutral: var(--color-white);
+  --theme-zebra-blobglow: #6e492b;
 
+  
+  --theme-dropship-primary: #00ff00;
+  --theme-dropship-secondary: #ff0000;
+  --theme-dropship-bg: #000000;
+  --theme-dropship-neutral: #ffffff;
+  --theme-dropship-blobglow: #007a00;
+  
+  --theme-fretref-primary: #a246bd;
+  --theme-fretref-secondary: #4679bd;
+  --theme-fretref-bg: #000000;
+  --theme-fretref-neutral: #ffffff;
+  --theme-fretref-blobglow: #723185;
+
+  --theme-alteredchromatic-primary: #ffffff;
+  --theme-alteredchromatic-secondary: #63c7d8;
+  --theme-alteredchromatic-bg: #da3471;
+  --theme-alteredchromatic-neutral: #ffffff;
+  --theme-alteredchromatic-blobglow: #a1ced6;
+  /* black is 1f1f1f */
+
+  --theme-raccoontrapper-primary: #eec39a;
+  --theme-raccoontrapper-secondary: #847e87;
+  --theme-raccoontrapper-bg: #663a31;
+  --theme-raccoontrapper-neutral: #eec39a;
+  --theme-raccoontrapper-blobglow: #91775e;
+
+  /* grey 847e87 */
+  /* pink d77bba */
+  /* brown 663a31 */
+  /* tan eec39a */
+
+  --theme-browserpet-primary: #fef8dd;
+  --theme-browserpet-secondary: #51f249;
+  --theme-browserpet-bg: #1fb9f3;
+  --theme-browserpet-neutral: #000000;
+  --theme-browserpet-blobglow: #a4e8a0;
+  /* blue 1fb9f3 */
+  /* green 51f249 */
+  /* white fef8dd */
 
   --color-transparent: rgba(0, 0, 0, 0);
+
   --theme-primary: var(--theme-default-primary);
   --theme-secondary: var(--theme-default-secondary);
   --theme-neutral: var(--theme-default-neutral);
   --theme-bg: var(--theme-default-bg);
+  --theme-blobglow: var(--theme-default-blobglow);
 
   --font-heading: 'Luckiest Guy', cursive;
   --font-body: 'Allerta', sans-serif;
+
+  /* TODO: this wasnt working with media queries for some reason */
+  --breakpoint-mobile: 42.15rem;
 
   font-family: var(--font-body);
   font-weight: 400;
@@ -76,10 +149,10 @@
   font-size: 100%;
 }
 
-#main {
+/* #main {
   color: var(--color-grey);
   background-color: var(--color-black);
-}
+} */
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -89,19 +162,38 @@ h1, h2, h3 {
   font-family: var(--font-heading);
   padding: 0;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
+p {
+  margin: 0;
+  padding:0;
+}
+
+
+p + ul {
+  margin-top: .5rem;
+}
+ul {
+  margin-top:0;
+}
+ul:last-child {
+  margin-bottom: 0;
+}
+
+li {
+  margin-top: .5rem;
+}
+
+
 h1{
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 3rem;
 }
 h2{
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
 }
 h3{
   font-size: 1.8rem;
-  margin-bottom: 1rem;
 }
 
 a{
@@ -110,4 +202,13 @@ a{
 }
 a:hover{
   color: var(--color-blue);
+}
+
+
+/* mui overrides */
+svg.icon-large{
+  font-size: 3rem;
+}
+svg.icon-xlarge{
+  font-size: 4rem;
 }
