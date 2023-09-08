@@ -1,24 +1,39 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { getUrl } from '../assets';
 import { ProjectDef } from '../store/data';
 import Icon_Close from '@mui/icons-material/Close';
 import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
-const ScCarouselBtn = styled.div`
+interface ScCarouselBtnProps {
+  $type: 'prev' | 'next';
+}
+const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
   position: absolute;
+  z-index: 1;
   top: 50%;
   transform: translateY(-50%);
 
-  left: auto;
-  right: 0rem;
-  z-index: 1;
+  background-color: var(--theme-bg);
+  border-radius: 50%;
+  box-shadow: 0 0 1rem 0.5rem var(--theme-primary);
 
-  &:first-child {
-    right: auto;
-    left: 0rem;
-  }
+  padding: 0.25rem;
+  padding-bottom: 0;
+
+  ${(p) =>
+    p.$type === 'prev' &&
+    css`
+      right: auto;
+      left: -2.25rem;
+    `}
+  ${(p) =>
+    p.$type === 'next' &&
+    css`
+      left: auto;
+      right: -2.25rem;
+    `}
 `;
 
 const ScModalContainer = styled.div`
@@ -26,6 +41,12 @@ const ScModalContainer = styled.div`
   inset: 0;
   z-index: 9999;
   pointer-events: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2.5rem;
 `;
 
 const ScModalFade = styled.div`
@@ -44,50 +65,39 @@ const ScModalFade = styled.div`
   }
 `;
 
-const ScModalImg = styled.div`
+const ScModal = styled.div`
+  z-index: 1;
   position: relative;
 
-  img {
-    inset: 0;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-
-    object-fit: contain;
-    filter: drop-shadow(2px 4px 6px var(--color-black));
-  }
-`;
-
-const ScModal = styled.div`
-  position: absolute;
-  bottom: 0%;
-  height: 80%;
-  left: 10rem;
-  right: 10rem;
-
+  /* height: min-content; */
+  /* max-height: 80%; */
   max-width: 50rem;
-  margin: auto;
-  z-index: 1;
 
   background-color: var(--theme-bg);
-  border-radius: 1rem;
-
+  border-radius: 2rem;
   box-shadow: 0.3rem 0.4rem 0.3rem 0.1rem var(--color-black);
-
   text-align: left;
-  padding: 2rem;
+  padding: 1.5rem;
+  padding-bottom: 1rem;
 
-  display: flex;
-  flex-direction: column;
-
+  /* for animating in/out */
   pointer-events: none;
   opacity: 0;
+  min-height: 40%;
+  width: 100%;
+  transform: translateY(50%);
+  transition: transform 0.5s, opacity 0.5s;
 
-  transition: bottom 0.5s, opacity 0.5s;
   &.active {
-    bottom: 10%;
+    /* bottom: 50%; */
     pointer-events: all;
     opacity: 1;
+    transform: translateY(0%);
+  }
+
+  h2 {
+    text-align: center;
+    padding-right: 4rem;
   }
 
   a {
@@ -102,40 +112,54 @@ const ScModal = styled.div`
   /*  x button */
   > a {
     position: absolute;
-    right: 0.5rem;
-    top: 0.5rem;
+    right: -2.25rem;
+    top: -1rem;
+    z-index: 1;
+
+    background-color: var(--theme-bg);
+    box-shadow: 0 0 1rem 0.5rem var(--theme-primary);
+    border-radius: 50%;
+
+    padding: 0.7rem;
+    padding-bottom: 0.5rem;
   }
 
-  > ${ScModalImg} {
+  @media (max-width: 42.15rem) {
+    padding: 1rem;
+  }
+`;
+
+const ScSubModal = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  /* this allows for some shadows */
+  padding: 0.5rem;
+
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+
+  img {
     flex: 1;
+    object-fit: contain;
+    filter: drop-shadow(2px 4px 6px var(--color-black));
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
   }
 
   > p {
     border-top: 2px dashed var(--theme-primary);
-    padding-top: 0.5rem;
+    padding-top: 0.75rem;
     color: var(--theme-primary);
     margin: 1rem 0 0 0;
     max-height: 30%;
-    overflow-y: auto;
-  }
-
-  @media (max-width: 42.15rem) {
-    inset: 1rem;
-    padding: 1rem;
-
-    /*  x button */
-    > a {
-      position: absolute;
-      right: -1.25rem;
-      top: -1.25rem;
-      background-color: var(--theme-bg);
-      border-radius: 50%;
-      padding: 0.25rem;
-      padding-bottom: 0.1rem;
-    }
   }
 `;
-
 
 interface Props {
   contentDef: ProjectDef;
@@ -146,33 +170,36 @@ function ProjectModal({ contentDef, imageIdx = -1 }: Props) {
   const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
   const galleryImage = (imageIdx > -1 && contentDef.gallery[imageIdx]) || null;
 
+  const modalTitle = (imageIdx > -1 && contentDef.gallery[imageIdx].title) || null;
   return (
     <ScModalContainer>
       <ScModalFade className={imageIdx > -1 ? 'active' : ''} />
 
       <ScModal className={imageIdx > -1 ? 'active' : ''}>
-        <ScCarouselBtn>
-          {prevImageIdx > -1 && (
-            <Link to={contentDef.route + '/' + prevImageIdx}>
-              <Icon_KeyboardArrowLeft className='icon-xlarge' />
-            </Link>
-          )}
-        </ScCarouselBtn>
-        <ScCarouselBtn>
-          {nextImageIdx > -1 && (
-            <Link to={contentDef.route + '/' + nextImageIdx}>
-              <Icon_KeyboardArrowRight className='icon-xlarge' />
-            </Link>
-          )}
-        </ScCarouselBtn>
-        <ScModalImg>{galleryImage && <img src={getUrl(galleryImage.image)} />}</ScModalImg>
-
+        {/* X button */}
         <Link to={contentDef.route}>
           <Icon_Close className='icon-large' />
         </Link>
-        {/* <Link to={contentDef.route}><IconButton size="large"><Icon_Close /></IconButton></Link> */}
+        {prevImageIdx > -1 && (
+          <ScCarouselRoundBtn $type={'prev'}>
+            <Link to={contentDef.route + '/' + prevImageIdx}>
+              <Icon_KeyboardArrowLeft className='icon-xlarge' />
+            </Link>
+          </ScCarouselRoundBtn>
+        )}
+        {nextImageIdx > -1 && (
+          <ScCarouselRoundBtn $type={'next'}>
+            <Link to={contentDef.route + '/' + nextImageIdx}>
+              <Icon_KeyboardArrowRight className='icon-xlarge' />
+            </Link>
+          </ScCarouselRoundBtn>
+        )}
 
-        <p>{(galleryImage && galleryImage.caption) || ''}</p>
+        <ScSubModal>
+          {modalTitle && <h2>{modalTitle}</h2>}
+          {galleryImage && <img src={getUrl(galleryImage.image)} />}
+          <p>{(galleryImage && galleryImage.caption) || ''}</p>
+        </ScSubModal>
       </ScModal>
     </ScModalContainer>
   );

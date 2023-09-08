@@ -10,6 +10,7 @@ export type GalleryDef = {
   image: string;
   thumbnail?: string;
   caption?: string;
+  title?: string;
 };
 
 export type ProjectDef = {
