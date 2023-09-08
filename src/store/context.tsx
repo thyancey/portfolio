@@ -4,6 +4,8 @@ const StoreContext = createContext({} as StoreContextType);
 interface StoreContextType {
   count: number;
   setCount: (count: SetStateAction<number>) => void;
+  isHeaderCollapsed: boolean;
+  setIsHeaderCollapsed: (value: SetStateAction<boolean>) => void;
 }
 
 interface Props {
@@ -11,6 +13,7 @@ interface Props {
 }
 const StoreProvider = ({ children }: Props) => {
   const [count, setCount] = useState(0);
+  const [isHeaderCollapsed, setIsHeaderCollapsed] = useState(false);
 
   return (
     <StoreContext.Provider
@@ -18,6 +21,8 @@ const StoreProvider = ({ children }: Props) => {
         {
           count,
           setCount,
+          isHeaderCollapsed,
+          setIsHeaderCollapsed,
         } as StoreContextType
       }
     >

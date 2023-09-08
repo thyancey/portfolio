@@ -1,14 +1,12 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { ScBlobBorder } from './blob-border';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { StoreContext } from '../store/context';
 
 const ScHeader = styled.header`
   background-color: var(--color-black);
-
   display: flex;
-
-  /* justify-content: center; */
-  /* flex-wrap: wrap; */
 
   padding: 0rem 1rem;
   margin-bottom: 1rem;
@@ -29,9 +27,16 @@ const ScHeader = styled.header`
     &.active {
       a {
         color: var(--color-blue);
-        /* text-decoration: underline; */
       }
     }
+  }
+
+  transition: margin-top .3s ease-out;
+  margin-top: 0rem;
+
+  &.collapsed {
+    margin-top: -2.5rem;
+    transition: margin-top .3s ease;
   }
 `;
 
@@ -42,7 +47,7 @@ const ScContent = styled.div`
   padding-top: 0.25rem;
   justify-content: space-evenly;
   /* sit over the blob, so it can tuck under */
-  z-index:2;
+  z-index: 2;
 
   h2 {
     font-size: 1.5rem;
@@ -72,15 +77,16 @@ interface Props {
   status: string;
 }
 function Header({ status }: Props) {
-  console.log('status', status);
+  const  { isHeaderCollapsed } = useContext(StoreContext);
+
   return (
-    <ScHeader>
+    <ScHeader className={isHeaderCollapsed ? 'collapsed' : ''}>
       <ScContent>
         <Link to={'/'}>
           <h2 className={status === 'home' ? 'active' : ''}>{'home'}</h2>
         </Link>
         <Link to={'/blog'}>
-        <h2 className={status === 'blog' ? 'active' : ''}>{'blog'}</h2>
+          <h2 className={status === 'blog' ? 'active' : ''}>{'blog'}</h2>
         </Link>
         <Link to={'/projects'}>
           <h2 className={status === 'projects' ? 'active' : ''}>{'projects'}</h2>

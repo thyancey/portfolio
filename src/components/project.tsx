@@ -4,6 +4,15 @@ import Icon_RocketLaunch from '@mui/icons-material/RocketLaunch';
 import Icon_Code from '@mui/icons-material/Code';
 import ProjectGallery, { ScGallery } from './project-gallery';
 import ProjectModal from './project-modal';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { StoreContext } from '../store/context';
+
+const ScWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  position: relative;
+`;
 
 const ScContent = styled.div`
   position: relative;
@@ -18,13 +27,6 @@ const ScContentBlock = styled.div`
     overflow-y: auto; // cause content can get long
     flex: 1;
   }
-`;
-
-const ScWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  overflow-y: auto;
-  position: relative;
 `;
 
 const ScButtons = styled.div`
@@ -97,7 +99,7 @@ const ScBodyContainer = styled.div`
   /* background-color: var(--theme-bg);
   transition: background-color 1s ease-out; */
 
-  >h2 {
+  > h2 {
     text-align: center;
   }
 
@@ -199,8 +201,8 @@ const ScBodyComponent = styled.div`
   /* width: 92%; */
   /* margin-left: 5%; */
   border-radius: 2rem;
-  border-top: .25rem dashed var(--theme-primary);
-  border-bottom: .25rem dashed var(--theme-primary);
+  border-top: 0.25rem dashed var(--theme-primary);
+  border-bottom: 0.25rem dashed var(--theme-primary);
   background-color: var(--theme-bg);
 
   h1,
@@ -214,7 +216,6 @@ const ScBodyComponent = styled.div`
     color: var(--theme-neutral);
   }
 
-  
   @media (min-width: 42.15rem) {
     padding: 1.5rem 2rem;
   }
@@ -230,8 +231,30 @@ interface Props {
   imageIdx?: number;
 }
 function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
+  const scrollRef = useRef<HTMLInputElement | null>(null);
+  const { setIsHeaderCollapsed } = useContext(StoreContext);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const domEl = scrollRef.current;
+
+      const handleScroll = () => {
+        if (domEl && domEl.scrollTop > 100) {
+          setIsHeaderCollapsed(true); // Hide the header when scrolled down
+        } else {
+          setIsHeaderCollapsed(false); // Show the header when at the top
+        }
+      };
+
+      domEl.addEventListener('scroll', handleScroll);
+      return () => {
+        domEl && domEl.removeEventListener('scroll', handleScroll); // Clean up the event listener
+      };
+    }
+  }, [setIsHeaderCollapsed]);
+
   return (
-    <ScWrapper>
+    <ScWrapper id='projects' ref={scrollRef}>
       <ProjectModal contentDef={contentDef} imageIdx={imageIdx} />
       <ScBodyContainer>
         <ScCard>
