@@ -17,7 +17,8 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
 
   background-color: var(--theme-bg);
   border-radius: 50%;
-  box-shadow: 0 0 .25rem 0.1rem var(--theme-primary);
+  /* box-shadow: 0 0 .25rem 0.1rem var(--theme-primary); */
+  box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
   border: .25rem solid var(--theme-primary);
 
   padding: 0.25rem;
@@ -119,7 +120,7 @@ const ScModal = styled.div`
     z-index: 1;
 
     background-color: var(--theme-bg);
-    box-shadow: 0 0 .25rem 0.1rem var(--theme-primary);
+    box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
     border: .25rem solid var(--theme-primary);
     border-radius: 50%;
 
