@@ -111,7 +111,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
       transition: opacity 0.5s .1s, bottom 0.3s, transform 0.3s;
       bottom: 100%;
       opacity: 1;
-      transform: rotate(-10deg) translateY(-.5rem);
+      transform: rotate(-5deg) translateY(-.5rem);
     }
   }
 `;

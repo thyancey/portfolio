@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUrl } from '../assets';
-import { ContentDef } from './data';
+import { ContentDef } from '../store/data';
 import Icon_Close from '@mui/icons-material/Close';
 import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
@@ -31,32 +31,11 @@ const ScImage = styled.div<ScImageProps>`
     transition: box-shadow 0.3s, transform 0.3s;
   }
 
-  &::before {
-    content: 'see more!';
-    font-size: 1rem;
-    position: absolute;
-    line-height: 1rem;
-    text-align: center;
-    pointer-events: none;
-    color: var(--theme-primary);
-
-    opacity: 0;
-    bottom: 1rem;
-
-    transform: rotate(${(p) => p.$rotation}deg);
-    transition: opacity 0.3s 0.1s, bottom 0.2s ease;
-  }
-
   &:hover {
     img {
-      transform: rotate(${(p) => p.$rotation}deg) translateY(-1rem);
+      transform: rotate(${(p) => p.$rotation}deg) translateY(-.5rem);
       border: 2px solid var(--theme-primary);
-      box-shadow: 0px 0px 8px 2px var(--theme-primary), 10px 12px 10px var(--color-black);
-    }
-
-    &::before {
-      opacity: 1;
-      bottom: -0.75rem;
+      box-shadow: 0px 0px 8px 2px var(--theme-primary), 8px 10px 5px var(--color-black);
     }
   }
 

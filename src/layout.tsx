@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { Route, Routes, useLocation } from 'react-router';
 import { Navigate } from 'react-router-dom';
 
-import { Projects } from './components/data';
+import { Projects } from './store/data';
 import HomeContent from './components/home';
 import Footer from './components/footer';
 import Header from './components/header';

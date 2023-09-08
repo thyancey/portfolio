@@ -1,10 +1,10 @@
-import Slots from './projects/slots';
-import Zebra from './projects/zebra';
-import Dropship from './projects/dropship';
-import AlteredChromatic from './projects/alteredchromatic';
-import FretRef from './projects/fretref';
-import BrowserPet from './projects/browserpet';
-import RaccoonTrapper from './projects/raccoontrapper';
+import Slots from '../components/projects/slots';
+import Zebra from '../components/projects/zebra';
+import Dropship from '../components/projects/dropship';
+import AlteredChromatic from '../components/projects/alteredchromatic';
+import FretRef from '../components/projects/fretref';
+import BrowserPet from '../components/projects/browserpet';
+import RaccoonTrapper from '../components/projects/raccoontrapper';
 
 export type GalleryDef = {
   image: string;
