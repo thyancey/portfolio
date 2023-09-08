@@ -12,6 +12,7 @@ type ScBlobBorderProps = {
 };
 export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   position: absolute;
+    pointer-events: none;
   left: 0;
   width: calc(${BLOB_WIDTH} * ${BLOB_REPEAT});
   height: ${BLOB_HEIGHT};

@@ -91,12 +91,14 @@ export const ScGallery = styled.div`
 
   gap: 1rem;
   padding-bottom: 0rem;
-
-  border: 2px dashed var(--theme-primary);
-  border-radius: 1.5rem;
   padding: 1rem;
 
+  border-radius: 1.5rem;
+  border-top: .25rem dashed var(--theme-primary);
+  border-bottom: .25rem dashed var(--theme-primary);
+
   transition: width 0.3s, height 0.3s;
+  
 `;
 
 interface Props {
