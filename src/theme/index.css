@@ -112,11 +112,13 @@
   /* brown 663a31 */
   /* tan eec39a */
 
-  --theme-browserpet-primary: #51f249;
-  --theme-browserpet-secondary: #000000;
+  --theme-browserpet-primary: #fef8dd;
+  --theme-browserpet-secondary: #51f249;
   --theme-browserpet-bg: #1fb9f3;
-  --theme-browserpet-neutral: #fef8dd;
-
+  --theme-browserpet-neutral: #000000;
+  /* blue 1fb9f3 */
+  /* green 51f249 */
+  /* white fef8dd */
 
   --color-transparent: rgba(0, 0, 0, 0);
   --theme-primary: var(--theme-default-primary);
@@ -149,6 +151,7 @@ h1, h2, h3 {
   font-family: var(--font-heading);
   padding: 0;
   margin: 0;
+  margin-bottom: 0.5rem;
 }
 
 p {
@@ -156,21 +159,30 @@ p {
   padding:0;
 }
 
+
+p + ul {
+  margin-top: .5rem;
+}
+ul {
+  margin-top:0;
+}
 ul:last-child {
   margin-bottom: 0;
 }
 
+li {
+  margin-top: .5rem;
+}
+
+
 h1{
   font-size: 3rem;
-  margin-bottom: 1rem;
 }
 h2{
   font-size: 2rem;
-  margin-bottom: 1rem;
 }
 h3{
   font-size: 1.8rem;
-  margin-bottom: 1rem;
 }
 
 a{

@@ -35,14 +35,13 @@ const ScButtons = styled.div`
   margin-top: 0.25rem;
 
   @media (max-width: 42.15rem) {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     position: relative;
 
     &:after {
       content: '';
       opacity: 0.5;
-      border-bottom: 2px dashed var(--theme-primary);
       width: 100%;
       position: absolute;
       top: calc(100% + 1.5rem);
@@ -95,7 +94,8 @@ const ScBodyContainer = styled.div`
   position: relative;
   overflow-x: hidden;
 
-  background-color: var(--theme-bg);
+  /* background-color: var(--theme-bg);
+  transition: background-color 1s ease-out; */
 
   >h2 {
     text-align: center;

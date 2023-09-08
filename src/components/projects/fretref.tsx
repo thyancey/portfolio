@@ -3,7 +3,10 @@ export const ProjectTitle = () => {
     <>
       <p>{'An app that helps you play tasty licks without all the hard work'}</p>
       <ul>
-        <li>{'Some stuff to say'}</li>
+        <li>{'Use your ear to find what key and scale a song is in'}</li>
+        <li>{'See all the notes you need to feel like a guitar god'}</li>
+        <li>{'Practice scales, patterns, and learn new ones'}</li>
+        <li>{'Works for multiple instruments and tunings!'}</li>
       </ul>
     </>
   );
@@ -13,7 +16,7 @@ export const ProjectBody = () => {
   return (
     <>
       <h2>{'What the hell is this?'}</h2>
-      <p>{'Some more details'}</p>
+      <p>{'Needs a hefty explanation for the scale finder and what it\'s good for. Maybe a youtube video.'}</p>
     </>
   );
 };

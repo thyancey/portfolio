@@ -3,7 +3,9 @@ export const ProjectTitle = () => {
     <>
       <p>{'Keep some dumb animals alive in a chrome extension'}</p>
       <ul>
-        <li>{'Some stuff to say'}</li>
+        <li>{'The pets will continue to eat, shit, and die when the extension is closed'}</li>
+        <li>{'Take care of several pets at once'}</li>
+        <li>{'Mod your own pets with the power of GIFs'}</li>
       </ul>
     </>
   );
@@ -18,5 +20,11 @@ export default {
   bodyComponent: null,
   url: 'https://thyancey.github.io/tly-browserpet/',
   repoUrl: 'https://github.com/thyancey/tly-browserpet',
-  gallery: [],
+  gallery: [
+    {
+      image: 'browserpet-extension.gif',
+      caption: 'Check up on browserpets whenever you feel lonely, guilty, or just want to procrastinate.',
+      title: 'It\'s a Chrome extension!'
+    }
+  ],
 };

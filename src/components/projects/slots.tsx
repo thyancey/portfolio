@@ -10,6 +10,9 @@ export const ProjectTitle = () => {
       </p>
       <ul>
         <li>
+          {'I had ChatGPT write this copy for me. Thanks, robot.'}
+        </li>
+        <li>
           {'In this realm of chance, every pull of the lever or press of the button represents a shot at big winnings.'}
         </li>
         <li>{`Whether you're chasing cherries, lucky sevens, or bonus symbols, the spinning reels hold the promise of jackpots and thrilling payouts.`}</li>
@@ -37,7 +40,8 @@ export const ProjectBody = () => {
         <li>{'With each spin, the heart races, and dreams of hitting the ultimate jackpot come to life.'}</li>
       </ul>
 
-      <h3>{'Rouge-like Elements'}</h3>
+      <h3>{'Rogue-like Elements'}</h3>
+      <p>{'Here is what a codeblock looks like with another theme'}</p>
 
       <Codeblock>{`{
   title: 'Basic Tutorial',

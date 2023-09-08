@@ -24,8 +24,14 @@ export default {
   description: 'A roguelike shooter build in GameMaker studio',
   theme: 'dropship',
   titleComponent: <ProjectTitle />,
-  bodyComponent: <ProjectBody />,
+  // bodyComponent: <ProjectBody />,
   url: 'https://thyancey.github.io/tly-dropship/',
   repoUrl: '',
-  gallery: [],
+  gallery: [
+    {
+      image: 'dropship-projectiles.gif',
+      caption: 'Projectiles are fully parameterized to allow for many unique combinations. In this example, the missile is slow and explodes after some time. The green nuke is wobbly, and makes a huge explosion on impact, but fizzles out if it doesn\'t hit anything',
+      title: 'Projectile properties',
+    },
+  ],
 };

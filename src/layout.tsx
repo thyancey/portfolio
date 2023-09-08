@@ -29,14 +29,11 @@ const ScContainer = styled.div<ScContainerProps>`
     --theme-neutral: var(--theme-${p.$theme}-neutral);
   `}
 
-  > * {
-    transition: background-color ${TRANSITION_SPEED} ease-in-out, color ${TRANSITION_SPEED} ease-in-out;
-  }
-
   overflow: hidden;
 
   background-color: var(--theme-bg);
   color: var(--theme-neutral);
+  transition: background-color ${TRANSITION_SPEED} ease-in-out, color ${TRANSITION_SPEED} ease-in-out;
 `;
 
 const getStatus = (pathname: string) => {
