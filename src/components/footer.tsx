@@ -12,9 +12,11 @@ const ScFooter = styled.footer`
 
   position: relative;
 
+  transition: min-height .3s;
+
   @media (max-width: 42.15rem) {
-    min-height: 5rem;
-    padding-top: 0.5rem;
+    min-height: .5rem;
+    padding-top: 0rem;
   }
 `;
 
