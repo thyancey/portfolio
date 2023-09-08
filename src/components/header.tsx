@@ -78,7 +78,9 @@ interface Props {
 }
 function Header({ status }: Props) {
   const  { isHeaderCollapsed } = useContext(StoreContext);
+  const blobGlow = 'var(--theme-blobglow, "")'; // Default value or CSS variable
 
+  console.log('blobGLow', blobGlow)
   return (
     <ScHeader className={isHeaderCollapsed ? 'collapsed' : ''}>
       <ScContent>
@@ -92,7 +94,7 @@ function Header({ status }: Props) {
           <h2 className={status === 'projects' ? 'active' : ''}>{'projects'}</h2>
         </Link>
       </ScContent>
-      <ScBlobBorder $blobType='header' />
+      <ScBlobBorder $blobType='header' $blobGlow={blobGlow} />
     </ScHeader>
   );
 }

@@ -7,12 +7,14 @@ const BLOB_HEIGHT = '65px';
 const BLOB_SPEED = 30; // time in seconds to complete a blob loop, lower is faster
 const BLOB_REPEAT = 5; // how many repeated segments, avoids seeing the edge when on wide monitors.
 
+
 type ScBlobBorderProps = {
   $blobType: 'header' | 'footer';
+  $blobGlow?: string;
 };
 export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   position: absolute;
-    pointer-events: none;
+  pointer-events: none;
   left: 0;
   width: calc(${BLOB_WIDTH} * ${BLOB_REPEAT});
   height: ${BLOB_HEIGHT};
@@ -39,7 +41,12 @@ export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   }
 
   background-image: url(${AssetMap.BlobDivider});
-  animation: blob-wrap-left ${BLOB_SPEED / 2}s linear infinite;
+  animation: blob-wrap-left ${BLOB_SPEED * .5}s linear infinite;
+
+  /* ${p => p.$blobGlow && css`
+    filter: drop-shadow(0px -4px 2px p.$blobGlow);
+  `} */
+  filter: drop-shadow(0px -4px 2px var(--theme-blobglow));
 
   .theme-blog && {
     filter: drop-shadow(0px -4px 2px var(--theme-blog-secondary));

@@ -27,6 +27,7 @@ const ScContainer = styled.div<ScContainerProps>`
     --theme-secondary: var(--theme-${p.$theme}-secondary);
     --theme-bg: var(--theme-${p.$theme}-bg);
     --theme-neutral: var(--theme-${p.$theme}-neutral);
+    --theme-blobglow: var(--theme-${p.$theme}-blobglow);
   `}
 
   overflow: hidden;

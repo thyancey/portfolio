@@ -68,44 +68,52 @@
   --theme-default-secondary: var(--color-purple);
   --theme-default-bg: var(--color-purple);
   --theme-default-neutral: var(--color-white);
+  --theme-default-blobglow: var(--color-green);
 
   
   --theme-blog-primary: var(--color-blue);
   --theme-blog-secondary: hsl(var(--hsl-blue-h), var(--hsl-blue-s), calc(var(--hsl-blue-l) * .3));
   --theme-blog-bg: hsl(240, 100%, 4%, 1);
   --theme-blog-neutral: var(--color-white);
+  --theme-blog-blobglow: var(--color-blue);
 
   --theme-slots-primary: #ef7192;
   --theme-slots-secondary: #ef7192;
   --theme-slots-bg: #181a1c;
   --theme-slots-neutral: var(--color-white);
+  --theme-slots-blobglow: #7a3a4b;
 
   --theme-zebra-primary: #d48e55;
   --theme-zebra-secondary: #afb224;
   --theme-zebra-bg: #35120e;
   --theme-zebra-neutral: var(--color-white);
+  --theme-zebra-blobglow: #6e492b;
 
   
   --theme-dropship-primary: #00ff00;
   --theme-dropship-secondary: #ff0000;
   --theme-dropship-bg: #000000;
   --theme-dropship-neutral: #ffffff;
+  --theme-dropship-blobglow: #007a00;
   
   --theme-fretref-primary: #a246bd;
   --theme-fretref-secondary: #4679bd;
   --theme-fretref-bg: #000000;
   --theme-fretref-neutral: #ffffff;
+  --theme-fretref-blobglow: #723185;
 
   --theme-alteredchromatic-primary: #ffffff;
   --theme-alteredchromatic-secondary: #63c7d8;
   --theme-alteredchromatic-bg: #da3471;
   --theme-alteredchromatic-neutral: #ffffff;
+  --theme-alteredchromatic-blobglow: #a1ced6;
   /* black is 1f1f1f */
 
   --theme-raccoontrapper-primary: #eec39a;
   --theme-raccoontrapper-secondary: #847e87;
   --theme-raccoontrapper-bg: #663a31;
   --theme-raccoontrapper-neutral: #eec39a;
+  --theme-raccoontrapper-blobglow: #91775e;
 
   /* grey 847e87 */
   /* pink d77bba */
@@ -116,15 +124,18 @@
   --theme-browserpet-secondary: #51f249;
   --theme-browserpet-bg: #1fb9f3;
   --theme-browserpet-neutral: #000000;
+  --theme-browserpet-blobglow: #a4e8a0;
   /* blue 1fb9f3 */
   /* green 51f249 */
   /* white fef8dd */
 
   --color-transparent: rgba(0, 0, 0, 0);
+
   --theme-primary: var(--theme-default-primary);
   --theme-secondary: var(--theme-default-secondary);
   --theme-neutral: var(--theme-default-neutral);
   --theme-bg: var(--theme-default-bg);
+  --theme-blobglow: var(--theme-default-blobglow);
 
   --font-heading: 'Luckiest Guy', cursive;
   --font-body: 'Allerta', sans-serif;
