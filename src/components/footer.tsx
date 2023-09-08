@@ -102,30 +102,42 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
     transition: opacity 0.3s, bottom 0.3s 0.3s, transform 0.3s 0.3s, padding 0.3s;
   }
 
-  &.active {
-    filter: drop-shadow(2px 4px 6px var(--theme-${(p) => p.$theme}-primary));
-  }
-  @media (hover: hover) {
-    &:hover {
-      z-index: 1;
-      filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-primary));
-
-      &::before {
-        background-color: var(--color-black);
-        padding: 0.5rem 0.75rem;
-        border-radius: 1rem;
-      }
-    }
-  }
-
-  &:hover,
-  &.active {
+  &.active,
+  &:hover {
+    /* tilt up and fade in */
     &::before {
-      /* tilt up and fade in */
       transition: opacity 0.5s 0.1s, bottom 0.3s, transform 0.3s, padding 0.3s;
       bottom: 100%;
       opacity: 1;
       transform: rotate(-5deg) translateY(-0.5rem);
+    }
+  }
+
+  &.active {
+    /* black state */
+    filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-primary));
+    &::before {
+      background-color: var(--color-black);
+      padding: 0.5rem 0.75rem;
+      color: var(--theme-primary);
+      border-radius: 1rem;
+      border: 0.1rem solid var(--theme-primary);
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      z-index: 1;
+
+      /* filled in state */
+      filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-bg));
+      &::before {
+        background-color: var(--theme-${(p) => p.$theme}-primary);
+        padding: 0.5rem 0.75rem;
+        color: var(--color-black);
+        border-radius: 1rem;
+        border: 0.1rem solid var(--theme-${(p) => p.$theme}-primary);
+      }
     }
   }
 `;
