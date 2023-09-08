@@ -17,7 +17,8 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
 
   background-color: var(--theme-bg);
   border-radius: 50%;
-  box-shadow: 0 0 1rem 0.5rem var(--theme-primary);
+  box-shadow: 0 0 .25rem 0.1rem var(--theme-primary);
+  border: .25rem solid var(--theme-primary);
 
   padding: 0.25rem;
   padding-bottom: 0;
@@ -75,7 +76,8 @@ const ScModal = styled.div`
 
   background-color: var(--theme-bg);
   border-radius: 2rem;
-  box-shadow: 0.3rem 0.4rem 0.3rem 0.1rem var(--color-black);
+  box-shadow: 0rem 0rem 1rem 0.5rem var(--color-black);
+  border: .25rem solid var(--theme-primary);
   text-align: left;
   padding: 1.5rem;
   padding-bottom: 1rem;
@@ -97,7 +99,7 @@ const ScModal = styled.div`
 
   h2 {
     text-align: center;
-    padding-right: 4rem;
+    padding-right: 1rem;
   }
 
   a {
@@ -117,7 +119,8 @@ const ScModal = styled.div`
     z-index: 1;
 
     background-color: var(--theme-bg);
-    box-shadow: 0 0 1rem 0.5rem var(--theme-primary);
+    box-shadow: 0 0 .25rem 0.1rem var(--theme-primary);
+    border: .25rem solid var(--theme-primary);
     border-radius: 50%;
 
     padding: 0.7rem;
@@ -145,7 +148,7 @@ const ScSubModal = styled.div`
   img {
     flex: 1;
     object-fit: contain;
-    filter: drop-shadow(2px 4px 6px var(--color-black));
+    filter: drop-shadow(2px 4px 6px var(--theme-primary));
 
     user-select: none;
     -moz-user-select: none;
@@ -159,9 +162,18 @@ const ScSubModal = styled.div`
   > p {
     border-top: 2px dashed var(--theme-primary);
     padding-top: 0.75rem;
-    color: var(--theme-primary);
+    color: var(--theme-neutral);
     margin: 1rem 0 0 0;
     max-height: 30%;
+  }
+  
+  @media (max-width: 42.15rem) {
+    h2 {
+      font-size: 1.25rem;
+    }
+    p {
+      font-size: .75rem;
+    }
   }
 `;
 

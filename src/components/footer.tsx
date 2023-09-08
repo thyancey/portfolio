@@ -12,7 +12,6 @@ const ScFooter = styled.footer`
 
   position: relative;
 
-  
   @media (max-width: 42.15rem) {
     min-height: 5rem;
     padding-top: 0.5rem;
@@ -23,7 +22,7 @@ const ScNavBar = styled.div`
   position: relative;
   z-index: 1;
   text-align: center;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
   min-height: 3.625rem;
 
   display: flex;
@@ -32,11 +31,12 @@ const ScNavBar = styled.div`
 
   > a {
     color: var(--theme-primary);
-    margin: 0 .5rem -.25rem .5rem;
+    margin: 0 0.5rem -0.25rem 0.5rem;
 
-    &:hover{
+    &:hover {
       color: var(--theme-bg);
-      filter: drop-shadow(0 0 3px var(--theme-primary)) drop-shadow(0 0 3px var(--theme-primary)) drop-shadow(0 0 3px var(--theme-primary));
+      filter: drop-shadow(0 0 3px var(--theme-primary)) drop-shadow(0 0 3px var(--theme-primary))
+        drop-shadow(0 0 3px var(--theme-primary));
     }
   }
 `;
@@ -57,9 +57,8 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    /* background-color: var(--theme-bg); */
-    background-color: var(--theme-${p => p.$theme}-bg);
-    border-color: var(--theme-${p => p.$theme}-primary);
+    background-color: var(--theme-${(p) => p.$theme}-bg);
+    border-color: var(--theme-${(p) => p.$theme}-primary);
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -83,7 +82,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
   }
 
   &::before {
-    content: '${p => p.$text}';
+    content: '${(p) => p.$text}';
 
     position: absolute;
     pointer-events: none;
@@ -97,21 +96,36 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
     bottom: 0;
 
-    color: var(--theme-${p => p.$theme}-primary);
+    color: var(--theme-${(p) => p.$theme}-primary);
     opacity: 0;
     /* just fade out on unhover */
-    transition: opacity 0.3s, bottom 0.3s .3s, transform 0.3s .3s;
+    transition: opacity 0.3s, bottom 0.3s 0.3s, transform 0.3s 0.3s, padding 0.3s;
   }
 
-  &:hover {
-    filter: drop-shadow(2px 4px 6px var(--theme-${p => p.$theme}-primary));
+  &.active {
+    filter: drop-shadow(2px 4px 6px var(--theme-${(p) => p.$theme}-primary));
+  }
+  @media (hover: hover) {
+    &:hover {
+      z-index: 1;
+      filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-primary));
 
+      &::before {
+        background-color: var(--color-black);
+        padding: 0.5rem 0.75rem;
+        border-radius: 1rem;
+      }
+    }
+  }
+
+  &:hover,
+  &.active {
     &::before {
       /* tilt up and fade in */
-      transition: opacity 0.5s .1s, bottom 0.3s, transform 0.3s;
+      transition: opacity 0.5s 0.1s, bottom 0.3s, transform 0.3s, padding 0.3s;
       bottom: 100%;
       opacity: 1;
-      transform: rotate(-5deg) translateY(-.5rem);
+      transform: rotate(-5deg) translateY(-0.5rem);
     }
   }
 `;
