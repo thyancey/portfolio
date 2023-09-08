@@ -7,7 +7,7 @@ import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 interface ScCarouselBtnProps {
-  $type: 'prev' | 'next' | 'close';
+  $type: 'prev' | 'next' | 'close' | 'newclose';
 }
 const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
   position: absolute;
@@ -15,10 +15,8 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
   /* top: 50%; */
   /* transform: translateY(-50%); */
 
-  background-color: var(--theme-bg);
   border-radius: 50%;
   /* box-shadow: 0 0 .25rem 0.1rem var(--theme-primary); */
-  box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
   border: 0.25rem solid var(--theme-primary);
 
   padding: 0.25rem;
@@ -27,12 +25,15 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
   border-radius: 1rem;
   cursor: pointer;
 
-  a {
-    color: var(--theme-neutral);
-  }
+  /* color: var(--theme-neutral);
+  background-color: var(--theme-bg);
+  box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black); */
+
+  color: var(--theme-bg);
+  background-color: var(--theme-primary);
+  box-shadow: -0.15rem 0.15rem 0.5rem 0.25rem var(--color-black);
 
   --rot-start: 0deg;
-  --rot-hover: 0deg;
 
   ${(p) =>
     p.$type === 'prev' &&
@@ -41,8 +42,8 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       left: -2.25rem;
       top: 50%;
       transform: translateY(-50%);
+      /* bottom: -2.5rem; */
       --rot-start: 3deg;
-      --rot-hover: 8deg;
     `}
   ${(p) =>
     p.$type === 'next' &&
@@ -51,8 +52,8 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       right: -2.25rem;
       top: 50%;
       transform: translateY(-50%);
+      /* bottom: -2.5rem; */
       --rot-start: -3deg;
-      --rot-hover: -8deg;
     `}
   ${(p) =>
     p.$type === 'close' &&
@@ -63,21 +64,56 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       padding: 0.75rem;
       padding-bottom: 0.5rem;
       --rot-start: 10deg;
-      --rot-hover: 14deg;
+    `}
+  ${(p) =>
+    p.$type === 'newclose' &&
+    css`
+      left: calc(50% - 5rem);
+      right: auto;
+      bottom: -2.5rem;
+      padding: 0.75rem 2rem 0.5rem 2rem;
+      --rot-start: 2deg;
+
+      font-family: var(--font-heading);
+      font-size: 2rem;
     `}
 
   transform: rotate(var(--rot-start));
-  &:hover {
-    background-color: var(--theme-primary);
-    transform: rotate(var(--rot-hover)) scale(1.2);
-    box-shadow: -.15rem .15rem .5rem 0.25rem var(--color-black);
-    
-    a {
+
+  @media (hover: hover) {
+    &:hover {
+      /* 
       color: var(--theme-bg);
+      background-color: var(--theme-primary);
+      box-shadow: -0.15rem 0.15rem 0.5rem 0.25rem var(--color-black); */
+      color: var(--theme-primary);
+      background-color: var(--theme-bg);
+      box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
+
+      ${(p) =>
+        p.$type === 'prev' &&
+        css`
+          transform: rotate(-3deg) scale(1.2);
+        `}
+      ${(p) =>
+        p.$type === 'next' &&
+        css`
+          transform: rotate(3deg) scale(1.2);
+        `}
+      ${(p) =>
+        p.$type === 'close' &&
+        css`
+          transform: rotate(14deg) scale(1.2);
+        `}
+      ${(p) =>
+        p.$type === 'newclose' &&
+        css`
+          transform: rotate(-10deg) scale(1.2);
+        `}
     }
   }
 
-  transition: transform .5s;
+  transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s;
 `;
 
 const ScModalContainer = styled.div`
@@ -111,7 +147,7 @@ const ScModalFade = styled.div`
 
 const ScModal = styled.div`
   z-index: 1;
-  position: relative;
+  /* position: relative; */
 
   /* height: min-content; */
   /* max-height: 80%; */
@@ -123,7 +159,7 @@ const ScModal = styled.div`
   border: 0.25rem solid var(--theme-primary);
   text-align: left;
   padding: 1.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 2rem;
 
   /* for animating in/out */
   pointer-events: none;
@@ -147,6 +183,7 @@ const ScModal = styled.div`
 
   @media (max-width: 42.15rem) {
     padding: 1rem;
+    padding-bottom: 2rem;
   }
 `;
 
@@ -179,9 +216,11 @@ const ScSubModal = styled.div`
   > p {
     border-top: 2px dashed var(--theme-primary);
     padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
     color: var(--theme-neutral);
     margin: 1rem 0 0 0;
     max-height: 30%;
+    border-bottom: 2px dashed var(--theme-primary);
   }
 
   @media (max-width: 42.15rem) {
@@ -210,24 +249,29 @@ function ProjectModal({ contentDef, imageIdx = -1 }: Props) {
 
       <ScModal className={imageIdx > -1 ? 'active' : ''}>
         {/* X button */}
-        <ScCarouselRoundBtn $type={'close'}>
-          <Link to={contentDef.route}>
+        <Link to={contentDef.route}>
+          <ScCarouselRoundBtn $type={'close'}>
             <Icon_Close className='icon-large' />
-          </Link>
-        </ScCarouselRoundBtn>
-        {prevImageIdx > -1 && (
-          <ScCarouselRoundBtn $type={'prev'}>
-            <Link to={contentDef.route + '/' + prevImageIdx}>
-              <Icon_KeyboardArrowLeft className='icon-large' />
-            </Link>
           </ScCarouselRoundBtn>
+        </Link>
+        {/* <Link to={contentDef.route}>
+          <ScCarouselRoundBtn $type={'newclose'}>
+            <span>{'BACK'}</span>
+          </ScCarouselRoundBtn>
+        </Link> */}
+        {prevImageIdx > -1 && (
+          <Link to={contentDef.route + '/' + prevImageIdx}>
+            <ScCarouselRoundBtn $type={'prev'}>
+              <Icon_KeyboardArrowLeft className='icon-large' />
+            </ScCarouselRoundBtn>
+          </Link>
         )}
         {nextImageIdx > -1 && (
-          <ScCarouselRoundBtn $type={'next'}>
-            <Link to={contentDef.route + '/' + nextImageIdx}>
+          <Link to={contentDef.route + '/' + nextImageIdx}>
+            <ScCarouselRoundBtn $type={'next'}>
               <Icon_KeyboardArrowRight className='icon-large' />
-            </Link>
-          </ScCarouselRoundBtn>
+            </ScCarouselRoundBtn>
+          </Link>
         )}
 
         <ScSubModal>
