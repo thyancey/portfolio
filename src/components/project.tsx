@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getUrl } from '../assets';
-import { ContentDef } from '../store/data';
+import { ProjectDef } from '../store/data';
 import Icon_Close from '@mui/icons-material/Close';
 import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
@@ -33,7 +33,7 @@ const ScImage = styled.div<ScImageProps>`
 
   &:hover {
     img {
-      transform: rotate(${(p) => p.$rotation}deg) translateY(-.5rem);
+      transform: rotate(${(p) => p.$rotation}deg) translateY(-0.5rem);
       border: 2px solid var(--theme-primary);
       box-shadow: 0px 0px 8px 2px var(--theme-primary), 8px 10px 5px var(--color-black);
     }
@@ -418,7 +418,7 @@ const ScCard = styled.div`
 `;
 
 interface Props {
-  contentDef: ContentDef;
+  contentDef: ProjectDef;
   imageIdx?: number;
 }
 function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
@@ -473,28 +473,10 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
       <ScBodyContainer>
         <ScCard>
           <ScContent>
-            {contentDef.titleComponent ? (
-              <ScContentBlock>
-                <h2>{contentDef.name}</h2>
-                <div>
-                  {/*
-                    // TODO, this really shouldnt be necessary, fix the types
-                    cloneElement(
-                      contentDef.titleComponent as ReactElement<{
-                        contentDef: ContentDef;
-                      }>,
-                      { contentDef: contentDef }
-                    )
-                    */}
-                  {contentDef.titleComponent}
-                </div>
-              </ScContentBlock>
-            ) : (
-              <>
-                <h2>{contentDef.name}</h2>
-                <p>{contentDef.description}</p>
-              </>
-            )}
+            <ScContentBlock>
+              <h2>{contentDef.name}</h2>
+              <div>{contentDef.titleComponent}</div>
+            </ScContentBlock>
           </ScContent>
           <ScButtons>
             {contentDef.url && (
@@ -522,14 +504,14 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
               {contentDef.gallery.map((i, idx) => (
                 <ScImage key={idx} $rotation={getRandomRotation()}>
                   <a onClick={() => setSelectedImageIdx(idx)}>
-                    <img src={getUrl(i.image)} />
+                    <img src={getUrl(i.thumbnail || i.image)} />
                   </a>
                 </ScImage>
               ))}
             </ScImages>
           </ScGallery>
         </ScCard>
-        <div>{contentDef.bodyComponent}</div>
+        {contentDef.bodyComponent && <div>{contentDef.bodyComponent}</div>}
       </ScBodyContainer>
     </ScWrapper>
   );

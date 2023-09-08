@@ -9,7 +9,7 @@ const AssetMap = {
 }
 
 export function getUrl(name: string) {
-  return new URL(`./content/${name}`, import.meta.url).href;
+  return new URL(`./projects/${name}`, import.meta.url).href;
 }
 
 export default AssetMap;

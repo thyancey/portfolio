@@ -8,10 +8,11 @@ import RaccoonTrapper from '../components/projects/raccoontrapper';
 
 export type GalleryDef = {
   image: string;
+  thumbnail?: string;
   caption?: string;
 };
 
-export type ContentDef = {
+export type ProjectDef = {
   route: string;
   name: string;
   description?: string;
@@ -19,11 +20,11 @@ export type ContentDef = {
   gallery: GalleryDef[];
   url?: string;
   repoUrl?: string;
-  bodyComponent: React.ReactNode;
-  titleComponent?: React.ReactNode;
+  bodyComponent?: React.ReactNode;
+  titleComponent: React.ReactNode;
 };
 
-export const Projects: ContentDef[] = [
+export const Projects: ProjectDef[] = [
   Zebra,
   Slots,
   BrowserPet,

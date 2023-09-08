@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ContentDef } from './content/data';
+import { ProjectDef } from '../store/data';
 import { Link } from 'react-router-dom';
 import { ScBlobBorder } from './blob-border';
 import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
@@ -118,7 +118,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
 interface Props {
   pageIdx: number;
-  projects: ContentDef[];
+  projects: ProjectDef[];
 }
 function Footer({ pageIdx, projects }: Props) {
   let prevIdx = -1;
