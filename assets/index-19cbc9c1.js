@@ -432,29 +432,12 @@ Error generating stack: `+i.message+`
   position: relative;
   z-index: 10;
 
-  h1 {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    font-size: 2rem;
-
-    .MuiSvgIcon-root {
-      margin-bottom: -0.25rem;
-      margin-right: 0.5rem;
-    }
-
-    &.active {
-      a {
-        color: var(--color-blue);
-      }
-    }
-  }
-
-  transition: margin-top .3s ease-out;
+  transition: margin-top 0.3s ease-out;
   margin-top: 0rem;
 
   &.collapsed {
     margin-top: -2.5rem;
-    transition: margin-top .3s ease;
+    transition: margin-top 0.3s ease;
   }
 `,ek=H.div`
   display: flex;
@@ -470,15 +453,17 @@ Error generating stack: `+i.message+`
     display: inline-block;
     margin: 0 0rem;
 
+    &:hover {
+      text-decoration: underline;
+      color: var(--color-blue);
+    }
+
     a {
       transition: color 0.3s;
     }
 
     &.active {
-      a {
-        color: var(--color-blue);
-        text-decoration: underline;
-      }
+      color: var(--color-blue);
     }
   }
 
@@ -487,7 +472,7 @@ Error generating stack: `+i.message+`
     /* tuck the blob in more */
     margin-bottom: -0.75rem;
   }
-`;function tk({status:e}){const{isHeaderCollapsed:t}=E.useContext(Ju),n='var(--theme-blobglow, "")';return console.log("blobGLow",n),g.jsxs(qS,{className:t?"collapsed":"",children:[g.jsxs(ek,{children:[g.jsx(Je,{to:"/",children:g.jsx("h2",{className:e==="home"?"active":"",children:"home"})}),g.jsx(Je,{to:"/blog",children:g.jsx("h2",{className:e==="blog"?"active":"",children:"blog"})}),g.jsx(Je,{to:"/projects",children:g.jsx("h2",{className:e==="projects"?"active":"",children:"projects"})})]}),g.jsx(nm,{$blobType:"header",$blobGlow:n})]})}const nk=H.div`
+`;function tk({status:e}){const{isHeaderCollapsed:t}=E.useContext(Ju),n='var(--theme-blobglow, "")';return console.log("status",e),console.log("blobGLow",n),g.jsxs(qS,{className:t?"collapsed":"",children:[g.jsxs(ek,{children:[g.jsx(Je,{to:"/",children:g.jsx("h2",{className:e==="home"?"active":"",children:"home"})}),g.jsx(Je,{to:"/blog",children:g.jsx("h2",{className:e==="blog"?"active":"",children:"blog"})}),g.jsx(Je,{to:"/projects",children:g.jsx("h2",{className:e==="projects"?"active":"",children:"projects"})})]}),g.jsx(nm,{$blobType:"header",$blobGlow:n})]})}const nk=H.div`
   overflow: hidden;
   position: relative;
 
@@ -523,8 +508,8 @@ Error generating stack: `+i.message+`
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: bottom;
+    object-fit: contain;
+    object-position: center;
 
     border-radius: 0.5rem;
     box-shadow: 4px 4px 6px var(--color-black);
