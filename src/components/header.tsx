@@ -14,29 +14,12 @@ const ScHeader = styled.header`
   position: relative;
   z-index: 10;
 
-  h1 {
-    margin-top: 0.5rem;
-    margin-bottom: 0;
-    font-size: 2rem;
-
-    .MuiSvgIcon-root {
-      margin-bottom: -0.25rem;
-      margin-right: 0.5rem;
-    }
-
-    &.active {
-      a {
-        color: var(--color-blue);
-      }
-    }
-  }
-
-  transition: margin-top .3s ease-out;
+  transition: margin-top 0.3s ease-out;
   margin-top: 0rem;
 
   &.collapsed {
     margin-top: -2.5rem;
-    transition: margin-top .3s ease;
+    transition: margin-top 0.3s ease;
   }
 `;
 
@@ -54,15 +37,17 @@ const ScContent = styled.div`
     display: inline-block;
     margin: 0 0rem;
 
+    &:hover {
+      text-decoration: underline;
+      color: var(--color-blue);
+    }
+
     a {
       transition: color 0.3s;
     }
 
     &.active {
-      a {
-        color: var(--color-blue);
-        text-decoration: underline;
-      }
+      color: var(--color-blue);
     }
   }
 
@@ -77,10 +62,9 @@ interface Props {
   status: string;
 }
 function Header({ status }: Props) {
-  const  { isHeaderCollapsed } = useContext(StoreContext);
+  const { isHeaderCollapsed } = useContext(StoreContext);
   const blobGlow = 'var(--theme-blobglow, "")'; // Default value or CSS variable
 
-  console.log('blobGLow', blobGlow)
   return (
     <ScHeader className={isHeaderCollapsed ? 'collapsed' : ''}>
       <ScContent>
