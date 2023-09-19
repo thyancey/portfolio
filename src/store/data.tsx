@@ -3,7 +3,7 @@ import Zebra from '../components/projects/zebra';
 import Dropship from '../components/projects/dropship';
 import AlteredChromatic from '../components/projects/alteredchromatic';
 import FretRef from '../components/projects/fretref';
-import BrowserPet from '../components/projects/browserpet';
+import BrowserBuddy from '../components/projects/browserbuddy';
 import RaccoonTrapper from '../components/projects/raccoontrapper';
 
 export type GalleryDef = {
@@ -29,9 +29,9 @@ export type ProjectDef = {
 export const Projects: ProjectDef[] = [
   Slots,
   Zebra,
+  BrowserBuddy,
   Dropship,
   AlteredChromatic,
   RaccoonTrapper,
-  FretRef,
-  BrowserPet
+  FretRef
 ];
