@@ -9,7 +9,7 @@
     "build-gh": "tsc && vite build --config vite.ghconfig.ts",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "predeploy": "yarn build-gh",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d dist",
     "test": "vitest",
     "test:ui": "vitest --ui",
