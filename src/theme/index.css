@@ -77,11 +77,11 @@
   --theme-blog-neutral: var(--color-white);
   --theme-blog-blobglow: var(--color-blue);
 
-  --theme-slots-primary: #ef7192;
-  --theme-slots-secondary: #ef7192;
-  --theme-slots-bg: #181a1c;
-  --theme-slots-neutral: var(--color-white);
-  --theme-slots-blobglow: #7a3a4b;
+  --theme-slots-primary: #DC65B4;
+  --theme-slots-secondary: #DC65B4;
+  --theme-slots-bg: #131113;
+  --theme-slots-neutral: #F5F2E0;
+  --theme-slots-blobglow: #51B6F0;
 
   --theme-zebra-primary: #d48e55;
   --theme-zebra-secondary: #afb224;
@@ -120,11 +120,11 @@
   /* brown 663a31 */
   /* tan eec39a */
 
-  --theme-browserpet-primary: #fef8dd;
-  --theme-browserpet-secondary: #51f249;
-  --theme-browserpet-bg: #1fb9f3;
-  --theme-browserpet-neutral: #000000;
-  --theme-browserpet-blobglow: #a4e8a0;
+  --theme-browserbuddy-primary: #fef8dd;
+  --theme-browserbuddy-secondary: #51f249;
+  --theme-browserbuddy-bg: #1fb9f3;
+  --theme-browserbuddy-neutral: #000000;
+  --theme-browserbuddy-blobglow: #a4e8a0;
   /* blue 1fb9f3 */
   /* green 51f249 */
   /* white fef8dd */

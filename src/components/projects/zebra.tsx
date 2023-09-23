@@ -67,8 +67,8 @@ export default {
   theme: 'zebra',
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
-  url: 'https://thyancey.github.io/tly-truth-tables/',
-  repoUrl: 'https://github.com/thyancey/tly-truth-tables',
+  url: 'https://zebratables.com/',
+  // repoUrl: 'https://github.com/thyancey/zebratables',
   gallery: [
     {
       image: 'zebra-1.png',
