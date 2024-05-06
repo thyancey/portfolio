@@ -103,11 +103,11 @@
   --theme-zebra-blobglow: #ef5da8;
 
   
-  --theme-dropship-primary: #00ff00;
-  --theme-dropship-secondary: #ff0000;
-  --theme-dropship-bg: #000000;
-  --theme-dropship-neutral: #ffffff;
-  --theme-dropship-blobglow: #007a00;
+  --theme-infectedsteel-primary: #6BADCF;
+  --theme-infectedsteel-secondary: #6BADCF;
+  --theme-infectedsteel-bg: #161819;
+  --theme-infectedsteel-neutral: #FDFCFF;
+  --theme-infectedsteel-blobglow: #6BADCF;
   
   --theme-fretref-primary: #a246bd;
   --theme-fretref-secondary: #4679bd;

@@ -3,7 +3,8 @@ export const ProjectTitle = () => {
     <>
       <p>A roguelike shooter build in GameMaker studio</p>
       <ul>
-        <li>Some stuff to say</li>
+        <li>Choose from a wide variety of ships and loadouts</li>
+        <li>Combine weapons and unleash chaos on your enemies</li>
       </ul>
     </>
   );
@@ -19,19 +20,29 @@ export const ProjectBody = () => {
 };
 
 export default {
-  route: '/projects/dropship',
+  route: '/projects/infectedsteel',
   name: 'Infected Steel',
-  theme: 'dropship',
+  theme: 'infectedsteel',
   titleComponent: <ProjectTitle />,
   // bodyComponent: <ProjectBody />,
-  url: 'https://thyancey.github.io/tly-dropship/',
+  url: 'https://thyancey.github.io/infected-steel/',
   repoUrl: '',
   gallery: [
     {
+      image: 'infectedsteel-title.png',
+      title: '',
+      caption: '',
+    },
+    {
+      image: 'infectedsteel-waves.png',
+      title: 'Wave battles',
+      caption: 'Fight waves of enemies',
+    },
+    {
       image: 'dropship-projectiles.gif',
+      title: 'Projectile properties',
       caption:
         "Projectiles are fully parameterized to allow for many unique combinations. In this example, the missile is slow and explodes after some time. The green nuke is wobbly, and makes a huge explosion on impact, but fizzles out if it doesn't hit anything",
-      title: 'Projectile properties',
     },
   ],
 };

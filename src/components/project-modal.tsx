@@ -277,7 +277,7 @@ function ProjectModal({ contentDef, imageIdx = -1 }: Props) {
         <ScSubModal>
           {modalTitle && <h2>{modalTitle}</h2>}
           {galleryImage && <img src={getUrl(galleryImage.image)} />}
-          <p>{(galleryImage && galleryImage.caption) || ''}</p>
+          {galleryImage && galleryImage.caption && <p>{galleryImage.caption}</p>}
         </ScSubModal>
       </ScModal>
     </ScModalContainer>

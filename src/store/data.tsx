@@ -1,6 +1,6 @@
 import Slots from '../components/projects/slots';
 import Zebra from '../components/projects/zebra';
-import Dropship from '../components/projects/dropship';
+import InfectedSteel from '../components/projects/infectedsteel';
 import AlteredChromatic from '../components/projects/alteredchromatic';
 import FretRef from '../components/projects/fretref';
 import BrowserBuddy from '../components/projects/browserbuddy';
@@ -33,7 +33,7 @@ export const Projects: ProjectDef[] = [
   Slots,
   Zebra,
   BrowserBuddy,
-  Dropship,
+  InfectedSteel,
   AlteredChromatic,
   RaccoonTrapper,
   FretRef
