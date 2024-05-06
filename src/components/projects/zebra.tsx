@@ -62,17 +62,26 @@ export default {
   // repoUrl: 'https://github.com/thyancey/zebratables',
   gallery: [
     {
-      image: 'zebra-1.png',
-      caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`,
+      image: 'zebratables-gameplay.gif',
+      caption: `Take notes from multiple sources to solve the puzzle`,
     },
     {
-      image: 'zebra-2.png',
+      image: 'zebratables-buttons.gif',
       caption:
-        'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. ',
+        'Look at this button',
     },
-    {
-      image: 'zebra-3.png',
-      caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`,
-    },
+    // {
+    //   image: 'zebratables-gameplay.gif',
+    //   caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`,
+    // },
+    // {
+    //   image: 'zebratables-buttons.gif',
+    //   caption:
+    //     'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. ',
+    // },
+    // {
+    //   image: 'zebra-3.png',
+    //   caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`,
+    // },
   ],
 };

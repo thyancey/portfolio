@@ -6,6 +6,7 @@ import FretRef from '../components/projects/fretref';
 import BrowserBuddy from '../components/projects/browserbuddy';
 import RaccoonTrapper from '../components/projects/raccoontrapper';
 import Hive from '../components/projects/hive';
+import BeachChummers from '../components/projects/beachchummers';
 
 export type GalleryDef = {
   image: string;
@@ -27,6 +28,7 @@ export type ProjectDef = {
 
 // WIDER IMAGES WORK BETTER WITH THE STUPID MODAL
 export const Projects: ProjectDef[] = [
+  BeachChummers,
   Hive,
   Slots,
   Zebra,

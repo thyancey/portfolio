@@ -23,15 +23,23 @@ export const ProjectBody = () => {
 export default {
   route: '/projects/hive',
   name: 'Hive',
-  theme: 'slots',
+  theme: 'hive',
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'https://cheeseoncheese.itch.io/hive',
   repoUrl: '',
   gallery: [
     {
-      image: 'slots-attacks.gif',
-      caption: 'The basic gameplay loop involves choosing upgrades, spinning the slots, and conquering foes',
+      image: 'hive-items.png',
+      caption: 'Find unique items, but make sure you\'ve brought enough units to carry them home',
     },
+    {
+      image: 'hive-caves.png',
+      caption: 'Explore dark caves to find rare resources',
+    },
+    {
+      image: 'hive-resources.png',
+      caption: 'Accomplish as much as you can each day, as your resources accumulate. Return to old locations, or travel to new, plentiful areas',
+    }
   ],
 };
