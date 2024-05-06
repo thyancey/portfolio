@@ -78,7 +78,7 @@ function Header({ status }: Props) {
           <h2 className={status === 'projects' ? 'active' : ''}>{'projects'}</h2>
         </Link>
       </ScContent>
-      <ScBlobBorder $blobType='header' $blobGlow={blobGlow} />
+      <ScBlobBorder $blobType='header' $blobGlow={blobGlow} className="animation"/>
     </ScHeader>
   );
 }

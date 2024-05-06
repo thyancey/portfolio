@@ -212,3 +212,10 @@ svg.icon-large{
 svg.icon-xlarge{
   font-size: 4rem;
 }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    animation: none !important;
+  }
+}

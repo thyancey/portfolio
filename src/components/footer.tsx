@@ -159,7 +159,7 @@ function Footer({ pageIdx, projects }: Props) {
 
   return (
     <ScFooter>
-      <ScBlobBorder $blobType='footer' />
+      <ScBlobBorder $blobType='footer' className="animation" />
       {pageIdx > -1 && (
         <>
           <ScNavBar>
