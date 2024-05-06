@@ -1,9 +1,9 @@
 export const ProjectTitle = () => {
   return (
     <>
-      <p>{'A twist on the classic game, built in PhaserJS'}</p>
+      <p>A twist on the classic game, built in PhaserJS</p>
       <ul>
-        <li>{'feed some cute critters, but be careful, they get hangry!'}</li>
+        <li>feed some cute critters, but be careful, they get hangry!</li>
       </ul>
     </>
   );
@@ -12,20 +12,23 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h2>{'How to Play'}</h2>
-      <p>{'Your goal is to feed as many porch critters as possible, while keeping the feral animals away. Convert feral critters by feeding them.'}</p>
+      <h2>How to Play</h2>
+      <p>
+        Your goal is to feed as many porch critters as possible, while keeping the feral animals away. Convert feral
+        critters by feeding them.
+      </p>
       <ul>
-        <li>{'sling food bowls at feral raccoons to tame them, but be careful not to waste it!'}</li>
-        <li>{'tame raccoons can get on the porch, hug them for bonus points!'}</li>
-        <li>{'feral raccoons will bite you, kick them away!'}</li>
+        <li>sling food bowls at feral raccoons to tame them, but be careful not to waste it!</li>
+        <li>tame raccoons can get on the porch, hug them for bonus points!</li>
+        <li>feral raccoons will bite you, kick them away!</li>
       </ul>
 
-      <h2>{'Controls'}</h2>
+      <h2>Controls</h2>
       <ul>
-        <li>{'up / down: move granny between lanes'}</li>
-        <li>{'space: sling food bowl'}</li>
-        <li>{'left: extend your arms for a hug'}</li>
-        <li>{'right: charge kick'}</li>
+        <li>up / down: move granny between lanes</li>
+        <li>space: sling food bowl</li>
+        <li>left: extend your arms for a hug</li>
+        <li>right: charge kick</li>
       </ul>
     </>
   );
@@ -34,7 +37,6 @@ export const ProjectBody = () => {
 export default {
   route: '/projects/raccoontrapper',
   name: 'Raccoon Trapper',
-  description: 'A twist on the classic game, built in PhaserJS',
   theme: 'raccoontrapper',
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
@@ -53,7 +55,8 @@ export default {
     },
     {
       image: 'raccoontrapper-granny.gif',
-      caption: 'This granny loves to feed porch critters - but look out for her powerful kicks - she doesn\'t take any shit!',
+      caption:
+        "This granny loves to feed porch critters - but look out for her powerful kicks - she doesn't take any shit!",
       title: 'Gramma',
     },
   ],

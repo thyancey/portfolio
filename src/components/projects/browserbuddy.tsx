@@ -1,11 +1,11 @@
 export const ProjectTitle = () => {
   return (
     <>
-      <p>{'Keep some dumb animals alive in your browser'}</p>
+      <p>Keep some dumb animals alive in your browser</p>
       <ul>
-        <li>{'The pets will continue to eat, shit, and die when the extension is closed'}</li>
-        <li>{'Take care of several pets at once'}</li>
-        <li>{'Mod your own pets with the power of GIFs'}</li>
+        <li>The pets will continue to eat, shit, and die when the extension is closed</li>
+        <li>Take care of several pets at once</li>
+        <li>Mod your own pets with the power of GIFs</li>
       </ul>
     </>
   );
@@ -14,7 +14,6 @@ export const ProjectTitle = () => {
 export default {
   route: '/projects/browserbuddy',
   name: 'BrowserBuddy',
-  description: 'Keep some dumb animals alive in a browser',
   theme: 'browserbuddy',
   titleComponent: <ProjectTitle />,
   bodyComponent: null,
@@ -24,12 +23,12 @@ export default {
     {
       image: 'browserbuddy-themes.gif',
       caption: 'Each pet can be themed independently to match the images and mood',
-      title: 'Customizable themes'
+      title: 'Customizable themes',
     },
     {
       image: 'browserbuddy-extension.gif',
       caption: 'Check up on browserbuddies whenever you feel lonely, guilty, or just want to procrastinate.',
-      title: `Eventually, it could be a chrome extension!`
-    }
+      title: `Eventually, it could be a chrome extension!`,
+    },
   ],
 };

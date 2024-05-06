@@ -5,6 +5,7 @@ import AlteredChromatic from '../components/projects/alteredchromatic';
 import FretRef from '../components/projects/fretref';
 import BrowserBuddy from '../components/projects/browserbuddy';
 import RaccoonTrapper from '../components/projects/raccoontrapper';
+import Hive from '../components/projects/hive';
 
 export type GalleryDef = {
   image: string;
@@ -16,7 +17,6 @@ export type GalleryDef = {
 export type ProjectDef = {
   route: string;
   name: string;
-  description?: string;
   theme?: string;
   gallery: GalleryDef[];
   url?: string;
@@ -27,6 +27,7 @@ export type ProjectDef = {
 
 // WIDER IMAGES WORK BETTER WITH THE STUPID MODAL
 export const Projects: ProjectDef[] = [
+  Hive,
   Slots,
   Zebra,
   BrowserBuddy,

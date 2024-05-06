@@ -1,9 +1,9 @@
 export const ProjectTitle = () => {
   return (
     <>
-      <p>{'A roguelike shooter build in GameMaker studio'}</p>
+      <p>A roguelike shooter build in GameMaker studio</p>
       <ul>
-        <li>{'Some stuff to say'}</li>
+        <li>Some stuff to say</li>
       </ul>
     </>
   );
@@ -12,16 +12,15 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h2>{'How to Play'}</h2>
-      <p>{'Some more details'}</p>
+      <h2>How to Play</h2>
+      <p>Some more details</p>
     </>
   );
 };
 
 export default {
   route: '/projects/dropship',
-  name: 'Dropship!',
-  description: 'A roguelike shooter build in GameMaker studio',
+  name: 'Infected Steel',
   theme: 'dropship',
   titleComponent: <ProjectTitle />,
   // bodyComponent: <ProjectBody />,
@@ -30,7 +29,8 @@ export default {
   gallery: [
     {
       image: 'dropship-projectiles.gif',
-      caption: 'Projectiles are fully parameterized to allow for many unique combinations. In this example, the missile is slow and explodes after some time. The green nuke is wobbly, and makes a huge explosion on impact, but fizzles out if it doesn\'t hit anything',
+      caption:
+        "Projectiles are fully parameterized to allow for many unique combinations. In this example, the missile is slow and explodes after some time. The green nuke is wobbly, and makes a huge explosion on impact, but fizzles out if it doesn't hit anything",
       title: 'Projectile properties',
     },
   ],
