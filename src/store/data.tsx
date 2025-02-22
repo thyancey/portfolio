@@ -29,9 +29,9 @@ export type ProjectDef = {
 // WIDER IMAGES WORK BETTER WITH THE STUPID MODAL
 export const Projects: ProjectDef[] = [
   BeachChummers,
+  Zebra,
   Hive,
   Slots,
-  Zebra,
   BrowserBuddy,
   InfectedSteel,
   AlteredChromatic,

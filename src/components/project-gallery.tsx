@@ -3,21 +3,16 @@ import styled from 'styled-components';
 import { getUrl } from '../assets';
 import { ProjectDef } from '../store/data';
 
-interface ScImageProps {
-  $rotation: number;
-}
-
-const ScImage = styled.div<ScImageProps>`
-  width: 5rem;
+const ScImage = styled.div`
+  width: 8rem;
   height: 5.5rem;
   position: relative;
 
-    /* big boy */
+  /* big boy */
   @media (min-width: 81.25rem) {
     width: 8.25rem;
     height: 5.5rem;
   }
-
 
   /* tablety */
   @media (max-width: 53rem) {
@@ -37,37 +32,13 @@ const ScImage = styled.div<ScImageProps>`
     box-shadow: 4px 4px 6px var(--color-black);
     transition: box-shadow 0.3s, transform 0.3s;
   }
-  
-  /*
-  &::before {
-    content: 'see more!';
-    font-size: 1rem;
-    position: absolute;
-    line-height: 1rem;
-    text-align: center;
-    pointer-events: none;
-    color: var(--theme-primary);
-
-    opacity: 0;
-    bottom: 1rem;
-    
-    transform: rotate(${(p) => p.$rotation}deg);
-    transition: opacity 0.3s 0.1s, bottom 0.2s ease;
-  }
-  */
 
   &:hover {
     img {
-      transform: rotate(${(p) => p.$rotation}deg) translateY(-0.5rem);
+      transform: rotate(var(--my-rotation)) translateY(-0.5rem);
       border: 2px solid var(--theme-primary);
       box-shadow: 0px 0px 8px 2px var(--theme-primary), 8px 10px 5px var(--color-black);
     }
-    /*
-    &::before {
-      opacity: 1;
-      bottom: -1rem;
-    }
-    */
   }
 
   &.active {
@@ -77,7 +48,7 @@ const ScImage = styled.div<ScImageProps>`
     &:hover {
       width: 100%;
       img {
-        transform: rotate(${(p) => p.$rotation}deg);
+        transform: rotate(var(--my-rotation));
       }
     }
   }
@@ -94,11 +65,10 @@ export const ScGallery = styled.div`
   padding: 1rem;
 
   border-radius: 1.5rem;
-  border-top: .25rem dashed var(--theme-primary);
-  border-bottom: .25rem dashed var(--theme-primary);
+  border-top: 0.25rem dashed var(--theme-primary);
+  border-bottom: 0.25rem dashed var(--theme-primary);
 
   transition: width 0.3s, height 0.3s;
-  
 `;
 
 interface Props {
@@ -109,7 +79,7 @@ function GalleryActive({ contentDef }: Props) {
   return (
     <ScGallery>
       {contentDef.gallery.map((i, idx) => (
-        <ScImage key={idx} $rotation={getRandomRotation()}>
+        <ScImage key={idx} style={{ '--my-rotation': getRandomRotation() + 'deg' } as React.CSSProperties}>
           <Link to={contentDef.route + '/' + idx}>
             <img src={getUrl(i.thumbnail || i.image)} />
           </Link>

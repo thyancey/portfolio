@@ -12,10 +12,10 @@ const ScFooter = styled.footer`
 
   position: relative;
 
-  transition: min-height .3s;
+  transition: min-height 0.3s;
 
   @media (max-width: 42.15rem) {
-    min-height: .5rem;
+    min-height: 0.5rem;
     padding-top: 0rem;
   }
 `;
@@ -43,13 +43,22 @@ const ScNavBar = styled.div`
   }
 `;
 
+const ScNavBubbles = styled.div`
+  display: flex;
+  flex: 1;
+  max-width: 30rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+`
+
 interface ScNavBubbleProps {
   $text: string;
   $theme: string;
 }
 const ScNavBubble = styled.div<ScNavBubbleProps>`
   position: relative;
-  margin: 0.5rem;
+  /* padding: 0.25rem; */
   border-radius: 100%;
   border: 0.2rem solid var(--theme-primary);
   background-color: var(--theme-primary);
@@ -159,23 +168,25 @@ function Footer({ pageIdx, projects }: Props) {
 
   return (
     <ScFooter>
-      <ScBlobBorder $blobType='footer' className="animation" />
+      <ScBlobBorder $blobType='footer' className='animation' />
       {pageIdx > -1 && (
         <>
           <ScNavBar>
             <Link key='prev' to={projects[prevIdx].route}>
               <Icon_KeyboardArrowLeft className='icon-large' />
             </Link>
-            {projects.map((p, pIdx) => (
-              <ScNavBubble
-                key={p.route}
-                className={pIdx === pageIdx ? 'active' : ''}
-                $text={p.name}
-                $theme={p.theme || 'default'}
-              >
-                <Link to={p.route} />
-              </ScNavBubble>
-            ))}
+            <ScNavBubbles>
+              {projects.map((p, pIdx) => (
+                <ScNavBubble
+                  key={p.route}
+                  className={pIdx === pageIdx ? 'active' : ''}
+                  $text={p.name}
+                  $theme={p.theme || 'default'}
+                >
+                  <Link to={p.route} />
+                </ScNavBubble>
+              ))}
+            </ScNavBubbles>
             <Link key='next' to={projects[nextIdx].route}>
               <Icon_KeyboardArrowRight className='icon-large' />
             </Link>

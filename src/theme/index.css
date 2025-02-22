@@ -96,11 +96,11 @@
   --theme-slots-neutral: #F5F2E0;
   --theme-slots-blobglow: #51B6F0;
 
-  --theme-zebra-primary: #a877e7;
-  --theme-zebra-secondary: #5de6ef;
-  --theme-zebra-bg: #f7ede3;
-  --theme-zebra-neutral: #0d0d0c;
-  --theme-zebra-blobglow: #ef5da8;
+  --theme-zebra-primary: #5de6ef;
+  --theme-zebra-secondary: #77e87b;
+  --theme-zebra-bg: #282624;
+  --theme-zebra-neutral: #f7ede3;
+  --theme-zebra-blobglow: #77e87b;
 
   
   --theme-infectedsteel-primary: #6BADCF;
