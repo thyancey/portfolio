@@ -219,6 +219,9 @@ a:hover{
 
 
 /* mui overrides */
+svg.icon-med{
+  font-size: 2rem;
+}
 svg.icon-large{
   font-size: 3rem;
 }

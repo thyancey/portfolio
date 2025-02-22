@@ -7,31 +7,24 @@ import Icon_KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import Icon_KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 
 interface ScCarouselBtnProps {
-  $type: 'prev' | 'next' | 'close' | 'newclose';
+  $type: 'prev' | 'next' | 'close';
 }
 const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
   position: absolute;
   z-index: 1;
-  /* top: 50%; */
-  /* transform: translateY(-50%); */
+  display: flex;
 
   border-radius: 50%;
-  /* box-shadow: 0 0 .25rem 0.1rem var(--theme-primary); */
   border: 0.25rem solid var(--theme-primary);
 
   padding: 0.25rem;
-  padding-bottom: 0;
 
   border-radius: 1rem;
   cursor: pointer;
 
-  /* color: var(--theme-neutral);
-  background-color: var(--theme-bg);
-  box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black); */
-
   color: var(--theme-bg);
   background-color: var(--theme-primary);
-  box-shadow: -0.15rem 0.15rem 0.5rem 0.25rem var(--color-black);
+  box-shadow: 0.1rem 0.1rem 0.15rem 0.15rem var(--color-black);
 
   --rot-start: 0deg;
 
@@ -42,7 +35,6 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       left: -2.25rem;
       top: 50%;
       transform: translateY(-50%);
-      /* bottom: -2.5rem; */
       --rot-start: 3deg;
     `}
   ${(p) =>
@@ -52,7 +44,6 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       right: -2.25rem;
       top: 50%;
       transform: translateY(-50%);
-      /* bottom: -2.5rem; */
       --rot-start: -3deg;
     `}
   ${(p) =>
@@ -61,21 +52,7 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       left: auto;
       right: -2.25rem;
       top: -2rem;
-      padding: 0.75rem;
-      padding-bottom: 0.5rem;
       --rot-start: 10deg;
-    `}
-  ${(p) =>
-    p.$type === 'newclose' &&
-    css`
-      left: calc(50% - 5rem);
-      right: auto;
-      bottom: -2.5rem;
-      padding: 0.75rem 2rem 0.5rem 2rem;
-      --rot-start: 2deg;
-
-      font-family: var(--font-heading);
-      font-size: 2rem;
     `}
 
   transform: rotate(var(--rot-start));
@@ -88,7 +65,7 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
       box-shadow: -0.15rem 0.15rem 0.5rem 0.25rem var(--color-black); */
       color: var(--theme-primary);
       background-color: var(--theme-bg);
-      box-shadow: 0rem 0rem 0.5rem 0.25rem var(--color-black);
+      box-shadow: 0.15rem 0.15rem 0.25rem 0.15rem var(--color-black);
 
       ${(p) =>
         p.$type === 'prev' &&
@@ -105,15 +82,10 @@ const ScCarouselRoundBtn = styled.div<ScCarouselBtnProps>`
         css`
           transform: rotate(14deg) scale(1.2);
         `}
-      ${(p) =>
-        p.$type === 'newclose' &&
-        css`
-          transform: rotate(-10deg) scale(1.2);
-        `}
     }
   }
 
-  transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s;
+  transition: transform 0.3s ease-out, background-color 0.3s, color 0.3s, box-shadow 0.3s;
 `;
 
 const ScModalContainer = styled.div`
@@ -155,7 +127,7 @@ const ScModal = styled.div`
 
   background-color: var(--theme-bg);
   border-radius: 2rem;
-  box-shadow: 0rem 0rem 1rem 0.5rem var(--color-black);
+  box-shadow: 0.15rem 0.15rem 0.5rem 0.25rem var(--color-black);
   border: 0.25rem solid var(--theme-primary);
   text-align: left;
   padding: 1.5rem;
@@ -251,25 +223,20 @@ function ProjectModal({ contentDef, imageIdx = -1 }: Props) {
         {/* X button */}
         <Link to={contentDef.route}>
           <ScCarouselRoundBtn $type={'close'}>
-            <Icon_Close className='icon-large' />
+            <Icon_Close className='icon-med' />
           </ScCarouselRoundBtn>
         </Link>
-        {/* <Link to={contentDef.route}>
-          <ScCarouselRoundBtn $type={'newclose'}>
-            <span>{'BACK'}</span>
-          </ScCarouselRoundBtn>
-        </Link> */}
         {prevImageIdx > -1 && (
           <Link to={contentDef.route + '/' + prevImageIdx}>
             <ScCarouselRoundBtn $type={'prev'}>
-              <Icon_KeyboardArrowLeft className='icon-large' />
+              <Icon_KeyboardArrowLeft className='icon-med' />
             </ScCarouselRoundBtn>
           </Link>
         )}
         {nextImageIdx > -1 && (
           <Link to={contentDef.route + '/' + nextImageIdx}>
             <ScCarouselRoundBtn $type={'next'}>
-              <Icon_KeyboardArrowRight className='icon-large' />
+              <Icon_KeyboardArrowRight className='icon-med' />
             </ScCarouselRoundBtn>
           </Link>
         )}
