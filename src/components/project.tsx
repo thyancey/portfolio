@@ -272,6 +272,13 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
   const scrollRef = useRef<HTMLInputElement | null>(null);
   const { setIsHeaderCollapsed } = useContext(StoreContext);
 
+  // jump back to top when changing projects
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [contentDef]);
+
   useEffect(() => {
     if (scrollRef.current) {
       const domEl = scrollRef.current;
