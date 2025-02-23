@@ -76,18 +76,21 @@
   --theme-blog-bg: hsl(240, 100%, 4%, 1);
   --theme-blog-neutral: var(--color-white);
   --theme-blog-blobglow: var(--color-blue);
+  --theme-blog-link: var(--color-blue);
 
-  --theme-beachchummers-primary: #f0af66;
-  --theme-beachchummers-secondary: #f5eb6b;
-  --theme-beachchummers-bg: #147abf;
+  --theme-beachchummers-primary: #fdf9ed;
+  --theme-beachchummers-secondary: #f8ef3a;
+  --theme-beachchummers-bg: #258cce;
   --theme-beachchummers-neutral: #b2dbf4;
   --theme-beachchummers-blobglow: #b2dbf4;
+  --theme-beachchummers-link: #b2dbf4;
 
   --theme-hive-primary: #e4e4e7;
   --theme-hive-secondary: #e4e4e7;
   --theme-hive-bg: #823d83;
   --theme-hive-neutral: #e4e4e7;
   --theme-hive-blobglow: #e4e4e7;
+  --theme-hive-link: #e4e4e7;
 
 
   --theme-slots-primary: #DC65B4;
@@ -95,12 +98,14 @@
   --theme-slots-bg: #131113;
   --theme-slots-neutral: #F5F2E0;
   --theme-slots-blobglow: #51B6F0;
+  --theme-slots-link: #51B6F0;
 
   --theme-zebra-primary: #5de6ef;
   --theme-zebra-secondary: #77e87b;
   --theme-zebra-bg: #282624;
   --theme-zebra-neutral: #f7ede3;
   --theme-zebra-blobglow: #77e87b;
+  --theme-zebra-link: #77e87b;
 
   
   --theme-infectedsteel-primary: #6BADCF;
@@ -108,18 +113,21 @@
   --theme-infectedsteel-bg: #161819;
   --theme-infectedsteel-neutral: #FDFCFF;
   --theme-infectedsteel-blobglow: #6BADCF;
+  --theme-infectedsteel-link: #6BADCF;
   
   --theme-fretref-primary: #a246bd;
   --theme-fretref-secondary: #4679bd;
   --theme-fretref-bg: #000000;
   --theme-fretref-neutral: #ffffff;
   --theme-fretref-blobglow: #723185;
+  --theme-fretref-link: #723185;
 
   --theme-alteredchromatic-primary: #ffffff;
   --theme-alteredchromatic-secondary: #63c7d8;
   --theme-alteredchromatic-bg: #da3471;
   --theme-alteredchromatic-neutral: #ffffff;
   --theme-alteredchromatic-blobglow: #a1ced6;
+  --theme-alteredchromatic-link: #a1ced6;
   /* black is 1f1f1f */
 
   --theme-raccoontrapper-primary: #eec39a;
@@ -127,6 +135,7 @@
   --theme-raccoontrapper-bg: #663a31;
   --theme-raccoontrapper-neutral: #eec39a;
   --theme-raccoontrapper-blobglow: #91775e;
+  --theme-raccoontrapper-link: #91775e;
 
   /* grey 847e87 */
   /* pink d77bba */
@@ -234,4 +243,8 @@ svg.icon-xlarge{
   .animation {
     animation: none !important;
   }
+}
+
+.indented {
+  text-indent: 2rem;
 }

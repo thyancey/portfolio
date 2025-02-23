@@ -28,15 +28,16 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'http://alteredchromatic.com/',
+  urlTitle: 'Tickle the ivory',
   repoUrl: 'https://github.com/thyancey/altered-chromatic',
   gallery: [
     {
-      image: 'alteredchromatic-concept.gif',
+      image: 'alteredchromatic/alteredchromatic-concept.gif',
       caption: 'Like the Fretref project, you can change keys and scales. This time, scales encompass modes',
       title: 'Keys, Scales, and Modes',
     },
     {
-      image: 'alteredchromatic-keyboard.gif',
+      image: 'alteredchromatic/alteredchromatic-keyboard.gif',
       caption: 'You can play this stupid piano with your keyboard!',
       title: 'Keyboard controlled... keyboard',
     },

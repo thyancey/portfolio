@@ -14,6 +14,7 @@ const ScBody = styled.div`
   }
 `;
 
+
 function BlogContent() {
   return (
     <ScBody>

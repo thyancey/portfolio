@@ -21,6 +21,7 @@ export type ProjectDef = {
   theme?: string;
   gallery: GalleryDef[];
   url?: string;
+  urlTitle?: string;
   repoUrl?: string;
   bodyComponent?: React.ReactNode;
   titleComponent: React.ReactNode;
@@ -30,11 +31,11 @@ export type ProjectDef = {
 export const Projects: ProjectDef[] = [
   BeachChummers,
   Zebra,
+  FretRef,
   Hive,
-  Slots,
-  BrowserBuddy,
   InfectedSteel,
   AlteredChromatic,
+  Slots,
+  BrowserBuddy,
   RaccoonTrapper,
-  FretRef
 ];

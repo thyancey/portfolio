@@ -93,23 +93,24 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'https://thyancey.github.io/slot-machine/',
+  urlTitle: 'Play now',
   repoUrl: 'https://github.com/thyancey/tly-truth-tables',
   gallery: [
     {
-      image: 'slots-attacks.gif',
+      image: 'slots/slots-attacks.gif',
       caption: 'The basic gameplay loop involves choosing upgrades, spinning the slots, and conquering foes',
     },
     {
-      image: 'slots-upgrades.gif',
+      image: 'slots/slots-upgrades.gif',
       caption: 'Between rounds, the slot machine can be modified to spin the odds in your favor!',
     },
     {
-      image: 'slots-redesign1.gif',
+      image: 'slots/slots-redesign1.gif',
       caption:
         'In earlier designs, I had more emphasis on skeuomorphic shapes. The colors were ugly and the buttons made no sense.',
     },
     {
-      image: 'slots-redesign2.gif',
+      image: 'slots/slots-redesign2.gif',
       caption:
         "Later on, I attempted to move some buttons into a floating UI, this didn't stick well either. The neutral looking player box also distracted from the slot machine.",
     },

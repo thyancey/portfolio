@@ -17,18 +17,19 @@ export const ProjectBody = () => {
   return (
     <>
       <h2>How to Play</h2>
-      <p>
-        Your goal is to chase all tourists off the beach before the sun goes down.
-      </p>
+      <p>Your goal is to chase all tourists off the beach before the sun goes down.</p>
       <ul>
-        <li>steal snacks from the beach, but make sure you aren't being watched. walk away from curious toursists until they go back to sleep</li>
+        <li>
+          steal snacks from the beach, but make sure you aren't being watched. walk away from curious toursists until
+          they go back to sleep
+        </li>
         <li>after picking up some snacks, chum the beach to attract seagulls</li>
         <li>when a seagull is full, it calls in another friend</li>
         <li>if caught stealing snacks or chumming, the beach patrol will be called on you.</li>
       </ul>
 
-      <br/>
-      <br/>
+      <br />
+      <br />
       <h2>Controls</h2>
       <p>Keyboard</p>
       <ul>
@@ -53,12 +54,25 @@ export default {
   theme: 'beachchummers',
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
-  url: 'https://cheeseoncheese.itch.io/beachchummers',
+  url: 'https://cheeseoncheese.itch.io/beach-chummers',
+  urlTitle: 'Play now on itch.io',
   repoUrl: '',
   gallery: [
     {
-      image: 'beachchummers-decorations.gif',
-      caption: 'Steal snacks, but don\'t get caught!',
+      image: 'beachchummers/beachchummers-intro-sm.gif',
+      caption: 'a game about feeding seagulls in a 16 bit aesthetic',
+    },
+    {
+      image: 'beachchummers/beachchummers-gameplay-sm.gif',
+      caption: 'use snacks and seagulls to rid the beach of those pesky tourists',
+    },
+    {
+      image: 'beachchummers/beachchummers-overworld-sm.gif',
+      caption: 'chum exotic locations across chumtopia and amass a giant swarm',
+    },
+    {
+      image: 'beachchummers/beachchummers-decorations.gif',
+      caption: 'an earlier build of the game',
     },
   ],
 };

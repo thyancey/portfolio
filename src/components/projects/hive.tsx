@@ -27,18 +27,19 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'https://cheeseoncheese.itch.io/hive',
+  urlTitle: 'Play now on itch.io',
   repoUrl: '',
   gallery: [
     {
-      image: 'hive-items.png',
+      image: 'hive/hive-items.png',
       caption: 'Find unique items, but make sure you\'ve brought enough units to carry them home',
     },
     {
-      image: 'hive-caves.png',
+      image: 'hive/hive-caves.png',
       caption: 'Explore dark caves to find rare resources',
     },
     {
-      image: 'hive-resources.png',
+      image: 'hive/hive-resources.png',
       caption: 'Accomplish as much as you can each day, as your resources accumulate. Return to old locations, or travel to new, plentiful areas',
     }
   ],

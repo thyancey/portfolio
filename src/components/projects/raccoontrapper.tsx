@@ -41,20 +41,21 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'https://thyancey.github.io/tly-raccoon-trapper/',
+  urlTitle: 'Play the prototype',
   repoUrl: 'https://github.com/thyancey/tly-raccoon-trapper',
   gallery: [
     {
-      image: 'raccoontrapper-game.jpg',
+      image: 'raccoontrapper/raccoontrapper-game.jpg',
       caption: 'The game starts out pretty slow',
       title: 'Level 1',
     },
     {
-      image: 'raccoontrapper-racc.gif',
+      image: 'raccoontrapper/raccoontrapper-racc.gif',
       caption: 'This little guy was made with the Aseprite pixel editor',
       title: 'Raccoon Enemy',
     },
     {
-      image: 'raccoontrapper-granny.gif',
+      image: 'raccoontrapper/raccoontrapper-granny.gif',
       caption:
         "This granny loves to feed porch critters - but look out for her powerful kicks - she doesn't take any shit!",
       title: 'Gramma',

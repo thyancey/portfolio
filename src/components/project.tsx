@@ -32,6 +32,7 @@ const ScContentBlock = styled.div`
 const ScButtons = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   align-items: end;
   gap: 1rem;
   margin-top: 0.25rem;
@@ -115,10 +116,11 @@ const ScBodyContainer = styled.div`
   }
   @media (min-width: 81.25rem) {
   }
+
 `;
 const ScCard = styled.div`
   width: 100%;
-  height: 27rem;
+  min-height: 27rem;
   border-radius: 2rem;
   box-shadow: 0 0 1rem 0.25rem var(--theme-primary);
   border: 0.15rem solid var(--theme-primary);
@@ -185,15 +187,30 @@ const ScCard = styled.div`
     /* wide, taller buttons that can squish in pretty far */
     ${ScButtons} {
       a {
-        width: 50%;
+        /* width: 50%; */
         font-size: 1.25rem;
-        padding: 1rem 0;
+        /* padding: 1rem 0; */
       }
     }
 
     ${ScContentBlock} {
       position: relative;
     }
+  }
+`;
+
+export const ScBodySideBySide = styled.div`
+  display: flex;
+  gap: 1rem;
+  > div {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
   }
 `;
 
@@ -204,6 +221,10 @@ const ScBodyComponent = styled.div`
   border-top: 0.25rem dashed var(--theme-primary);
   border-bottom: 0.25rem dashed var(--theme-primary);
   background-color: var(--theme-bg);
+
+  a {
+    color: var(--theme-link);
+  }
 
   h1,
   h2,
@@ -268,7 +289,7 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
             {contentDef.url && (
               <ScLaunchButton href={contentDef.url} target='_blank'>
                 <Icon_RocketLaunch />
-                <span>{'TRY IT'}</span>
+                <span>{contentDef.urlTitle || 'TRY IT'}</span>
               </ScLaunchButton>
             )}
             {contentDef.repoUrl && (

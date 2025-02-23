@@ -1,3 +1,6 @@
+import { getUrl } from '../../assets';
+import { ScBodySideBySide } from '../project';
+
 export const ProjectTitle = () => {
   return (
     <>
@@ -15,8 +18,57 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h2>What the hell is this?</h2>
-      <p>Needs a hefty explanation for the scale finder and what it\'s good for. Maybe a youtube video.</p>
+      <h2>What is FretRef?</h2>
+      <p className='indented'>
+        When trying to learn guitar for the 10th time, I started delving into{' '}
+        <a href='https://en.wikibooks.org/wiki/Guitar/Structure_of_the_CAGED_scale_shapes' target='_blank'>
+          CAGED scale shapes
+        </a>
+        and other ways of relying on a guitar's isomorphic charactaristics. If you play a little guitar - this is how
+        you can play almost any song using power chords, or can use a capo to easily change the key.
+      </p>
+      <br />
+      <p>
+        After memorizing several different shapes for major and minor scales, I realized that I could play along with
+        almost any song, as long as I knew the key! One thing led to another, and I ended up with a toolbox for myself
+        to facilitate jammin' with a playlist, without having to be around people or disappoint anyone. Naturally, I
+        spent more time coding this app than learning guitar
+      </p>
+
+      <br />
+
+      <h2>FretRef can help you find the key/scale of a song</h2>
+      <ScBodySideBySide>
+        <div>
+          <p className='indented'>
+            Identifying the key and scale of a song is pretty difficult for most of us. Assuming you have an "ear",
+            FretRef has a built in key/scale finder. Click the notes along with a song, finding the ones that sound good
+            and ruling out the ones that sound bad! As you choose which notes sound right, the app will provide options
+            for which key and scale your song might be in. Once you've found your setup voila! All the notes you need to
+            play are displayed on screen
+          </p>
+        </div>
+
+        <div>
+          <img src={getUrl('fretref/fretref-scalefinder.gif')} />
+        </div>
+      </ScBodySideBySide>
+
+      <br />
+
+      <h2>FretRef displays what notes you can play for a variety of instruments</h2>
+      <ScBodySideBySide>
+        <div>
+          <img src={getUrl('fretref/fretref-instruments.gif')} />
+        </div>
+        <div>
+          <p className='indented'>
+            After decoding the relationships between notes, intervals, and scales - it was only a few more steps to
+            decouple instrument as well! You can choose between a variety of string instruments and tunings - anywhere
+            from a standard 6 string guitar to a 3 string shamizen!
+          </p>
+        </div>
+      </ScBodySideBySide>
     </>
   );
 };
@@ -28,46 +80,47 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'http://fretref.com/',
+  urlTitle: 'FretRef.com',
   repoUrl: 'https://github.com/thyancey/tly-guitarapp',
   gallery: [
     {
-      thumbnail: 'fretref-keys-t.gif',
+      thumbnail: 'fretref/fretref-keys-t.gif',
       image: 'fretref-keys.gif',
       caption: 'Changing keys for a particular instrument and scale',
       title: 'Changing Keys',
     },
     {
-      thumbnail: 'fretref-scales-t.gif',
+      thumbnail: 'fretref/fretref-scales-t.gif',
       image: 'fretref-scales.gif',
       caption: 'Changing scales for a particular instrument and key',
       title: 'Changing Scales',
     },
     {
-      thumbnail: 'fretref-chords-t.gif',
+      thumbnail: 'fretref/fretref-chords-t.gif',
       image: 'fretref-chords.gif',
       caption:
         'Calcuating chords proved very difficult, as the same note can be represented in several places on a fretboard. I had to hardcode these',
       title: 'Displaying Chords',
     },
     {
-      thumbnail: 'fretref-caged-t.gif',
+      thumbnail: 'fretref/fretref-caged-t.gif',
       image: 'fretref-caged.gif',
       caption: 'For memorizing patterns using the C-A-G-E-D method',
       title: 'C-A-G-E-D Hints',
     },
     {
-      thumbnail: 'fretref-instruments-t.gif',
+      thumbnail: 'fretref/fretref-instruments-t.gif',
       image: 'fretref-instruments.gif',
       caption: 'Supports different instruments and tuning. Even a banjo with the 5 string starting in a weird spot!',
       title: 'Instrument & Tuning Selection',
     },
     {
-      image: 'fretref-scalefinder.gif',
+      image: 'fretref/fretref-scalefinder.gif',
       caption: 'The scalefinder allows you to play notes and mark which are valid',
       title: 'Scalefinder',
     },
     {
-      image: 'fretref-old1.jpg',
+      image: 'fretref/fretref-old1.jpg',
       caption: 'Earlier iterations looked a lot like standard chord references',
       title: 'Older designs',
     },

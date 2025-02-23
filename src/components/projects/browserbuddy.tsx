@@ -18,15 +18,16 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: null,
   url: 'https://thyancey.github.io/browserbuddy/',
+  urlTitle: 'Try it out!',
   repoUrl: 'https://github.com/thyancey/browserbuddy',
   gallery: [
     {
-      image: 'browserbuddy-themes.gif',
+      image: 'browserbuddy/browserbuddy-themes.gif',
       caption: 'Each pet can be themed independently to match the images and mood',
       title: 'Customizable themes',
     },
     {
-      image: 'browserbuddy-extension.gif',
+      image: 'browserbuddy/browserbuddy-extension.gif',
       caption: 'Check up on browserbuddies whenever you feel lonely, guilty, or just want to procrastinate.',
       title: `Eventually, it could be a chrome extension!`,
     },

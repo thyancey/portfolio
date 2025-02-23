@@ -1,13 +1,16 @@
+import { getUrl } from '../../assets';
+import { ProjectDef } from '../../store/data';
 import Codeblock from '../codeblock';
+import { ScBodySideBySide } from '../project';
 
 export const ProjectTitle = () => {
   return (
     <>
-      <p>Solve puzzles using a combination of boring tables and deductive reasoning!</p>
+      <p>Solve puzzles by interviewing wacky characters and using deductive reasoning!</p>
       <ul>
         <li>Varying difficulty from easy to expert</li>
-        <li>Themed puzzles</li>
-        <li>Save and restore progress</li>
+        <li>Themed puzzles, a wide cast of characters</li>
+        <li>Includes customizable settings and a series of tutorials to accomodate new players</li>
       </ul>
     </>
   );
@@ -16,8 +19,52 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h3>Puzzle definition</h3>
-      <Codeblock>{`{
+      <h3>Inspiration</h3>
+      <ScBodySideBySide>
+        <div>
+          <p className='indented'>
+            Growing up, I played a lot of games in the "Dr Brain" series from Sierra, most notably the "Brainwaves"
+            puzzle within{' '}
+            <a href='https://en.wikipedia.org/wiki/The_Time_Warp_of_Dr._Brain' target='_blank'>
+              The Timewarp of Dr Brain.
+            </a>{' '}
+            I hadn't seen this type of puzzle reproduced in the same creative and sudoku-like format, so I set out to
+            make it myself!
+          </p>
+        </div>
+        <div>
+          <img src={getUrl('zebratables/brainwaves.png')} />
+        </div>
+      </ScBodySideBySide>
+
+      <br />
+      <h3>How I represent the puzzles</h3>
+      <ScBodySideBySide>
+        <div>
+          <p className='indented'>
+            One of the early challenges was figuring out how to represent the puzzles. The current structure defines
+            which attributes are displayed, which cells define the solution, and which clues and characters appear to
+            help you solve the puzzle.
+          </p>
+          <br />
+          <p className='indented'>
+            My process for creating puzzles typically involves coming up with objects that compare and constrast in many
+            different ways. For example: For football, basketball, and tennis - football and basketball use a *leather*
+            ball, while basketball and tennis have a *round* ball.
+          </p>
+          <br />
+          <p className='indented'>
+            In the early stages, I went down a rabbithole in having dynamically generated puzzles. Although a puzzle
+            would have a set number of attributes, the solution and clues would be randomly generated each time you
+            played - ideally this was for my benefit, so that I wouldn't have to come up with all the custom puzzles and
+            prompts. As development continued, I found that auto-generating puzzles was in direct conflict with making
+            the clues fun, creative, and challenging - and I spent more time messign with the puzzle generation code
+            than making the actual game!. Perhaps someday I'll revisit automatic puzzle generation with AI - but for now
+            I enjoy explicitly creating the puzzles myself
+          </p>
+        </div>
+        <div>
+          <Codeblock>{`{
         title: 'Basic Tutorial',
         description: 'Goldilocks did some breaking and entering, now it\'s time for soup.',
         layout: '2x3',
@@ -39,15 +86,8 @@ export const ProjectBody = () => {
           ['Mama bear eats her food straight from the fridge.', 'skull']
         ],
       }`}</Codeblock>
-      <p>
-        here's some more text that will have a lot more information in the future. This text is long, as it should
-        describe many things. Let's keep putting words in here. Blah, blah blah, blah blah.
-      </p>
-      <ul>
-        <li>Varying difficulty from easy to expert</li>
-        <li>Themed puzzles</li>
-        <li>Save and restore progress</li>
-      </ul>
+        </div>
+      </ScBodySideBySide>
     </>
   );
 };
@@ -59,29 +99,38 @@ export default {
   titleComponent: <ProjectTitle />,
   bodyComponent: <ProjectBody />,
   url: 'https://zebratables.com/',
+  urlTitle: 'Play now at zebratables.com',
   // repoUrl: 'https://github.com/thyancey/zebratables',
   gallery: [
     {
-      image: 'zebratables-gameplay.gif',
-      caption: `Take notes from multiple sources to solve the puzzle`,
+      image: 'zebratables/zebratables-clues-sm.gif',
+      caption: `Interview witnesses to solve the puzzle`,
     },
     {
-      image: 'zebratables-buttons.gif',
+      image: 'zebratables/zebratables-arcademode-sm.gif',
       caption:
-        'Look at this button',
+        'A new arcade mode gives immediate feedback on your guesses. Make 3 mistakes and you lose - try to solve the puzzle without any mistakes for a perfect score!',
     },
-    // {
-    //   image: 'zebratables-gameplay.gif',
-    //   caption: `Trying to fit the isometric grid in a responsive space was challening. Although I still don't have it quite right, allowing the user to zoom and pan the space seemed like the right answer.`,
-    // },
-    // {
-    //   image: 'zebratables-buttons.gif',
-    //   caption:
-    //     'Since some may have not interacted with a puzzle like this before, it was important to make a tutorial flow. ',
-    // },
-    // {
-    //   image: 'zebra-3.png',
-    //   caption: `Using LocalStorage, the player can save and continue their progress. As the levels and their order changes, it's important to keep track of which particular puzzles users have solved, and whether or not they have been updated. If the puzzle hasn't changed, why should someone have to replay it?`,
-    // },
+    {
+      image: 'zebratables/zebratables-navigation-sm.gif',
+      caption: 'Intuitive gestures for mobile and desktop, allowing you to explore larger puzzles with ease',
+    },
+    {
+      image: 'zebratables/zebratables-tutorial-sm.gif',
+      caption: 'A new tutorial module helps players learn how to play the game',
+    },
+    {
+      image: 'zebratables/zebratables-settings-sm.gif',
+      caption:
+        'Users can customize volume settings and enable various experimental flags. Settings are saved between sessions',
+    },
+    {
+      image: 'zebratables/zebratables-themes-sm.gif',
+      caption: 'Puzzles vary in size, difficulty, and sometimes theme - with different characters and color palettes',
+    },
+    {
+      image: 'zebratables/zebra-1.png',
+      caption: 'An older iteration of the game',
+    },
   ],
-};
+} as ProjectDef;
