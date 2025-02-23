@@ -85,32 +85,32 @@ export default {
   gallery: [
     {
       thumbnail: 'fretref/fretref-keys-t.gif',
-      image: 'fretref-keys.gif',
+      image: 'fretref/fretref-keys.gif',
       caption: 'Changing keys for a particular instrument and scale',
       title: 'Changing Keys',
     },
     {
       thumbnail: 'fretref/fretref-scales-t.gif',
-      image: 'fretref-scales.gif',
+      image: 'fretref/fretref-scales.gif',
       caption: 'Changing scales for a particular instrument and key',
       title: 'Changing Scales',
     },
     {
       thumbnail: 'fretref/fretref-chords-t.gif',
-      image: 'fretref-chords.gif',
+      image: 'fretref/fretref-chords.gif',
       caption:
         'Calcuating chords proved very difficult, as the same note can be represented in several places on a fretboard. I had to hardcode these',
       title: 'Displaying Chords',
     },
     {
       thumbnail: 'fretref/fretref-caged-t.gif',
-      image: 'fretref-caged.gif',
+      image: 'fretref/fretref-caged.gif',
       caption: 'For memorizing patterns using the C-A-G-E-D method',
       title: 'C-A-G-E-D Hints',
     },
     {
       thumbnail: 'fretref/fretref-instruments-t.gif',
-      image: 'fretref-instruments.gif',
+      image: 'fretref/fretref-instruments.gif',
       caption: 'Supports different instruments and tuning. Even a banjo with the 5 string starting in a weird spot!',
       title: 'Instrument & Tuning Selection',
     },

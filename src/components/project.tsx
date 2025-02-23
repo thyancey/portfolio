@@ -18,6 +18,9 @@ const ScContent = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  gap: 1rem;
+
+  max-width: 50rem;
 `;
 
 const ScContentBlock = styled.div`
@@ -126,6 +129,8 @@ const ScCard = styled.div`
   box-shadow: 0 0 1rem 0.25rem var(--theme-primary);
   border: 0.15rem solid var(--theme-primary);
   background-color: var(--theme-bg);
+  
+  justify-content: space-between;
 
   h1,
   h2,
@@ -141,6 +146,9 @@ const ScCard = styled.div`
   display: flex;
   flex-direction: row;
 
+  ${ScButtons} {
+    justify-content: start;
+  }
   @media (min-width: 42.15rem) {
     gap: 1rem;
 
@@ -149,11 +157,8 @@ const ScCard = styled.div`
     ${ScContent} {
       flex: 1;
     }
-    ${ScButtons} {
-      justify-content: start;
-    }
     ${ScGallery} {
-      flex: 1;
+      flex: 0.6;
     }
   }
 
@@ -163,6 +168,12 @@ const ScCard = styled.div`
 
   /* tablety */
   @media (max-width: 53rem) {
+    ${ScButtons} {
+      justify-content: center;
+      a {
+        width: 100%;
+      }
+    }
   }
 
   /* mobile */

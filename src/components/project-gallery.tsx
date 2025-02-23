@@ -4,28 +4,23 @@ import { getUrl } from '../assets';
 import { ProjectDef } from '../store/data';
 
 const ScImage = styled.div`
-  width: 8rem;
-  height: 5.5rem;
+  width: 30%;
+  height: auto;
   position: relative;
 
   /* big boy */
   @media (min-width: 81.25rem) {
-    width: 8.25rem;
-    height: 5.5rem;
   }
 
   /* tablety */
   @media (max-width: 53rem) {
-    width: 4rem;
-    height: 4rem;
+    width: calc(50% - 0.5rem);
   }
 
   img {
-    position: absolute;
-    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 
     border-radius: 0.5rem;
@@ -69,6 +64,8 @@ export const ScGallery = styled.div`
   border-bottom: 0.25rem dashed var(--theme-primary);
 
   transition: width 0.3s, height 0.3s;
+
+  max-width: 40rem;
 `;
 
 interface Props {
