@@ -50,11 +50,10 @@ const ScNavBubbles = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
-`
+`;
 
 interface ScNavBubbleProps {
   $text: string;
-  $theme: string;
 }
 const ScNavBubble = styled.div<ScNavBubbleProps>`
   position: relative;
@@ -68,8 +67,8 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    background-color: var(--theme-${(p) => p.$theme}-bg);
-    border-color: var(--theme-${(p) => p.$theme}-primary);
+    background-color: var(--theme-bg);
+    border-color: var(--theme-primary);
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -107,7 +106,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
     bottom: 0;
 
-    color: var(--theme-${(p) => p.$theme}-primary);
+    color: var(--theme-primary);
     opacity: 0;
     /* just fade out on unhover */
     transition: opacity 0.3s, bottom 0.3s 0.3s, transform 0.3s 0.3s, padding 0.3s;
@@ -126,7 +125,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
   &.active {
     /* black state */
-    filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-primary));
+    filter: drop-shadow(2px 4px 2px var(--theme-primary));
     &::before {
       background-color: var(--color-black);
       padding: 0.5rem 0.75rem;
@@ -141,13 +140,13 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
       z-index: 1;
 
       /* filled in state */
-      filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-bg));
+      filter: drop-shadow(2px 4px 2px var(--theme-bg));
       &::before {
-        background-color: var(--theme-${(p) => p.$theme}-primary);
+        background-color: var(--theme-primary);
         padding: 0.5rem 0.75rem;
         color: var(--color-black);
         border-radius: 1rem;
-        border: 0.1rem solid var(--theme-${(p) => p.$theme}-primary);
+        border: 0.1rem solid var(--theme-primary);
       }
     }
   }
@@ -177,12 +176,7 @@ function Footer({ pageIdx, projects }: Props) {
             </Link>
             <ScNavBubbles>
               {projects.map((p, pIdx) => (
-                <ScNavBubble
-                  key={p.route}
-                  className={pIdx === pageIdx ? 'active' : ''}
-                  $text={p.name}
-                  $theme={p.theme || 'default'}
-                >
+                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''} $text={p.name}>
                   <Link to={p.route} />
                 </ScNavBubble>
               ))}

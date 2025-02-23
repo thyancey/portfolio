@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Route, Routes, useLocation } from 'react-router';
 import { Navigate } from 'react-router-dom';
 
@@ -11,25 +11,13 @@ import ProjectContent from './components/project';
 
 const TRANSITION_SPEED = '.5s';
 
-interface ScContainerProps {
-  $theme: string;
-}
-const ScContainer = styled.div<ScContainerProps>`
+const ScContainer = styled.div`
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: min-content auto min-content;
 
   position: absolute;
   inset: 0;
-
-  ${p => p.$theme && css`
-    --theme-primary: var(--theme-${p.$theme}-primary);
-    --theme-secondary: var(--theme-${p.$theme}-secondary);
-    --theme-bg: var(--theme-${p.$theme}-bg);
-    --theme-neutral: var(--theme-${p.$theme}-neutral);
-    --theme-blobglow: var(--theme-${p.$theme}-blobglow);
-    --theme-link: var(--theme-${p.$theme}-link);
-  `}
 
   overflow: hidden;
 
@@ -46,7 +34,7 @@ const getStatus = (pathname: string) => {
     return 'blog';
   }
   return 'home';
-}
+};
 
 function Layout() {
   const location = useLocation();
@@ -61,13 +49,13 @@ function Layout() {
     const imagePath = location.pathname.split(`${Projects[pageIdx].route}/`)[1];
     imageIdx = imagePath !== undefined ? +imagePath : -1;
   } else {
-    if (status.indexOf('blog') > -1){
+    if (status.indexOf('blog') > -1) {
       theme = 'blog';
     }
   }
 
   return (
-    <ScContainer id='main' className={`theme-${theme}`}$theme={theme}>
+    <ScContainer id='main' className={`theme-${theme}`}>
       <Header status={status} />
       <>
         <Routes>
@@ -75,7 +63,11 @@ function Layout() {
           <Route path='/blog' element={<BlogContent />} />
           {Projects.map((p) => (
             // "/*" allows for images after project path
-            <Route key={p.route} path={`${p.route}/*`} element={<ProjectContent contentDef={p} imageIdx={imageIdx} />} />
+            <Route
+              key={p.route}
+              path={`${p.route}/*`}
+              element={<ProjectContent contentDef={p} imageIdx={imageIdx} />}
+            />
           ))}
           <Route path='/projects/' element={<Navigate to={`${Projects[0].route}`} replace />} />
         </Routes>
