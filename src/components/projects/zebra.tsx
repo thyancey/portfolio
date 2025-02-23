@@ -66,7 +66,7 @@ export const ProjectBody = () => {
         <div>
           <Codeblock>{`{
         title: 'Basic Tutorial',
-        description: 'Goldilocks did some breaking and entering, now it\'s time for soup.',
+        description: 'Goldilocks did some breaking and entering, now it's time for soup.',
         layout: '2x3',
         attributeLabels: [
           'bear',

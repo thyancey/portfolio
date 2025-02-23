@@ -16,11 +16,12 @@ const ScWrapper = styled.div`
 
 const ScContent = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ScContentBlock = styled.div`
-  position: absolute;
-  inset: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   > div {
@@ -36,6 +37,7 @@ const ScButtons = styled.div`
   align-items: end;
   gap: 1rem;
   margin-top: 0.25rem;
+  min-height: 3.5rem;
 
   @media (max-width: 42.15rem) {
     margin-top: 1.5rem;
@@ -116,7 +118,6 @@ const ScBodyContainer = styled.div`
   }
   @media (min-width: 81.25rem) {
   }
-
 `;
 const ScCard = styled.div`
   width: 100%;
@@ -137,40 +138,31 @@ const ScCard = styled.div`
     color: var(--theme-neutral);
   }
 
+  display: flex;
+  flex-direction: row;
+
   @media (min-width: 42.15rem) {
-    display: grid;
-    /* grid-template-columns: 66% 33%; */
-    grid-template-columns: auto 20.5rem;
-    grid-template-rows: auto 3.5rem;
-    gap: 0.5rem;
+    gap: 1rem;
 
     padding: 1.5rem 2rem;
 
     ${ScContent} {
-      grid-column: 1;
-      grid-row: 1;
+      flex: 1;
     }
     ${ScButtons} {
-      grid-column: 1;
-      grid-row: 2;
       justify-content: start;
     }
     ${ScGallery} {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-      margin-left: 1rem; // this helps it appear centered on the right
-      /* max-width: 15rem; */
+      flex: 1;
     }
   }
 
   /* big boy */
   @media (min-width: 81.25rem) {
-    grid-template-columns: auto 30rem;
   }
 
   /* tablety */
   @media (max-width: 53rem) {
-    grid-template-columns: auto 12.5rem;
   }
 
   /* mobile */
@@ -180,16 +172,13 @@ const ScCard = styled.div`
     padding: 1.5rem 1.5rem 1rem 1.5rem;
 
     ${ScGallery} {
-      /* height: 25rem; */ // keep for active gallery view
       margin-left: 0; // reverts margin hack above
     }
 
     /* wide, taller buttons that can squish in pretty far */
     ${ScButtons} {
       a {
-        /* width: 50%; */
         font-size: 1.25rem;
-        /* padding: 1rem 0; */
       }
     }
 
@@ -215,8 +204,6 @@ export const ScBodySideBySide = styled.div`
 `;
 
 const ScBodyComponent = styled.div`
-  /* width: 92%; */
-  /* margin-left: 5%; */
   border-radius: 2rem;
   border-top: 0.25rem dashed var(--theme-primary);
   border-bottom: 0.25rem dashed var(--theme-primary);
@@ -284,21 +271,21 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
               <h2>{contentDef.name}</h2>
               <div>{contentDef.titleComponent}</div>
             </ScContentBlock>
+            <ScButtons>
+              {contentDef.url && (
+                <ScLaunchButton href={contentDef.url} target='_blank'>
+                  <Icon_RocketLaunch />
+                  <span>{contentDef.urlTitle || 'TRY IT'}</span>
+                </ScLaunchButton>
+              )}
+              {contentDef.repoUrl && (
+                <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
+                  <Icon_Code />
+                  <span>{'GITHUB'}</span>
+                </ScLaunchButton>
+              )}
+            </ScButtons>
           </ScContent>
-          <ScButtons>
-            {contentDef.url && (
-              <ScLaunchButton href={contentDef.url} target='_blank'>
-                <Icon_RocketLaunch />
-                <span>{contentDef.urlTitle || 'TRY IT'}</span>
-              </ScLaunchButton>
-            )}
-            {contentDef.repoUrl && (
-              <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
-                <Icon_Code />
-                <span>{'GITHUB'}</span>
-              </ScLaunchButton>
-            )}
-          </ScButtons>
           {/* <GalleryActive contentDef={contentDef} /> */}
           <ProjectGallery contentDef={contentDef} />
         </ScCard>
