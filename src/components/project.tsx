@@ -103,6 +103,8 @@ const ScBodyContainer = styled.div`
   gap: 5rem;
   position: relative;
   overflow-x: hidden;
+  max-width: 80rem;
+  margin: 0 auto;
 
   /* background-color: var(--theme-bg);
   transition: background-color 1s ease-out; */
@@ -152,7 +154,7 @@ const ScCard = styled.div`
     justify-content: start;
   }
   @media (min-width: 42.15rem) {
-    gap: 1rem;
+    gap: 2rem;
 
     padding: 1.5rem 2rem;
 
