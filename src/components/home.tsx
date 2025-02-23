@@ -175,6 +175,9 @@ const ScButton = styled.div<ScButtonProps>`
 
 const ScMessage = styled.div`
   text-align: center;
+  a:hover {
+    text-decoration: none;
+  }
 `;
 
 // thanks ChatGPT, you're the best

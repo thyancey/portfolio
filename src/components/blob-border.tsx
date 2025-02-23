@@ -43,9 +43,6 @@ export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   background-image: url(${AssetMap.BlobDivider});
   animation: blob-wrap-left ${BLOB_SPEED * .5}s linear infinite;
 
-  /* ${p => p.$blobGlow && css`
-    filter: drop-shadow(0px -4px 2px p.$blobGlow);
-  `} */
   filter: drop-shadow(0px -4px 2px var(--theme-blobglow));
 
   .theme-blog && {
@@ -55,7 +52,7 @@ export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   ${(p) =>
     p.$blobType === 'header' &&
     css`
-      top: calc(100%);
+      top: calc(100% - 1px);
 
       -webkit-transform: scaleY(-1);
       -moz-transform: scaleY(-1);

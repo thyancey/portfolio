@@ -1,10 +1,12 @@
 import Slots from '../components/projects/slots';
-import Zebra from '../components/projects/zebra';
-import Dropship from '../components/projects/dropship';
+import Zebra from '../components/projects/zebratables';
+import InfectedSteel from '../components/projects/infectedsteel';
 import AlteredChromatic from '../components/projects/alteredchromatic';
 import FretRef from '../components/projects/fretref';
 import BrowserBuddy from '../components/projects/browserbuddy';
 import RaccoonTrapper from '../components/projects/raccoontrapper';
+import Hive from '../components/projects/hive';
+import BeachChummers from '../components/projects/beachchummers';
 
 export type GalleryDef = {
   image: string;
@@ -16,10 +18,10 @@ export type GalleryDef = {
 export type ProjectDef = {
   route: string;
   name: string;
-  description?: string;
   theme?: string;
   gallery: GalleryDef[];
   url?: string;
+  urlTitle?: string;
   repoUrl?: string;
   bodyComponent?: React.ReactNode;
   titleComponent: React.ReactNode;
@@ -27,11 +29,13 @@ export type ProjectDef = {
 
 // WIDER IMAGES WORK BETTER WITH THE STUPID MODAL
 export const Projects: ProjectDef[] = [
-  Slots,
+  BeachChummers,
   Zebra,
-  BrowserBuddy,
-  Dropship,
+  FretRef,
+  Hive,
+  InfectedSteel,
   AlteredChromatic,
+  Slots,
+  BrowserBuddy,
   RaccoonTrapper,
-  FretRef
 ];

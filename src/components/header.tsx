@@ -23,7 +23,7 @@ const ScHeader = styled.header`
   }
 `;
 
-const ScContent = styled.div`
+const ScHeaderLinks = styled.div`
   display: flex;
   gap: 1rem;
   width: 100%;
@@ -32,14 +32,19 @@ const ScContent = styled.div`
   /* sit over the blob, so it can tuck under */
   z-index: 2;
 
+  a {
+    color: var(--site-link);
+  }
+
   h2 {
     font-size: 1.5rem;
     display: inline-block;
     margin: 0 0rem;
+    color: var(--site-link);
 
     &:hover {
       text-decoration: underline;
-      color: var(--color-blue);
+      color: var(--color-green);
     }
 
     a {
@@ -47,7 +52,7 @@ const ScContent = styled.div`
     }
 
     &.active {
-      color: var(--color-blue);
+      color: var(--color-green);
     }
   }
 
@@ -67,7 +72,7 @@ function Header({ status }: Props) {
 
   return (
     <ScHeader className={isHeaderCollapsed ? 'collapsed' : ''}>
-      <ScContent>
+      <ScHeaderLinks>
         <Link to={'/'}>
           <h2 className={status === 'home' ? 'active' : ''}>{'home'}</h2>
         </Link>
@@ -77,8 +82,8 @@ function Header({ status }: Props) {
         <Link to={'/projects'}>
           <h2 className={status === 'projects' ? 'active' : ''}>{'projects'}</h2>
         </Link>
-      </ScContent>
-      <ScBlobBorder $blobType='header' $blobGlow={blobGlow} />
+      </ScHeaderLinks>
+      <ScBlobBorder $blobType='header' $blobGlow={blobGlow} className="animation"/>
     </ScHeader>
   );
 }

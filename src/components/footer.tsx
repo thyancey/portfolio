@@ -12,10 +12,10 @@ const ScFooter = styled.footer`
 
   position: relative;
 
-  transition: min-height .3s;
+  transition: min-height 0.3s;
 
   @media (max-width: 42.15rem) {
-    min-height: .5rem;
+    min-height: 0.5rem;
     padding-top: 0rem;
   }
 `;
@@ -43,13 +43,21 @@ const ScNavBar = styled.div`
   }
 `;
 
+const ScNavBubbles = styled.div`
+  display: flex;
+  flex: 1;
+  max-width: 30rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
 interface ScNavBubbleProps {
   $text: string;
-  $theme: string;
 }
 const ScNavBubble = styled.div<ScNavBubbleProps>`
   position: relative;
-  margin: 0.5rem;
+  /* padding: 0.25rem; */
   border-radius: 100%;
   border: 0.2rem solid var(--theme-primary);
   background-color: var(--theme-primary);
@@ -59,8 +67,8 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
   transition: width 0.3s, height 0.3s, background-color 0.3s;
 
   &:hover {
-    background-color: var(--theme-${(p) => p.$theme}-bg);
-    border-color: var(--theme-${(p) => p.$theme}-primary);
+    background-color: var(--theme-bg);
+    border-color: var(--theme-primary);
     width: 1.5rem;
     height: 1.5rem;
   }
@@ -98,7 +106,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
     bottom: 0;
 
-    color: var(--theme-${(p) => p.$theme}-primary);
+    color: var(--theme-primary);
     opacity: 0;
     /* just fade out on unhover */
     transition: opacity 0.3s, bottom 0.3s 0.3s, transform 0.3s 0.3s, padding 0.3s;
@@ -117,7 +125,7 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
 
   &.active {
     /* black state */
-    filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-primary));
+    filter: drop-shadow(2px 4px 2px var(--theme-primary));
     &::before {
       background-color: var(--color-black);
       padding: 0.5rem 0.75rem;
@@ -132,13 +140,13 @@ const ScNavBubble = styled.div<ScNavBubbleProps>`
       z-index: 1;
 
       /* filled in state */
-      filter: drop-shadow(2px 4px 2px var(--theme-${(p) => p.$theme}-bg));
+      filter: drop-shadow(2px 4px 2px var(--theme-bg));
       &::before {
-        background-color: var(--theme-${(p) => p.$theme}-primary);
+        background-color: var(--theme-primary);
         padding: 0.5rem 0.75rem;
         color: var(--color-black);
         border-radius: 1rem;
-        border: 0.1rem solid var(--theme-${(p) => p.$theme}-primary);
+        border: 0.1rem solid var(--theme-primary);
       }
     }
   }
@@ -159,23 +167,20 @@ function Footer({ pageIdx, projects }: Props) {
 
   return (
     <ScFooter>
-      <ScBlobBorder $blobType='footer' />
+      <ScBlobBorder $blobType='footer' className='animation' />
       {pageIdx > -1 && (
         <>
           <ScNavBar>
             <Link key='prev' to={projects[prevIdx].route}>
               <Icon_KeyboardArrowLeft className='icon-large' />
             </Link>
-            {projects.map((p, pIdx) => (
-              <ScNavBubble
-                key={p.route}
-                className={pIdx === pageIdx ? 'active' : ''}
-                $text={p.name}
-                $theme={p.theme || 'default'}
-              >
-                <Link to={p.route} />
-              </ScNavBubble>
-            ))}
+            <ScNavBubbles>
+              {projects.map((p, pIdx) => (
+                <ScNavBubble key={p.route} className={pIdx === pageIdx ? 'active' : ''} $text={p.name}>
+                  <Link to={p.route} />
+                </ScNavBubble>
+              ))}
+            </ScNavBubbles>
             <Link key='next' to={projects[nextIdx].route}>
               <Icon_KeyboardArrowRight className='icon-large' />
             </Link>

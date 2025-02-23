@@ -16,11 +16,15 @@ const ScWrapper = styled.div`
 
 const ScContent = styled.div`
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  max-width: 50rem;
 `;
 
 const ScContentBlock = styled.div`
-  position: absolute;
-  inset: 0;
+  flex: 1;
   display: flex;
   flex-direction: column;
   > div {
@@ -32,9 +36,11 @@ const ScContentBlock = styled.div`
 const ScButtons = styled.div`
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   align-items: end;
   gap: 1rem;
   margin-top: 0.25rem;
+  min-height: 3.5rem;
 
   @media (max-width: 42.15rem) {
     margin-top: 1.5rem;
@@ -70,12 +76,14 @@ const ScLaunchButton = styled.a`
 
   transition: background-color 0.5s ease, color 0.3s ease, box-shadow 0.3s ease;
 
-  color: var(--theme-bg);
-  background-color: var(--theme-primary);
+  /* !importants override generic anchor tag styling.. fix this later */
+  color: var(--theme-bg) !important;
+  background-color: var(--theme-primary) !important;
 
   &:hover {
-    color: var(--theme-primary);
-    background-color: var(--theme-bg);
+    color: var(--theme-primary) !important;
+    background-color: var(--theme-bg) !important;
+    text-decoration: none;
 
     box-shadow: 0px 0px 8px 2px var(--theme-primary);
   }
@@ -95,6 +103,8 @@ const ScBodyContainer = styled.div`
   gap: 5rem;
   position: relative;
   overflow-x: hidden;
+  max-width: 80rem;
+  margin: 0 auto;
 
   /* background-color: var(--theme-bg);
   transition: background-color 1s ease-out; */
@@ -118,11 +128,13 @@ const ScBodyContainer = styled.div`
 `;
 const ScCard = styled.div`
   width: 100%;
-  height: 27rem;
+  min-height: 27rem;
   border-radius: 2rem;
   box-shadow: 0 0 1rem 0.25rem var(--theme-primary);
   border: 0.15rem solid var(--theme-primary);
   background-color: var(--theme-bg);
+
+  justify-content: space-between;
 
   h1,
   h2,
@@ -135,40 +147,37 @@ const ScCard = styled.div`
     color: var(--theme-neutral);
   }
 
+  display: flex;
+  flex-direction: row;
+
+  ${ScButtons} {
+    justify-content: start;
+  }
   @media (min-width: 42.15rem) {
-    display: grid;
-    /* grid-template-columns: 66% 33%; */
-    grid-template-columns: auto 20.5rem;
-    grid-template-rows: auto 3.5rem;
-    gap: 0.5rem;
+    gap: 2rem;
 
     padding: 1.5rem 2rem;
 
     ${ScContent} {
-      grid-column: 1;
-      grid-row: 1;
-    }
-    ${ScButtons} {
-      grid-column: 1;
-      grid-row: 2;
-      justify-content: start;
+      flex: 1;
     }
     ${ScGallery} {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-      margin-left: 1rem; // this helps it appear centered on the right
-      /* max-width: 15rem; */
+      flex: 0.6;
     }
   }
 
   /* big boy */
   @media (min-width: 81.25rem) {
-    grid-template-columns: auto 30rem;
   }
 
   /* tablety */
   @media (max-width: 53rem) {
-    grid-template-columns: auto 12.5rem;
+    ${ScButtons} {
+      justify-content: center;
+      a {
+        width: 100%;
+      }
+    }
   }
 
   /* mobile */
@@ -178,16 +187,13 @@ const ScCard = styled.div`
     padding: 1.5rem 1.5rem 1rem 1.5rem;
 
     ${ScGallery} {
-      /* height: 25rem; */ // keep for active gallery view
       margin-left: 0; // reverts margin hack above
     }
 
     /* wide, taller buttons that can squish in pretty far */
     ${ScButtons} {
       a {
-        width: 50%;
         font-size: 1.25rem;
-        padding: 1rem 0;
       }
     }
 
@@ -197,13 +203,45 @@ const ScCard = styled.div`
   }
 `;
 
+export const ScBodySideBySide = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  > div {
+    flex: 1;
+    max-width: 50%;
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  @media (min-width: 42.15rem) {
+    &.reversed {
+      flex-direction: row-reverse;
+    }
+  }
+
+  @media (max-width: 42.15rem) {
+    flex-wrap: wrap;
+    > div {
+      flex: inherit;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+`;
+
 const ScBodyComponent = styled.div`
-  /* width: 92%; */
-  /* margin-left: 5%; */
   border-radius: 2rem;
   border-top: 0.25rem dashed var(--theme-primary);
   border-bottom: 0.25rem dashed var(--theme-primary);
   background-color: var(--theme-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 
   h1,
   h2,
@@ -234,6 +272,13 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
   const scrollRef = useRef<HTMLInputElement | null>(null);
   const { setIsHeaderCollapsed } = useContext(StoreContext);
 
+  // jump back to top when changing projects
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [contentDef]);
+
   useEffect(() => {
     if (scrollRef.current) {
       const domEl = scrollRef.current;
@@ -263,21 +308,21 @@ function ProjectContent({ contentDef, imageIdx = -1 }: Props) {
               <h2>{contentDef.name}</h2>
               <div>{contentDef.titleComponent}</div>
             </ScContentBlock>
+            <ScButtons>
+              {contentDef.url && (
+                <ScLaunchButton href={contentDef.url} target='_blank'>
+                  <Icon_RocketLaunch />
+                  <span>{contentDef.urlTitle || 'TRY IT'}</span>
+                </ScLaunchButton>
+              )}
+              {contentDef.repoUrl && (
+                <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
+                  <Icon_Code />
+                  <span>{'GITHUB'}</span>
+                </ScLaunchButton>
+              )}
+            </ScButtons>
           </ScContent>
-          <ScButtons>
-            {contentDef.url && (
-              <ScLaunchButton href={contentDef.url} target='_blank'>
-                <Icon_RocketLaunch />
-                <span>{'TRY IT'}</span>
-              </ScLaunchButton>
-            )}
-            {contentDef.repoUrl && (
-              <ScLaunchButton href={contentDef.repoUrl} target='_blank'>
-                <Icon_Code />
-                <span>{'GITHUB'}</span>
-              </ScLaunchButton>
-            )}
-          </ScButtons>
           {/* <GalleryActive contentDef={contentDef} /> */}
           <ProjectGallery contentDef={contentDef} />
         </ScCard>
