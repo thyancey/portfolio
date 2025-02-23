@@ -213,7 +213,6 @@ function ProjectModal({ contentDef, imageIdx = -1 }: Props) {
   const prevImageIdx = imageIdx <= 0 ? -1 : imageIdx - 1;
   const nextImageIdx = imageIdx >= contentDef.gallery.length - 1 ? -1 : imageIdx + 1;
   const galleryImage = (imageIdx > -1 && contentDef.gallery[imageIdx]) || null;
-  console.log('galiMages', galleryImage)
 
   const modalTitle = (imageIdx > -1 && contentDef.gallery[imageIdx].title) || null;
   return (

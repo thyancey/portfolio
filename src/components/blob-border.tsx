@@ -52,7 +52,7 @@ export const ScBlobBorder = styled.div<ScBlobBorderProps>`
   ${(p) =>
     p.$blobType === 'header' &&
     css`
-      top: calc(100%);
+      top: calc(100% - 1px);
 
       -webkit-transform: scaleY(-1);
       -moz-transform: scaleY(-1);

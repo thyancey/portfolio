@@ -76,12 +76,14 @@ const ScLaunchButton = styled.a`
 
   transition: background-color 0.5s ease, color 0.3s ease, box-shadow 0.3s ease;
 
-  color: var(--theme-bg);
-  background-color: var(--theme-primary);
+  /* !importants override generic anchor tag styling.. fix this later */
+  color: var(--theme-bg) !important;
+  background-color: var(--theme-primary) !important;
 
   &:hover {
-    color: var(--theme-primary);
-    background-color: var(--theme-bg);
+    color: var(--theme-primary) !important;
+    background-color: var(--theme-bg) !important;
+    text-decoration: none;
 
     box-shadow: 0px 0px 8px 2px var(--theme-primary);
   }
@@ -129,7 +131,7 @@ const ScCard = styled.div`
   box-shadow: 0 0 1rem 0.25rem var(--theme-primary);
   border: 0.15rem solid var(--theme-primary);
   background-color: var(--theme-bg);
-  
+
   justify-content: space-between;
 
   h1,
@@ -202,6 +204,7 @@ const ScCard = styled.div`
 export const ScBodySideBySide = styled.div`
   display: flex;
   gap: 1rem;
+
   > div {
     flex: 1;
     max-width: 50%;
@@ -212,6 +215,21 @@ export const ScBodySideBySide = styled.div`
     height: auto;
     object-fit: cover;
   }
+
+  @media (min-width: 42.15rem) {
+    &.reversed {
+      flex-direction: row-reverse;
+    }
+  }
+
+  @media (max-width: 42.15rem) {
+    flex-wrap: wrap;
+    > div {
+      flex: inherit;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 `;
 
 const ScBodyComponent = styled.div`
@@ -219,10 +237,9 @@ const ScBodyComponent = styled.div`
   border-top: 0.25rem dashed var(--theme-primary);
   border-bottom: 0.25rem dashed var(--theme-primary);
   background-color: var(--theme-bg);
-
-  a {
-    color: var(--theme-link);
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
 
   h1,
   h2,

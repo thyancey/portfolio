@@ -7,7 +7,12 @@ export const ProjectTitle = () => {
         <li>Throw chum and flock a massive swarm of seagulls</li>
         <li>Steal snacks from tourists and throw chum near them to unleash the swarm</li>
         <li>Don't get caught by the beach patrol! Feeding seagulls is illegull</li>
-        <li>Built in Godot</li>
+        <li>
+          {'Built with '}
+          <a href='https://godotengine.org/' target='_blank'>
+            {'Godot'}
+          </a>
+        </li>
       </ul>
     </>
   );
@@ -16,34 +21,45 @@ export const ProjectTitle = () => {
 export const ProjectBody = () => {
   return (
     <>
-      <h2>How to Play</h2>
-      <p>Your goal is to chase all tourists off the beach before the sun goes down.</p>
-      <ul>
-        <li>
-          steal snacks from the beach, but make sure you aren't being watched. walk away from curious toursists until
-          they go back to sleep
-        </li>
-        <li>after picking up some snacks, chum the beach to attract seagulls</li>
-        <li>when a seagull is full, it calls in another friend</li>
-        <li>if caught stealing snacks or chumming, the beach patrol will be called on you.</li>
-      </ul>
+      <div>
+        <h3>Status</h3>
+        <p>
+          Playable tech demo. You can choose several placeholder levels, which explore various unsettled game mechanics.
+          Although you can complete bonus objectives, earn currencies - there isn't an ability to purchase upgrades or
+          have any meaningful progression. I hope in the near future to condense the available levels to several fun
+          experiences, and really focus on the gameplay.
+        </p>
+      </div>
+      <div>
+        <h2>How to Play</h2>
+        <p>Your goal is to chase all tourists off the beach before the sun goes down.</p>
+        <ul>
+          <li>
+            steal snacks from the beach, but make sure you aren't being watched. walk away from curious toursists until
+            they go back to sleep
+          </li>
+          <li>after picking up some snacks, chum the beach to attract seagulls</li>
+          <li>when a seagull is full, it calls in another friend</li>
+          <li>if caught stealing snacks or chumming, the beach patrol will be called on you.</li>
+        </ul>
+      </div>
 
-      <br />
-      <br />
-      <h2>Controls</h2>
-      <p>Keyboard</p>
-      <ul>
-        <li>walk: w/a/s/d</li>
-        <li>throw chum: spacebar</li>
-        <li>pause: escape</li>
-      </ul>
+      <div>
+        <h2>Controls</h2>
+        <p>Keyboard</p>
+        <ul>
+          <li>walk: w/a/s/d</li>
+          <li>throw chum: spacebar</li>
+          <li>pause: escape</li>
+        </ul>
 
-      <p>Gamepad</p>
-      <ul>
-        <li>walk: left joystick</li>
-        <li>throw chum: A</li>
-        <li>pause: Start</li>
-      </ul>
+        <p>Gamepad</p>
+        <ul>
+          <li>walk: left joystick</li>
+          <li>throw chum: A</li>
+          <li>pause: Start</li>
+        </ul>
+      </div>
     </>
   );
 };

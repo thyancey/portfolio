@@ -1,5 +1,5 @@
 import Slots from '../components/projects/slots';
-import Zebra from '../components/projects/zebra';
+import Zebra from '../components/projects/zebratables';
 import InfectedSteel from '../components/projects/infectedsteel';
 import AlteredChromatic from '../components/projects/alteredchromatic';
 import FretRef from '../components/projects/fretref';

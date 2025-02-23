@@ -4,7 +4,7 @@ import { getUrl } from '../assets';
 import { ProjectDef } from '../store/data';
 
 const ScImage = styled.div`
-  width: 30%;
+  width: calc(33% - 1rem);
   height: auto;
   position: relative;
 
@@ -12,9 +12,13 @@ const ScImage = styled.div`
   @media (min-width: 81.25rem) {
   }
 
+  @media (max-width: 81.25rem) {
+    width: calc(50% - 0.5rem);
+  }
+
   /* tablety */
   @media (max-width: 53rem) {
-    width: calc(50% - 0.5rem);
+    /* width: calc(50% - 0.5rem); */
   }
 
   img {
