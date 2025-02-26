@@ -126,11 +126,11 @@ svg.icon-xlarge {
 }
 
 #main.theme-beachchummers {
-  --theme-primary: #fdf9ed;
-  --theme-secondary: #f8ef3a;
-  --theme-bg: #258cce;
-  --theme-neutral: #b2dbf4;
-  --theme-blobglow: #b2dbf4;
+  --theme-primary: #f8ef3a;
+  --theme-secondary: #fdf9ed;
+  --theme-bg: #1265ab;
+  --theme-neutral: #fdf9ed;
+  --theme-blobglow: #fdf9ed;
 }
 
 #main.theme-hive {
