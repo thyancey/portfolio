@@ -223,12 +223,12 @@ function HomeContent() {
       <h2>{text[0]}</h2>
       <ScMessage>
         <Link to={'/blog'}>
-          <ScButton>
+          <ScButton className="animation">
             <span>{'BLOG'}</span>
           </ScButton>
         </Link>
         <Link to={'/projects'}>
-          <ScButton $type='right'>
+          <ScButton $type='right' className="animation">
             <span>{'PROJECTS'}</span>
           </ScButton>
         </Link>
